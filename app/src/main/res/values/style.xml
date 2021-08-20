@@ -766,4 +766,12 @@
         </item>
     </style>
 
+    <style name="midCornersCardAppearance" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">@dimen/_15sdp</item>
+        <item name="cornerSizeBottomRight">@dimen/_15sdp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
 </resources>

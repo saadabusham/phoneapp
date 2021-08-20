@@ -24,7 +24,7 @@ android {
 
     defaultConfig {
         if (project.name == "app") {
-            applicationId "com.technzone.baseapp"
+            applicationId "com.technzone.phoneapp"
         }
 
         minSdkVersion 23

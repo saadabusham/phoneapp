@@ -18,6 +18,7 @@
     <color name="divider_color">#f0f1f2</color>
     <color name="divider_gray">#BDC0C8</color>
 
+    <color name="button_color">#236A75</color>
     <color name="semibold_text_gray">#373840</color>
     <color name="text_gray_trip_info">#8F92A1</color>
 
@@ -110,4 +111,10 @@
     <color name="textview_number_black">#1E1F20</color>
 
     <color name="defaultTextColor">#2F2C37</color>
+
+
+    <color name="cart_price_background_color">#1CA2A2A2</color>
+
+    <color name="border_color">#979797</color>
+    <color name="div_color">#EFEFEF</color>
 </resources>

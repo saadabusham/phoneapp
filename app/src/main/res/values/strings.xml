@@ -23,6 +23,7 @@
     <string name="alert_dialog_all_info_in_english">All information entered must be in English</string>
     <string name="not_available_yet">This feature is coming soon to Al Alami app!</string>
     <!-- General -->
+    <string name="sar">SAR</string>
     <string name="cancel">Cancel</string>
     <string name="select">Select</string>
     <string name="loading">Loading …</string>
@@ -94,8 +95,6 @@
     <!--    Completed dialog-->
     <string name="completed_successfully">Completed Successfully</string>
 
-    <!--    Login-->
-    <string name="login">Login</string>
 
     <!--    Language    -->
     <string name="continue_">Continue</string>
@@ -110,5 +109,40 @@
     <string name="description_on_boarding_3">description_on_boarding_3</string>
     <string name="title_on_boarding_4">title_on_boarding_4</string>
     <string name="description_on_boarding_4">description_on_boarding_4</string>
+
+    <!--    Media   -->
+    <string name="add_Media">Add Media</string>
+    <string name="media">Media</string>
+    <string name="no_data_found">No Data Found</string>
+    <string name="no_available_data">-- No Available Data --</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_services">Services</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!--    Cart    -->
+    <string name="done">Done</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="you_have_x_of_product_in_your_cart">You have %s of product in your cart</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="value_added_tax_15">Value-added tax (15%)</string>
+    <string name="total">Total</string>
+    <string name="pay">Pay</string>
+    <string name="cart">Cart</string>
+    <string name="successful_purchase_will_be_delivered_to_you_within_3_days">Successful purchase, will be delivered to you within 3 days</string>
+    <string name="purchas_completed">Purchase Completed</string>
+    <string name="menu_favorites">Favorite</string>
+
+    <!--    Login-->
+    <string name="login">Login</string>
+    <string name="enter_your_mobile_number">Enter your mobile number</string>
+    <string name="logout">Logout</string>
+    <!--    Verification Login   -->
+    <string name="verification">Verification</string>
+    <string name="please_check_you_message_for_a_four_digit_security_code_and_enter_it_below">Please check you message for a four-digit security code and enter it below.</string>
+    <string name="i_didn_t_receive_the_code">I didn’t receive the code</string>
+    <string name="confirm">Confirm</string>
+    <string name="resend_code">RESEND CODE</string>
+    <string name="verify">Verify</string>
 
 </resources>
