@@ -23,6 +23,10 @@ import com.technzone.phoneapp.ui.base.bindingadapters.setOnItemClickListener
 import com.technzone.phoneapp.ui.cart.CartActivity
 import com.technzone.phoneapp.ui.main.adapters.DrawerRecyclerAdapter
 import com.technzone.phoneapp.ui.main.viewmodels.MainViewModel
+import com.technzone.phoneapp.ui.media.MediaActivity
+import com.technzone.phoneapp.ui.more.aboutus.AboutUsActivity
+import com.technzone.phoneapp.ui.more.settings.SettingsActivity
+import com.technzone.phoneapp.ui.purchase.PurchasesActivity
 import com.technzone.phoneapp.ui.splash.SplashActivity
 import com.technzone.phoneapp.utils.LocaleUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -138,15 +142,14 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
 
     private fun getDrawerList(): List<String> {
         return arrayListOf(
-//            resources.getString(R.string.menu_my_account),
-//            resources.getString(R.string.menu_my_purchases),
-//            resources.getString(R.string.menu_favorites),
-//            resources.getString(R.string.media),
-//            resources.getString(R.string.menu_report_provider),
-//            resources.getString(R.string.menu_technical_support),
-//            resources.getString(R.string.menu_about_us),
-//            resources.getString(R.string.logout),
-//            resources.getString(R.string.menu_language)
+            resources.getString(R.string.menu_notifications),
+            resources.getString(R.string.menu_my_purchases),
+            resources.getString(R.string.menu_favorites),
+            resources.getString(R.string.media),
+            resources.getString(R.string.menu_account),
+            resources.getString(R.string.menu_settings),
+            resources.getString(R.string.menu_about_us),
+            resources.getString(R.string.logout)
         )
     }
 
@@ -155,23 +158,15 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
             binding?.drawerLayout?.closeDrawer(GravityCompat.START)
             when (position) {
 //                0 -> UpdateProfileActivity.start(this)
-//                1 -> PurchasesActivity.start(this)
+                1 -> PurchasesActivity.start(this)
 //                2 -> WishListActivity.start(this)
-//                3 -> MediaActivity.start(this)
+                3 -> MediaActivity.start(this)
 //                4 -> ReportProviderActivity.start(this)
-//                5 -> TechnicalSupportActivity.start(this)
-//                6 -> AboutUsActivity.start(this)
+                5 -> SettingsActivity.start(this)
+                6 -> AboutUsActivity.start(this)
                 7 -> {
                     viewModel.logoutRemote().observe(this, logoutResultObserver())
                 }
-                8 -> viewModel.saveLanguage().observe(this, {
-                    this.let {
-                        (it as BaseBindingActivity<*>).setLanguage(
-                            if (viewModel.getAppLanguage() == "ar")
-                                CommonEnums.Languages.Arabic.value else CommonEnums.Languages.English.value
-                        )
-                    }
-                })
             }
         }
     }

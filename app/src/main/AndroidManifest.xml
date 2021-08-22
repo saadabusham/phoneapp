@@ -46,6 +46,15 @@
         <activity
             android:name=".ui.auth.AuthActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.settings.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.more.aboutus.AboutUsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.purchase.PurchasesActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

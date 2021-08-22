@@ -4,6 +4,7 @@ import com.technzone.phoneapp.data.api.response.ResponseWrapper
 import com.technzone.phoneapp.data.common.NetworkConstants
 import com.technzone.phoneapp.data.models.City
 import com.technzone.phoneapp.data.models.configuration.ConfigurationWrapperResponse
+import com.technzone.phoneapp.data.models.more.AboutUsResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 
@@ -16,6 +17,10 @@ interface ConfigurationRemoteDao {
     @GET("app/cities")
     suspend fun getCities(
     ): ResponseWrapper<List<City>>
+
+    @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:true")
+    @GET("app/aboutUs")
+    suspend fun getAboutUs(): ResponseWrapper<AboutUsResponse>
 
 
 }

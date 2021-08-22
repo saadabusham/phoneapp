@@ -7,6 +7,7 @@ import com.technzone.phoneapp.data.api.response.ResponseWrapper
 import com.technzone.phoneapp.data.daos.remote.configuration.ConfigurationRemoteDao
 import com.technzone.phoneapp.data.models.City
 import com.technzone.phoneapp.data.models.configuration.ConfigurationWrapperResponse
+import com.technzone.phoneapp.data.models.more.AboutUsResponse
 import com.technzone.phoneapp.data.pref.configuration.ConfigurationPref
 import com.technzone.phoneapp.data.repos.base.BaseRepo
 import javax.inject.Inject
@@ -36,6 +37,14 @@ class ConfigurationRepoImp @Inject constructor(
     override suspend fun getCities(): APIResource<ResponseWrapper<List<City>>> {
         return try {
             responseHandle.handleSuccess(configurationRemoteDao.getCities())
+        } catch (e: Exception) {
+            responseHandle.handleException(e)
+        }
+    }
+
+    override suspend fun getAboutUs(): APIResource<ResponseWrapper<AboutUsResponse>> {
+        return try {
+            responseHandle.handleSuccess(configurationRemoteDao.getAboutUs())
         } catch (e: Exception) {
             responseHandle.handleException(e)
         }

@@ -131,7 +131,6 @@
     <string name="cart">Cart</string>
     <string name="successful_purchase_will_be_delivered_to_you_within_3_days">Successful purchase, will be delivered to you within 3 days</string>
     <string name="purchas_completed">Purchase Completed</string>
-    <string name="menu_favorites">Favorite</string>
 
     <!--    Login-->
     <string name="login">Login</string>
@@ -144,5 +143,18 @@
     <string name="confirm">Confirm</string>
     <string name="resend_code">RESEND CODE</string>
     <string name="verify">Verify</string>
-
+    <!--    App Settings -->
+    <string name="use_high_priority_notifications">Use high priority notifications</string>
+    <string name="show_previews_of_notifications_at_the_top_of_the_screen">Show previews of notifications at the top\nof the screen</string>
+    <string name="language">Language</string>
+    <string name="settings">Settings</string>
+    <string name="menu_notifications">Notifications</string>
+    <string name="menu_my_purchases">My Purchases</string>
+    <string name="menu_favorites">Favorite</string>
+    <string name="menu_account">Account</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_about_us">About Us</string>
+    <!--    About Us    -->
+    <string name="contact_us">Contact us</string>
+    <string name="search_what_to_ask_here">Search here</string>
 </resources>

@@ -5,6 +5,7 @@ import com.technzone.phoneapp.data.api.response.APIResource
 import com.technzone.phoneapp.data.api.response.ResponseWrapper
 import com.technzone.phoneapp.data.models.City
 import com.technzone.phoneapp.data.models.configuration.ConfigurationWrapperResponse
+import com.technzone.phoneapp.data.models.more.AboutUsResponse
 
 interface ConfigurationRepo {
 
@@ -12,7 +13,9 @@ interface ConfigurationRepo {
     fun getAppLanguage(): CommonEnums.Languages
 
     suspend fun loadConfigurationData(): APIResource<ResponseWrapper<ConfigurationWrapperResponse>>
+
     suspend fun getCities(
     ): APIResource<ResponseWrapper<List<City>>>
 
+    suspend fun getAboutUs(): APIResource<ResponseWrapper<AboutUsResponse>>
 }
