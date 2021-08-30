@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.raantech.solalat.user.ui.wishlist.viewmodels.WishListViewModel" />
+            type="com.raantech.awfrlak.ui.purchase.PurchasesViewModel" />
     </data>
 
     <RelativeLayout

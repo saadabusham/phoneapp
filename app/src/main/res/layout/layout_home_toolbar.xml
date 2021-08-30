@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.technzone.phoneapp.ui.main.viewmodels.MainViewModel" />
+            type="com.raantech.awfrlak.ui.main.viewmodels.MainViewModel" />
     </data>
 
     <com.google.android.material.appbar.AppBarLayout
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_10sdp">
 
-                <com.technzone.phoneapp.ui.base.views.AppTextView
+                <com.raantech.awfrlak.ui.base.views.AppTextView
                     android:id="@+id/tvTitle"
                     style="@style/textview_normal_bold"
                     android:layout_width="wrap_content"
@@ -55,8 +55,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:padding="@dimen/_3sdp"
-                        android:src="@drawable/ic_cart"
-                        app:tint="@color/button_color" />
+                        android:src="@drawable/ic_cart" />
 
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="wrap_content"

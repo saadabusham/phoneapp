@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">BaseApp</string>
+    <string name="app_name">Awfrlak</string>
     <string name="app_license">Copyright@Technzone Company</string>
 
     <!-- SelectLanguageFragment-->
@@ -157,4 +157,11 @@
     <!--    About Us    -->
     <string name="contact_us">Contact us</string>
     <string name="search_what_to_ask_here">Search here</string>
+
+    <!--    Home-->
+    <string name="all_categories">All Categories</string>
+    <string name="phones">Phones</string>
+    <string name="accessories">Accessories</string>
+    <string name="used">Used</string>
+    <string name="stores">Stores</string>
 </resources>

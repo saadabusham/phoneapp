@@ -12,13 +12,13 @@
     <!-- Views Default colors -->
     <color name="text_default_color">#7f8592</color>
     <color name="text_dark_color">#3A4155</color>
-    <color name="text_gray_color">#606060</color>
+    <color name="text_gray_color">#333333</color>
     <color name="text_header_dark_gray">#8C8896</color>
     <!--    divider color-->
     <color name="divider_color">#f0f1f2</color>
     <color name="divider_gray">#BDC0C8</color>
 
-    <color name="button_color">#236A75</color>
+    <color name="button_color">#00dcf9</color>
     <color name="semibold_text_gray">#373840</color>
     <color name="text_gray_trip_info">#8F92A1</color>
 

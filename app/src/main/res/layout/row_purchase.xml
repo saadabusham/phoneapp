@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.technzone.phoneapp.data.models.Purchase" />
+            type="com.raantech.awfrlak.data.models.Purchase" />
     </data>
 
     <LinearLayout
@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <com.technzone.phoneapp.ui.base.views.AppTextView
+                    <com.raantech.awfrlak.ui.base.views.AppTextView
                         style="@style/textview_normal_bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -43,9 +43,8 @@
                         android:textSize="@dimen/_15ssp"
                         tools:text="200343" />
 
-                    <com.technzone.phoneapp.ui.base.views.AppTextView
+                    <com.raantech.awfrlak.ui.base.views.AppTextView
                         style="@style/textview_normal_regular"
-                        status="@{item.status}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -54,7 +53,7 @@
                         tools:text="في الطريق" />
                 </LinearLayout>
 
-                <com.technzone.phoneapp.ui.base.views.AppTextView
+                <com.raantech.awfrlak.ui.base.views.AppTextView
                     style="@style/textview_normal_regular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -75,7 +74,7 @@
                 android:gravity="center|end|top"
                 android:orientation="vertical">
 
-                <com.technzone.phoneapp.ui.base.views.AppTextView
+                <com.raantech.awfrlak.ui.base.views.AppTextView
                     style="@style/textview_normal_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,7 +83,7 @@
                     android:textSize="@dimen/_15ssp"
                     tools:text="2 jan 2021" />
 
-                <com.technzone.phoneapp.ui.base.views.AppTextView
+                <com.raantech.awfrlak.ui.base.views.AppTextView
                     style="@style/textview_normal_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

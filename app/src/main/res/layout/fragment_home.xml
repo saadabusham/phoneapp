@@ -6,36 +6,53 @@
     <data>
 
         <import type="android.view.View" />
+
         <variable
             name="viewModel"
-            type="com.technzone.phoneapp.ui.main.viewmodels.MainViewModel" />
+            type="com.raantech.awfrlak.ui.main.viewmodels.MainViewModel" />
     </data>
 
-    <RelativeLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/_25sdp"
+        android:fillViewport="true">
 
-        <include
-            android:id="@+id/layout_no_data"
-            layout="@layout/layout_no_data"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/layout_no_data"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/_3sdp"
-            android:paddingEnd="@dimen/_3sdp"
-            android:nestedScrollingEnabled="false"
-            android:orientation="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_wishlist"
-            app:spanCount="2"/>
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <com.raantech.awfrlak.ui.base.views.AppTextView
+                style="@style/textview_normal_regular"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/layouts_margin_start"
+                android:drawableEnd="@drawable/ic_filter_arrow_down"
+                android:drawablePadding="@dimen/_10sdp"
+                android:text="@string/all_categories"
+                android:textSize="@dimen/_19ssp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:selectableItemBackground"/>
+
+            <include
+                android:id="@+id/layout_slider"
+                layout="@layout/layout_slider" />
+
+            <include
+                android:id="@+id/layout_phones"
+                layout="@layout/layout_phones" />
+
+            <include
+                android:id="@+id/layout_accessories"
+                layout="@layout/layout_accessories" />
+
+            <include
+                android:id="@+id/layout_stores"
+                layout="@layout/layout_stores" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

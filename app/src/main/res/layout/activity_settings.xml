@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.technzone.phoneapp.ui.more.settings.SettingsViewModel" />
+            type="com.raantech.awfrlak.ui.more.settings.SettingsViewModel" />
     </data>
 
     <LinearLayout
@@ -50,7 +50,7 @@
                         android:layout_toStartOf="@id/switchNotifications"
                         android:orientation="vertical">
 
-                        <com.technzone.phoneapp.ui.base.views.AppTextView
+                        <com.raantech.awfrlak.ui.base.views.AppTextView
                             style="@style/textview_normal_regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13ssp" />
 
-                        <com.technzone.phoneapp.ui.base.views.AppTextView
+                        <com.raantech.awfrlak.ui.base.views.AppTextView
                             style="@style/textview_normal_regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                         android:layout_toStartOf="@id/imgArrow"
                         android:orientation="vertical">
 
-                        <com.technzone.phoneapp.ui.base.views.AppTextView
+                        <com.raantech.awfrlak.ui.base.views.AppTextView
                             style="@style/textview_normal_regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/_13ssp" />
 
-                        <com.technzone.phoneapp.ui.base.views.AppTextView
+                        <com.raantech.awfrlak.ui.base.views.AppTextView
                             style="@style/normalRegularFontStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

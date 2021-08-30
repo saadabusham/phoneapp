@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.technzone.phoneapp.data.models.media.Media" />
+            type="com.raantech.awfrlak.data.models.media.Media" />
     </data>
 
     <RelativeLayout
