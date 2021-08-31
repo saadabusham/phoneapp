@@ -9,12 +9,12 @@
 
         <variable
             name="item"
-            type="com.raantech.awfrlak.data.models.home.AccessoriesItem" />
+            type="com.raantech.awfrlak.data.models.home.MobilesItem" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="@dimen/_135sdp"
-        android:layout_height="@dimen/_227sdp"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_170sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/layouts_margin_end"
         android:layout_marginBottom="@dimen/_5sdp"
@@ -28,13 +28,25 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <com.raantech.awfrlak.ui.base.views.AppTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/used"
+                android:gravity="center"
+                android:background="@drawable/ic_used_bg"
+                android:layout_marginBottom="@dimen/_5sdp"
+                style="@style/textview_normal_regular"
+                android:layout_marginStart="@dimen/_10sdp"
+                tools:visibility="visible"
+                android:textSize="@dimen/_8ssp"
+                android:visibility="gone"/>
+
             <ImageView
                 android:id="@+id/imgPicture"
                 ivImageUrl="@{item.baseImage.url}"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_120sdp"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_80sdp"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_15sdp"
                 android:scaleType="centerCrop"
                 android:transitionName="blog_image_transition"
                 tools:src="@drawable/mobile_sample" />
@@ -42,15 +54,15 @@
             <com.raantech.awfrlak.ui.base.views.AppTextView
                 style="@style/textview_normal_regular"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_55sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:gravity="center"
-                android:maxLines="3"
+                android:maxLines="2"
                 android:text="@{item.name}"
-                android:textSize="@dimen/_13ssp"
+                android:textSize="@dimen/_10ssp"
                 tools:text="سامسونج جالاكسي\nS20 FE 5G\nS20 FE 5G " />
 
             <com.raantech.awfrlak.ui.base.views.AppTextView

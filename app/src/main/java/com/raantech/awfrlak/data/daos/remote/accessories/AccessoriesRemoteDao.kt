@@ -3,7 +3,7 @@ package com.raantech.awfrlak.data.daos.remote.accessories
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.data.common.NetworkConstants
 import com.raantech.awfrlak.data.models.accessories.Accessory
-import com.raantech.awfrlak.data.models.home.HomeResponse
+import com.raantech.awfrlak.data.models.home.*
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -17,11 +17,35 @@ interface AccessoriesRemoteDao {
     ): ResponseWrapper<HomeResponse>
 
     @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
+    @GET("mobiles")
+    suspend fun getMobiles(
+        @Query("skip") skip: Int,
+        @Query("store_id") store_id: Int?,
+        @Query("search_text") search_text: String?
+    ): ResponseWrapper<List<MobilesItem>>
+
+    @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
     @GET("accessories")
     suspend fun getAccessories(
         @Query("skip") skip: Int,
-        @Query("category_id") serviceType: String?
-    ): ResponseWrapper<List<Accessory>>
+        @Query("store_id") store_id: Int?,
+        @Query("search_text") search_text: String?
+    ): ResponseWrapper<List<AccessoriesItem>>
+
+    @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
+    @GET("stores")
+    suspend fun getStores(
+        @Query("skip") skip: Int,
+        @Query("search_text") search_text: String?
+    ): ResponseWrapper<List<Store>>
+
+    @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
+    @GET("services")
+    suspend fun getServices(
+        @Query("skip") skip: Int,
+        @Query("store_id") store_id: Int?,
+        @Query("search_text") search_text: String?
+    ): ResponseWrapper<List<Service>>
 
     @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
     @GET("accessories/{id}/show")

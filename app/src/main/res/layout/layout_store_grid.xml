@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/linearStoresGrid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <include
+            android:id="@+id/layout_shimmer"
+            layout="@layout/layout_shimmer_store_grid" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_7sdp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"
+            android:paddingStart="@dimen/layouts_margin_start"
+            android:paddingEnd="@dimen/_12sdp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            tools:listitem="@layout/row_store_grid"
+            app:spanCount="3"/>
+    </LinearLayout>
+</layout>

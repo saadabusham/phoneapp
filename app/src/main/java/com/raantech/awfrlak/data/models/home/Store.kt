@@ -1,13 +1,13 @@
 package com.raantech.awfrlak.data.models.home
 
-import android.media.tv.TvContract
 import com.google.gson.annotations.SerializedName
 import com.raantech.awfrlak.data.models.media.Media
+import java.io.Serializable
 
 data class Store(
 
 	@field:SerializedName("cover")
-	val cover: Any? = null,
+	val cover: Media? = null,
 
 	@field:SerializedName("city")
 	val city: String? = null,
@@ -32,4 +32,4 @@ data class Store(
 
 	@field:SerializedName("longitude")
 	val longitude: String? = null
-)
+):Serializable

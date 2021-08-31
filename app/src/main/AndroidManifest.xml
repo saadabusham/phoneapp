@@ -55,6 +55,9 @@
         <activity
             android:name="com.raantech.awfrlak.ui.purchase.PurchasesActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.raantech.awfrlak.ui.store.StoreActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

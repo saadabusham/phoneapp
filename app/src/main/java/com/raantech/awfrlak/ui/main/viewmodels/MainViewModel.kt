@@ -5,9 +5,10 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.raantech.awfrlak.common.CommonEnums
 import com.raantech.awfrlak.data.api.response.APIResource
-import com.raantech.awfrlak.data.enums.UserEnums
 import com.raantech.awfrlak.data.enums.ServicesType
+import com.raantech.awfrlak.data.enums.UserEnums
 import com.raantech.awfrlak.data.models.accessories.Accessory
+import com.raantech.awfrlak.data.models.home.Store
 import com.raantech.awfrlak.data.pref.configuration.ConfigurationPref
 import com.raantech.awfrlak.data.pref.user.UserPref
 import com.raantech.awfrlak.data.repos.accessories.AccessoriesRepo
@@ -23,18 +24,18 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val userRepo: UserRepo,
-    private val sharedPreferencesUtil: SharedPreferencesUtil,
-    private val userPref: UserPref,
-    private val configurationPref: ConfigurationPref,
-    private val configurationRepo: ConfigurationRepo,
-    private val cartRepo: CartRepo,
-    private val wishListRepo: WishListRepo,
-    private val accessoriesRepo : AccessoriesRepo
+        private val userRepo: UserRepo,
+        private val sharedPreferencesUtil: SharedPreferencesUtil,
+        private val userPref: UserPref,
+        private val configurationPref: ConfigurationPref,
+        private val configurationRepo: ConfigurationRepo,
+        private val cartRepo: CartRepo,
+        private val wishListRepo: WishListRepo,
+        private val accessoriesRepo: AccessoriesRepo
 ) : BaseViewModel() {
 
     val cartCount: MutableLiveData<String> = MutableLiveData("0")
-
+    var storeToView: Store? = null
     fun getCartsCount() = viewModelScope.launch {
         cartRepo.getCartsCount().observeForever {
             if (it != null)
@@ -60,17 +61,43 @@ class MainViewModel @Inject constructor(
     }
 
     fun getAccessories(
-        skip: Int,
-        serviceType: String?
+            skip: Int,
+            storeId: Int? = null
     ) = liveData {
         emit(APIResource.loading())
-        val response = accessoriesRepo.getAccessories(skip, serviceType)
+        val response = accessoriesRepo.getAccessories(skip, storeId)
+        emit(response)
+    }
+
+    fun getStores(
+            skip: Int
+    ) = liveData {
+        emit(APIResource.loading())
+        val response = accessoriesRepo.getStores(skip)
+        emit(response)
+    }
+
+    fun getServices(
+            skip: Int,
+            storeId: Int? = null
+    ) = liveData {
+        emit(APIResource.loading())
+        val response = accessoriesRepo.getServices(skip, storeId)
         emit(response)
     }
 
     fun getHome() = liveData {
         emit(APIResource.loading())
         val response = accessoriesRepo.getHome()
+        emit(response)
+    }
+
+    fun getMobiles(
+            skip: Int,
+            storeId: Int? = null
+    ) = liveData {
+        emit(APIResource.loading())
+        val response = accessoriesRepo.getMobiles(skip, storeId)
         emit(response)
     }
 
@@ -94,20 +121,20 @@ class MainViewModel @Inject constructor(
     }
 
     fun addToWishList(
-        productId: Int
+            productId: Int
     ) = liveData {
         emit(APIResource.loading())
         val response =
-            wishListRepo.addToWishList(ServicesType.PRODUCT.value, productId)
+                wishListRepo.addToWishList(ServicesType.PRODUCT.value, productId)
         emit(response)
     }
 
     fun removeFromWishList(
-        productId: Int
+            productId: Int
     ) = liveData {
         emit(APIResource.loading())
         val response =
-            wishListRepo.removeFromWishList(productId, ServicesType.PRODUCT.value)
+                wishListRepo.removeFromWishList(productId, ServicesType.PRODUCT.value)
         emit(response)
     }
 

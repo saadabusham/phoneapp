@@ -14,6 +14,8 @@ object Constants {
 
     object BundleData {
 
+        const val STORE_ID: String = "store_id"
+        const val STORE: String = "store"
         const val IMAGE: String = "image"
         const val MEDIA: String = "media"
         const val SELECT_MEDIA: String = "selectMedia"

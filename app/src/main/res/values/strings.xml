@@ -164,4 +164,7 @@
     <string name="accessories">Accessories</string>
     <string name="used">Used</string>
     <string name="stores">Stores</string>
+    <string name="mobiles">Mobiles</string>
+    <string name="services">Services</string>
+    <string name="send_question">Send Question</string>
 </resources>

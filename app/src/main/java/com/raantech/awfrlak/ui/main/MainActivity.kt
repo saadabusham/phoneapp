@@ -120,13 +120,13 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
                 if (LocaleUtil.getLanguage() == "ar") {
 //                    binding?.appBarMain?.holder?.rotation = (slideOffset * -1) * 10
                     binding?.appBarMain?.container?.scaleX = abs(slideOffset * 0.4f - 1)
-                    binding?.appBarMain?.container?.scaleY = abs(slideOffset * 0.4f - 1)
+                    binding?.appBarMain?.container?.scaleY = abs(slideOffset * 0.2f - 1)
                 } else {
                     binding?.appBarMain?.container?.x =
                         (binding?.navigationView?.width!! * (slideOffset))
 //                    binding?.appBarMain?.holder?.rotation = slideOffset * 10
                     binding?.appBarMain?.container?.scaleX = abs(slideOffset * 0.4f - 1)
-                    binding?.appBarMain?.container?.scaleY = abs(slideOffset * 0.4f - 1)
+                    binding?.appBarMain?.container?.scaleY = abs(slideOffset * 0.2f - 1)
                 }
             }
 
