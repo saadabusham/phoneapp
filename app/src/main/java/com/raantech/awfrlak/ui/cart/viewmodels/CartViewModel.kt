@@ -5,7 +5,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.raantech.awfrlak.data.models.Price
 import com.raantech.awfrlak.data.models.accessories.Accessory
-import com.raantech.awfrlak.data.repos.cart.CartRepo
+import com.raantech.awfrlak.data.repos.cart.cart.CartRepo
 import com.raantech.awfrlak.ui.base.viewmodel.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

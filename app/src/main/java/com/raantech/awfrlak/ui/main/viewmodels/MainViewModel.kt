@@ -13,7 +13,8 @@ import com.raantech.awfrlak.data.pref.configuration.ConfigurationPref
 import com.raantech.awfrlak.data.pref.user.UserPref
 import com.raantech.awfrlak.data.repos.accessories.AccessoriesRepo
 import com.raantech.awfrlak.data.repos.auth.UserRepo
-import com.raantech.awfrlak.data.repos.cart.CartRepo
+import com.raantech.awfrlak.data.repos.cart.cart.CartRepo
+import com.raantech.awfrlak.data.repos.cart.mobilecart.MobileCartRepo
 import com.raantech.awfrlak.data.repos.configuration.ConfigurationRepo
 import com.raantech.awfrlak.data.repos.wishlist.WishListRepo
 import com.raantech.awfrlak.ui.base.viewmodel.BaseViewModel
@@ -30,6 +31,7 @@ class MainViewModel @Inject constructor(
         private val configurationPref: ConfigurationPref,
         private val configurationRepo: ConfigurationRepo,
         private val cartRepo: CartRepo,
+        private val mobileCartRepo: MobileCartRepo,
         private val wishListRepo: WishListRepo,
         private val accessoriesRepo: AccessoriesRepo
 ) : BaseViewModel() {
@@ -38,10 +40,30 @@ class MainViewModel @Inject constructor(
     var storeToView: Store? = null
     fun getCartsCount() = viewModelScope.launch {
         cartRepo.getCartsCount().observeForever {
-            if (it != null)
-                cartCount.postValue(it.toString())
-            else
-                cartCount.postValue("0")
+            viewModelScope.launch {
+                val mobileCount = mobileCartRepo.getCartsCountInt()
+                if (it != null)
+                    cartCount.postValue(it.plus(mobileCount ?: 0).toString())
+                else {
+                    if (mobileCount == null)
+                        cartCount.postValue("0")
+                    else
+                        cartCount.postValue(mobileCount.toString())
+                }
+            }
+        }
+        mobileCartRepo.getCartsCount().observeForever {
+            viewModelScope.launch {
+                val accessoriesCount = cartRepo.getCartsCountInt()
+                if (it != null)
+                    cartCount.postValue(it.plus(accessoriesCount ?: 0).toString())
+                else {
+                    if (accessoriesCount == null)
+                        cartCount.postValue("0")
+                    else
+                        cartCount.postValue(accessoriesCount.toString())
+                }
+            }
         }
     }
 

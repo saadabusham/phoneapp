@@ -1,4 +1,4 @@
-package com.raantech.awfrlak.data.repos.cart
+package com.raantech.awfrlak.data.repos.cart.cart
 
 import androidx.lifecycle.LiveData
 import com.raantech.awfrlak.data.api.response.ResponseHandler
@@ -30,6 +30,10 @@ class CartRepoImp @Inject constructor(
 
     override fun getCartsCount(): LiveData<Int> {
         return cartLocalDao.getCartsCount()
+    }
+
+    override suspend fun getCartsCountInt(): Int? {
+        return cartLocalDao.getCartsCountInt()
     }
 
     override suspend fun deleteCart(id: Int) {

@@ -1,6 +1,7 @@
 package com.raantech.awfrlak.data.di.daos
 
 import com.raantech.awfrlak.data.daos.local.cart.CartLocalDao
+import com.raantech.awfrlak.data.daos.local.cart.MobileCartLocalDao
 import com.raantech.awfrlak.data.db.ApplicationDB
 import dagger.Module
 import dagger.Provides
@@ -14,10 +15,17 @@ object LocalDaosModule {
 
     @Provides
     @Singleton
-    fun provideCategoryLocalDao(
+    fun provideCartLocalDao(
         applicationDB: ApplicationDB
     ): CartLocalDao {
         return applicationDB.cartLocalDao()
+    }
+    @Provides
+    @Singleton
+    fun provideMobileCartLocalDao(
+        applicationDB: ApplicationDB
+    ): MobileCartLocalDao {
+        return applicationDB.mobileCartLocalDao()
     }
 
 }

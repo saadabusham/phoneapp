@@ -19,6 +19,7 @@ import com.raantech.awfrlak.data.models.home.Store
 import com.raantech.awfrlak.databinding.ActivityStoreBinding
 import com.raantech.awfrlak.ui.auth.login.adapters.IndecatorRecyclerAdapter
 import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
+import com.raantech.awfrlak.ui.cart.CartActivity
 import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
 import com.raantech.awfrlak.ui.store.adapters.StoreImagesAdapter
 import com.raantech.awfrlak.ui.store.fragment.AccessoriesFragment
@@ -76,6 +77,10 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
 
 
     private fun setUpListeners() {
+        binding?.toolbar?.imgCart?.setOnClickListener {
+            if (!viewModel.cartCount.value.equals("0"))
+                CartActivity.start(this)
+        }
         binding?.layoutStoreSlider?.imgFavorite?.setOnClickListener {
             viewModel.storeToView?.isWishlist = viewModel.storeToView?.isWishlist == false
             updateFavorite()

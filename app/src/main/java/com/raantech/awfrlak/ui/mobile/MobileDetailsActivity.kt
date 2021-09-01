@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.raantech.awfrlak.R
 import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
@@ -14,6 +15,7 @@ import com.raantech.awfrlak.data.models.home.MobilesItem
 import com.raantech.awfrlak.databinding.ActivityMobileDetailsBinding
 import com.raantech.awfrlak.ui.auth.login.adapters.IndecatorRecyclerAdapter
 import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
+import com.raantech.awfrlak.ui.cart.CartActivity
 import com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.ui.store.adapters.StoreImagesAdapter
 import com.raantech.awfrlak.utils.extensions.invisible
@@ -48,11 +50,22 @@ class MobileDetailsActivity : BaseBindingActivity<ActivityMobileDetailsBinding>(
         initData()
         setUpListeners()
         setUpPager()
+        checkCart()
     }
-
+    fun checkCart() {
+        viewModel.mobileToView?.id?.let {
+            viewModel.getMobileCart(it).observe(this, {
+                it?.count?.let {
+                    viewModel.itemCount.value = (it)
+                }
+                viewModel.updatePrice()
+            })
+        }
+    }
     private fun setUpBinding() {
         binding?.toolbar?.viewModel = viewModel
         binding?.viewModel = viewModel
+        viewModel.getCartsCount()
         updateFavorite()
     }
 
@@ -64,6 +77,10 @@ class MobileDetailsActivity : BaseBindingActivity<ActivityMobileDetailsBinding>(
 
 
     private fun setUpListeners() {
+        binding?.toolbar?.imgCart?.setOnClickListener {
+            if (!viewModel.cartCount.value.equals("0"))
+                CartActivity.start(this)
+        }
         binding?.layoutMobileSlider?.imgFavorite?.setOnClickListener {
             viewModel.serviceToView?.isWishlist = viewModel.serviceToView?.isWishlist == false
             updateFavorite()

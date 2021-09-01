@@ -23,8 +23,8 @@
             android:layout_height="0dp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:fitsSystemWindows="true"
+            android:orientation="vertical"
             app:layout_anchor="@id/linearTotal"
             app:layout_anchorGravity="bottom|right|end">
 
@@ -56,6 +56,7 @@
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
             </com.google.android.material.appbar.AppBarLayout>
+
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/nestedScroll"
                 android:layout_width="match_parent"
@@ -311,7 +312,51 @@
 
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_37sdp"
+                android:layout_height="@dimen/_37sdp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()->viewModel.minus()}"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_minus" />
+
+            <com.raantech.awfrlak.ui.base.views.AppTextView
+                style="@style/textview_normal_bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:gravity="center"
+                android:text="@{viewModel.itemCount.toString() }"
+                android:textColor="@color/text_gray_color"
+                android:textSize="@dimen/_18ssp"
+                tools:text="1" />
+
+            <ImageView
+                android:layout_width="@dimen/_37sdp"
+                android:layout_height="@dimen/_37sdp"
+                android:background="?selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()->viewModel.plus()}"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_plus" />
+
+        </LinearLayout>
+
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/btnAsk"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_48sdp"
@@ -319,9 +364,42 @@
             android:layout_marginEnd="@dimen/layouts_margin_end"
             android:layout_marginBottom="@dimen/_15sdp"
             android:gravity="center"
+            android:onClick="@{()->viewModel.onAddToCartClicked()}"
             android:text="@string/order_service"
             android:textSize="@dimen/_19ssp"
-            app:cornerRadius="@dimen/_7sdp" />
+            app:cardBackgroundColor="@color/button_color"
+            app:cardCornerRadius="@dimen/_7sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48sdp"
+                android:padding="@dimen/_10sdp"
+                android:orientation="horizontal">
+
+                <com.raantech.awfrlak.ui.base.views.AppTextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:textAlignment="viewStart"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:text="@string/add_to_cart"
+                    android:textSize="@dimen/_19ssp"
+                    style="@style/textview_normal_bold"
+                    android:textColor="@color/white"/>
+
+                <com.raantech.awfrlak.ui.base.views.AppTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center|end"
+                    android:textAlignment="viewEnd"
+                    android:text="@{viewModel.itemsPrice.formatted}"
+                    android:textSize="@dimen/_19ssp"
+                    tools:text="1200 ر.س"
+                    style="@style/textview_normal_bold"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
 

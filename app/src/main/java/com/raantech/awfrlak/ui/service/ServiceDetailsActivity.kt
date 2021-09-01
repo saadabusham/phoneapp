@@ -14,6 +14,7 @@ import com.raantech.awfrlak.data.models.home.Service
 import com.raantech.awfrlak.databinding.ActivityServiceDetailsBinding
 import com.raantech.awfrlak.ui.auth.login.adapters.IndecatorRecyclerAdapter
 import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
+import com.raantech.awfrlak.ui.cart.CartActivity
 import com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.ui.store.adapters.StoreImagesAdapter
 import com.raantech.awfrlak.utils.extensions.invisible
@@ -53,6 +54,7 @@ class ServiceDetailsActivity : BaseBindingActivity<ActivityServiceDetailsBinding
     private fun setUpBinding() {
         binding?.toolbar?.viewModel = viewModel
         binding?.viewModel = viewModel
+        viewModel.getCartsCount()
         updateFavorite()
     }
 
@@ -64,6 +66,10 @@ class ServiceDetailsActivity : BaseBindingActivity<ActivityServiceDetailsBinding
 
 
     private fun setUpListeners() {
+        binding?.toolbar?.imgCart?.setOnClickListener {
+            if (!viewModel.cartCount.value.equals("0"))
+                CartActivity.start(this)
+        }
         binding?.layoutServiceSlider?.imgFavorite?.setOnClickListener {
             viewModel.serviceToView?.isWishlist = viewModel.serviceToView?.isWishlist == false
             updateFavorite()

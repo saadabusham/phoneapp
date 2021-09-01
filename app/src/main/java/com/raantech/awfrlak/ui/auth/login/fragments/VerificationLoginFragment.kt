@@ -1,7 +1,6 @@
 package com.raantech.awfrlak.ui.auth.login.fragments
 
 import androidx.navigation.navGraphViewModels
-import com.raantech.awfrlak.ui.auth.login.viewmodels.LoginViewModel
 import com.raantech.awfrlak.R
 import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.common.CustomObserverResponse
@@ -9,6 +8,7 @@ import com.raantech.awfrlak.data.models.auth.login.TokenModel
 import com.raantech.awfrlak.data.models.auth.login.UserDetailsResponseModel
 import com.raantech.awfrlak.data.pref.user.UserPref
 import com.raantech.awfrlak.databinding.FragmentVerificationLoginBinding
+import com.raantech.awfrlak.ui.auth.login.viewmodels.LoginViewModel
 import com.raantech.awfrlak.ui.base.fragment.BaseBindingFragment
 import com.raantech.awfrlak.ui.main.MainActivity
 import com.raantech.awfrlak.utils.extensions.showErrorAlert
@@ -31,12 +31,12 @@ class VerificationLoginFragment : BaseBindingFragment<FragmentVerificationLoginB
     override fun onViewVisible() {
         super.onViewVisible()
         addToolbar(
-            hasToolbar = true,
-            toolbarView = toolbar,
-            hasBackButton = true,
-            showBackArrow = true,
-            hasTitle = true,
-            title = R.string.empty_string
+                hasToolbar = true,
+                toolbarView = toolbar,
+                hasBackButton = true,
+                showBackArrow = true,
+                hasTitle = true,
+                title = R.string.empty_string
         )
         setUpViewsListeners()
         setUpData()
@@ -49,35 +49,39 @@ class VerificationLoginFragment : BaseBindingFragment<FragmentVerificationLoginB
 
     private fun verifyOtpResultObserver(): CustomObserverResponse<UserDetailsResponseModel> {
         return CustomObserverResponse(
-            requireActivity(),
-            object : CustomObserverResponse.APICallBack<UserDetailsResponseModel> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: UserDetailsResponseModel?
-                ) {
-                    data?.let {
-                        viewModel.storeUser(it)
-                        MainActivity.start(requireContext())
+                requireActivity(),
+                object : CustomObserverResponse.APICallBack<UserDetailsResponseModel> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: UserDetailsResponseModel?
+                    ) {
+                        data?.let {
+                            if (data.is_registered == false) {
+                                viewModel.storeUser(it)
+                                MainActivity.start(requireContext())
+                            }else{
+                                navigationController.navigate(R.id.action_verificationLoginFragment_to_registerFragment)
+                            }
+                        }
                     }
-                }
-            })
+                })
     }
 
 
     private fun sendOtpResultObserver(): CustomObserverResponse<TokenModel> {
         return CustomObserverResponse(
-            requireActivity(),
-            object : CustomObserverResponse.APICallBack<TokenModel> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: TokenModel?
-                ) {
-                    viewModel.userTokenMutableLiveData.postValue(data?.token)
-                    viewModel.startHandleResendSignUpPinCodeTimer()
-                }
-            })
+                requireActivity(),
+                object : CustomObserverResponse.APICallBack<TokenModel> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: TokenModel?
+                    ) {
+                        viewModel.userTokenMutableLiveData.postValue(data?.token)
+                        viewModel.startHandleResendSignUpPinCodeTimer()
+                    }
+                })
     }
 
     private fun setUpViewsListeners() {

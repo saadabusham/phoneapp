@@ -2,9 +2,14 @@ package com.raantech.awfrlak.data.repos.auth
 
 import com.raantech.awfrlak.data.api.response.APIResource
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
+import com.raantech.awfrlak.data.common.NetworkConstants
 import com.raantech.awfrlak.data.enums.UserEnums
 import com.raantech.awfrlak.data.models.auth.login.TokenModel
 import com.raantech.awfrlak.data.models.auth.login.UserDetailsResponseModel
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
+import retrofit2.http.Headers
+import retrofit2.http.POST
 
 
 interface UserRepo {
@@ -26,6 +31,13 @@ interface UserRepo {
         code: Int,
         device_token: String,
         platform: String
+    ): APIResource<ResponseWrapper<UserDetailsResponseModel>>
+
+    suspend fun register(
+            token: String,
+            name: String,
+            address: String,
+            phoneNumber: String
     ): APIResource<ResponseWrapper<UserDetailsResponseModel>>
 
     fun saveNotificationStatus(flag: Boolean)

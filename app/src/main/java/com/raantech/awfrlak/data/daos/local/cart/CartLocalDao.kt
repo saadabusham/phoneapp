@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.raantech.awfrlak.data.db.ApplicationDB
 import com.raantech.awfrlak.data.db.ApplicationDB.Companion.TABLE_CART
 import com.raantech.awfrlak.data.models.accessories.Accessory
 
@@ -25,6 +26,9 @@ interface CartLocalDao {
 
     @Query("SELECT SUM(count) FROM $TABLE_CART")
     fun getCartsCount(): LiveData<Int>
+
+    @Query("SELECT SUM(count) FROM ${ApplicationDB.TABLE_CART}")
+    suspend fun getCartsCountInt(): Int?
 
     @Query("DELETE FROM $TABLE_CART WHERE id = :id")
     suspend fun deleteCart(id: Int)

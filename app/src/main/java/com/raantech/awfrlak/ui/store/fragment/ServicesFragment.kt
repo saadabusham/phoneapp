@@ -8,15 +8,14 @@ import com.raantech.awfrlak.R
 import com.raantech.awfrlak.data.api.response.GeneralError
 import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.common.CustomObserverResponse
-import com.raantech.awfrlak.data.models.home.MobilesItem
 import com.raantech.awfrlak.data.models.home.Service
 import com.raantech.awfrlak.databinding.LayoutPhonesGridBinding
 import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.base.fragment.BaseBindingFragment
-import com.raantech.awfrlak.ui.main.home.adapters.PhonesGridRecyclerAdapter
 import com.raantech.awfrlak.ui.main.home.adapters.ServicesGridRecyclerAdapter
 import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.service.ServiceDetailsActivity
 import com.raantech.awfrlak.utils.extensions.gone
 import com.raantech.awfrlak.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -79,7 +78,7 @@ class ServicesFragment : BaseBindingFragment<LayoutPhonesGridBinding>(),
     }
 
     private fun loadServices() {
-        viewModel.getServices(servicesGridRecyclerAdapter.itemCount,viewModel.storeToView?.id)
+        viewModel.getServices(servicesGridRecyclerAdapter.itemCount, viewModel.storeToView?.id)
                 .observe(this, servicesObserver())
     }
 
@@ -116,6 +115,7 @@ class ServicesFragment : BaseBindingFragment<LayoutPhonesGridBinding>(),
                 }, false, showError = false
         )
     }
+
     private fun hideShowNoData() {
 //        if (accessoriesRecyclerAdapter.itemCount == 0) {
 //            binding?.recyclerView?.gone()
@@ -127,7 +127,7 @@ class ServicesFragment : BaseBindingFragment<LayoutPhonesGridBinding>(),
     }
 
     override fun onItemClick(view: View?, position: Int, item: Any) {
-
+        ServiceDetailsActivity.start(requireActivity(), item as Service)
     }
 
 

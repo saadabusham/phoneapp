@@ -20,9 +20,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val userRepo: UserRepo,
-    private val sharedPreferencesUtil: SharedPreferencesUtil,
-    @ApplicationContext context: Context
+        private val userRepo: UserRepo,
+        private val sharedPreferencesUtil: SharedPreferencesUtil,
+        @ApplicationContext context: Context
 ) : BaseViewModel() {
 
     companion object {
@@ -35,6 +35,12 @@ class LoginViewModel @Inject constructor(
 
     }
 
+    //    register
+    val username: MutableLiveData<String> = MutableLiveData()
+    val phoneNumber: MutableLiveData<String> = MutableLiveData()
+    val address: MutableLiveData<String> = MutableLiveData()
+
+    //    login
     val phoneNumberWithoutCountryCode: MutableLiveData<String> by lazy { MutableLiveData<String>() }
     val selectedCountryCode: MutableLiveData<String> by lazy { MutableLiveData<String>() }
 
@@ -47,12 +53,12 @@ class LoginViewModel @Inject constructor(
     val userTokenMutableLiveData: MutableLiveData<String> by lazy { MutableLiveData<String>("") }
     private val forgetCountDownTimer: CountDownTimer by lazy {
         object : CountDownTimer(
-            RESEND_ENABLE_TIME_IN_MIN.minToMillisecond(),
-            RESEND_ENABLE_TIME_UPDATE_TIMER_IN_SECOND.secondToMillisecond()
+                RESEND_ENABLE_TIME_IN_MIN.minToMillisecond(),
+                RESEND_ENABLE_TIME_UPDATE_TIMER_IN_SECOND.secondToMillisecond()
         ) {
             override fun onTick(millisUntilFinished: Long) {
                 signUpResendTimer.value =
-                    millisUntilFinished.millisecondFormatting(DateTimeUtil.TIME_FORMATTING_MIN_AND_SECOND)
+                        millisUntilFinished.millisecondFormatting(DateTimeUtil.TIME_FORMATTING_MIN_AND_SECOND)
             }
 
             override fun onFinish() {
@@ -65,8 +71,19 @@ class LoginViewModel @Inject constructor(
     fun loginUser() = liveData {
         emit(APIResource.loading())
         val response = userRepo.login(
-            phoneNumberWithoutCountryCode.value.toString().checkPhoneNumberFormat()
-                .concatStrings(selectedCountryCode.value.toString())
+                phoneNumberWithoutCountryCode.value.toString().checkPhoneNumberFormat()
+                        .concatStrings(selectedCountryCode.value.toString())
+        )
+        emit(response)
+    }
+
+    fun registerUser() = liveData {
+        emit(APIResource.loading())
+        val response = userRepo.register(
+                token = userTokenMutableLiveData.value.toString(),
+                name = username.value.toString(),
+                address = address.value.toString(),
+                phoneNumber = phoneNumber.value.toString()
         )
         emit(response)
     }
@@ -88,10 +105,10 @@ class LoginViewModel @Inject constructor(
     fun verifyCode() = liveData {
         emit(APIResource.loading())
         val response = userRepo.verify(
-            userTokenMutableLiveData.value.toString(),
-            signUpVerificationCode.value.toString().toInt(),
-            "",
-            Constants.AppPlatform
+                userTokenMutableLiveData.value.toString(),
+                signUpVerificationCode.value.toString().toInt(),
+                "",
+                Constants.AppPlatform
         )
         emit(response)
     }
@@ -99,7 +116,7 @@ class LoginViewModel @Inject constructor(
     fun resendVerificationCode() = liveData {
         emit(APIResource.loading())
         val response = userRepo.resendCode(
-            userTokenMutableLiveData.value.toString()
+                userTokenMutableLiveData.value.toString()
         )
         emit(response)
     }

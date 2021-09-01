@@ -15,6 +15,7 @@ import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.base.fragment.BaseBindingFragment
 import com.raantech.awfrlak.ui.main.home.adapters.PhonesGridRecyclerAdapter
 import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.mobile.MobileDetailsActivity
 import com.raantech.awfrlak.utils.extensions.gone
 import com.raantech.awfrlak.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -126,7 +127,7 @@ class MobilesFragment : BaseBindingFragment<LayoutPhonesGridBinding>(),
     }
 
     override fun onItemClick(view: View?, position: Int, item: Any) {
-
+        MobileDetailsActivity.start(requireActivity(), item as MobilesItem)
     }
 
 

@@ -6,26 +6,26 @@ import com.raantech.awfrlak.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.data.daos.remote.user.UserRemoteDao
 import com.raantech.awfrlak.data.enums.UserEnums
 import com.raantech.awfrlak.data.models.auth.login.TokenModel
-import com.raantech.awfrlak.data.pref.user.UserPref
 import com.raantech.awfrlak.data.models.auth.login.UserDetailsResponseModel
+import com.raantech.awfrlak.data.pref.user.UserPref
 import com.raantech.awfrlak.data.repos.base.BaseRepo
 import javax.inject.Inject
 
 class UserRepoImp @Inject constructor(
-    responseHandler: ResponseHandler,
-    private val userRemoteDao: UserRemoteDao,
-    private val userPref: UserPref
+        responseHandler: ResponseHandler,
+        private val userRemoteDao: UserRemoteDao,
+        private val userPref: UserPref
 ) : BaseRepo(responseHandler), UserRepo {
 
 
     override suspend fun login(
-        phoneNumber: String
+            phoneNumber: String
     ): APIResource<ResponseWrapper<TokenModel>> {
         return try {
             responseHandle.handleSuccess(
-                userRemoteDao.login(
-                    phoneNumber
-                )
+                    userRemoteDao.login(
+                            phoneNumber
+                    )
             )
         } catch (e: Exception) {
             responseHandle.handleException(e)
@@ -36,8 +36,8 @@ class UserRepoImp @Inject constructor(
     override suspend fun logout(): APIResource<ResponseWrapper<Any>> {
         return try {
             responseHandle.handleSuccess(
-                userRemoteDao.logout(
-                )
+                    userRemoteDao.logout(
+                    )
             )
         } catch (e: Exception) {
             responseHandle.handleException(e)
@@ -47,9 +47,9 @@ class UserRepoImp @Inject constructor(
     override suspend fun resendCode(token: String): APIResource<ResponseWrapper<TokenModel>> {
         return try {
             responseHandle.handleSuccess(
-                userRemoteDao.resendCode(
-                    token
-                )
+                    userRemoteDao.resendCode(
+                            token
+                    )
             )
         } catch (e: Exception) {
             responseHandle.handleException(e)
@@ -57,16 +57,28 @@ class UserRepoImp @Inject constructor(
     }
 
     override suspend fun verify(
-        token: String,
-        code: Int,
-        device_token: String,
-        platform: String
+            token: String,
+            code: Int,
+            device_token: String,
+            platform: String
     ): APIResource<ResponseWrapper<UserDetailsResponseModel>> {
         return try {
             responseHandle.handleSuccess(
-                userRemoteDao.verify(
-                    token, code, device_token, platform
-                )
+                    userRemoteDao.verify(
+                            token, code, device_token, platform
+                    )
+            )
+        } catch (e: Exception) {
+            responseHandle.handleException(e)
+        }
+    }
+
+    override suspend fun register(token: String, name: String, address: String, phoneNumber: String): APIResource<ResponseWrapper<UserDetailsResponseModel>> {
+        return try {
+            responseHandle.handleSuccess(
+                    userRemoteDao.register(
+                            token, name, address, phoneNumber
+                    )
             )
         } catch (e: Exception) {
             responseHandle.handleException(e)
