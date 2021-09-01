@@ -1,10 +1,9 @@
 package com.raantech.awfrlak.data.models.home
 
-import android.media.tv.TvContract
 import com.google.gson.annotations.SerializedName
 import com.raantech.awfrlak.data.models.Price
-import com.raantech.awfrlak.data.models.home.Store
 import com.raantech.awfrlak.data.models.media.Media
+import java.io.Serializable
 
 data class Service(
 
@@ -33,7 +32,7 @@ data class Service(
 	val store: Store? = null,
 
 	@field:SerializedName("is_wishlist")
-	val isWishlist: Boolean? = null,
+	var isWishlist: Boolean? = null,
 
 	@field:SerializedName("is_available")
 	val isAvailable: Boolean? = null,
@@ -55,4 +54,4 @@ data class Service(
 
 	@field:SerializedName("longitude")
 	val longitude: String? = null
-)
+):Serializable

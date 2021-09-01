@@ -16,8 +16,7 @@ interface WishListRepo {
     ): APIResource<ResponseWrapper<Any>>
 
     suspend fun removeFromWishList(
-        productId: Int,
-        entity_type: String
+        productId: Int
     ): APIResource<ResponseWrapper<Any>>
 
 }

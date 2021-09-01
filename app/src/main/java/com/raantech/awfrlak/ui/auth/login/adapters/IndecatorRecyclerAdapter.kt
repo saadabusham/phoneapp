@@ -32,10 +32,10 @@ class IndecatorRecyclerAdapter(
 
         override fun bind(item: Boolean) {
             if (item) {
-                binding.imgDotImage.setCardBackgroundColor(context.resources.getColor(R.color.button_color))
+                binding.imgDotImage.setCardBackgroundColor(context.resources.getColor(R.color.indecator_active))
                 binding.imgDotImage.strokeWidth = context.resources.getDimension(R.dimen.dimen_zero).toInt()
             } else {
-                binding.imgDotImage.setCardBackgroundColor(context.resources.getColor(R.color.white))
+                binding.imgDotImage.setCardBackgroundColor(context.resources.getColor(R.color.indecator_disactive))
                 binding.imgDotImage.strokeWidth = context.resources.getDimension(R.dimen._1sdp).toInt()
             }
         }

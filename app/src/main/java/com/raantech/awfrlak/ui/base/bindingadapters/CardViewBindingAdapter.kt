@@ -1,5 +1,6 @@
 package com.raantech.awfrlak.ui.base.bindingadapters
 
+import android.graphics.Color
 import androidx.annotation.DrawableRes
 import androidx.cardview.widget.CardView
 import androidx.databinding.BindingAdapter
@@ -14,4 +15,15 @@ fun CardView?.setBackgroundRes(@DrawableRes background: Int) {
 @BindingAdapter("cvIsChecked")
 fun MaterialCardView?.setIsChecked(isChecked: Boolean) {
     this?.isChecked = isChecked
+}
+
+@BindingAdapter("cvBackgroundHex")
+fun MaterialCardView?.setBackgroundHex(color: String?) {
+    if (color.isNullOrEmpty())
+        return
+    try {
+        this?.setCardBackgroundColor(Color.parseColor(color))
+    }catch (e :Exception){
+
+    }
 }

@@ -34,12 +34,11 @@ class WishListViewModel @Inject constructor(
     }
 
     fun removeFromWishList(
-        entityType: String,
         productId: Int
     ) = liveData {
         emit(APIResource.loading())
         val response =
-            wishListRepo.removeFromWishList(productId,entityType)
+            wishListRepo.removeFromWishList(productId)
         emit(response)
     }
 

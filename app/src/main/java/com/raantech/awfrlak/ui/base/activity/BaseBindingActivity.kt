@@ -19,8 +19,11 @@ import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.ui.base.dialogs.CustomDialogUtils
 import com.raantech.awfrlak.utils.HandleRequestFailedUtil
 import com.raantech.awfrlak.utils.extensions.longToast
+import com.raantech.awfrlak.utils.extensions.visible
 import com.raantech.awfrlak.utils.pref.SharedPreferencesUtil
+import kotlinx.android.synthetic.main.layout_store_toolbar.view.*
 import kotlinx.android.synthetic.main.layout_toolbar.view.*
+import kotlinx.android.synthetic.main.layout_toolbar.view.tvTitle
 import retrofit2.HttpException
 import java.io.IOException
 import java.net.SocketTimeoutException
@@ -59,7 +62,7 @@ abstract class BaseBindingActivity<BINDING : ViewDataBinding> : LocalizationActi
         title: Int = R.string.empty_string,
         titleString: String? = null,
         hasSubTitle: Boolean = false,
-        subTitle: Int = R.string.empty_string,
+        subTitle: String = "",
         showBackArrow: Boolean = false,
         @DrawableRes navigationIcon: Int? = null
     ) {
@@ -97,7 +100,7 @@ abstract class BaseBindingActivity<BINDING : ViewDataBinding> : LocalizationActi
         title: Int,
         titleString: String?,
         hasSubTitle: Boolean,
-        subTitle: Int,
+        subTitle: String,
         showBackArrow: Boolean,
         navigationIcon: Int?
     ) {
@@ -118,7 +121,8 @@ abstract class BaseBindingActivity<BINDING : ViewDataBinding> : LocalizationActi
         }
 
         if (hasSubTitle) {
-            supportActionBar?.subtitle = getString(subTitle)
+            toolbar?.tvSubTitle?.text = subTitle
+            toolbar?.tvSubTitle?.visible()
         }
 
         if (hasBackButton) {

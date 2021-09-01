@@ -20,6 +20,8 @@ import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.base.fragment.BaseBindingFragment
 import com.raantech.awfrlak.ui.main.home.adapters.*
 import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.mobile.MobileDetailsActivity
+import com.raantech.awfrlak.ui.service.ServiceDetailsActivity
 import com.raantech.awfrlak.ui.store.StoreActivity
 import com.raantech.awfrlak.utils.extensions.gone
 import com.raantech.awfrlak.utils.extensions.visible
@@ -27,7 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),
-    BaseBindingRecyclerViewAdapter.OnItemClickListener {
+        BaseBindingRecyclerViewAdapter.OnItemClickListener {
 
     override fun getLayoutId(): Int = R.layout.fragment_home
 
@@ -127,15 +129,15 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),
         adapter = binding?.spinnerCategories?.let { CategoriesAdapter(it, requireActivity()) }
         adapter?.let { binding?.spinnerCategories?.setSpinnerAdapter(it) }
         binding?.spinnerCategories?.getSpinnerRecyclerView()?.layoutManager =
-            LinearLayoutManager(requireActivity())
+                LinearLayoutManager(requireActivity())
         adapter?.setItems(
-            arrayListOf(
-                Category(CategoriesEnum.ALL, resources.getString(R.string.all_categories)),
-                Category(CategoriesEnum.MOBILES, resources.getString(R.string.mobiles)),
-                Category(CategoriesEnum.ACCESSORIES, resources.getString(R.string.accessories)),
-                Category(CategoriesEnum.STORES, resources.getString(R.string.stores)),
-                Category(CategoriesEnum.SERVICES, resources.getString(R.string.services))
-            )
+                arrayListOf(
+                        Category(CategoriesEnum.ALL, resources.getString(R.string.all_categories)),
+                        Category(CategoriesEnum.MOBILES, resources.getString(R.string.mobiles)),
+                        Category(CategoriesEnum.ACCESSORIES, resources.getString(R.string.accessories)),
+                        Category(CategoriesEnum.STORES, resources.getString(R.string.stores)),
+                        Category(CategoriesEnum.SERVICES, resources.getString(R.string.services))
+                )
         )
         binding?.spinnerCategories?.selectItemByIndex(0)
         binding?.spinnerCategories?.setIsFocusable(true)
@@ -296,9 +298,9 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),
             }
 
         })
-            .setLoadingTriggerThreshold(1)
-            .addLoadingListItem(false)
-            .build()
+                .setLoadingTriggerThreshold(1)
+                .addLoadingListItem(false)
+                .build()
     }
 
     private fun loadMobiles() {
@@ -343,14 +345,14 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),
             }
 
         })
-            .setLoadingTriggerThreshold(1)
-            .addLoadingListItem(false)
-            .build()
+                .setLoadingTriggerThreshold(1)
+                .addLoadingListItem(false)
+                .build()
     }
 
     private fun loadAccessories() {
         viewModel.getAccessories(accessoriesGridRecyclerAdapter.itemCount)
-            .observe(this, accessoriesObserver())
+                .observe(this, accessoriesObserver())
     }
 
     //    Stores
@@ -391,14 +393,14 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),
             }
 
         })
-            .setLoadingTriggerThreshold(1)
-            .addLoadingListItem(false)
-            .build()
+                .setLoadingTriggerThreshold(1)
+                .addLoadingListItem(false)
+                .build()
     }
 
     private fun loadStores() {
         viewModel.getStores(storesGridRecyclerAdapter.itemCount)
-            .observe(this, storesObserver())
+                .observe(this, storesObserver())
     }
 
     //    Services
@@ -433,14 +435,14 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),
             }
 
         })
-            .setLoadingTriggerThreshold(1)
-            .addLoadingListItem(false)
-            .build()
+                .setLoadingTriggerThreshold(1)
+                .addLoadingListItem(false)
+                .build()
     }
 
     private fun loadServices() {
         viewModel.getServices(servicesGridRecyclerAdapter.itemCount)
-            .observe(this, servicesObserver())
+                .observe(this, servicesObserver())
     }
 
     //    Sliders
@@ -462,196 +464,199 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),
 
     private fun homeObserver(): CustomObserverResponse<HomeResponse> {
         return CustomObserverResponse(
-            requireActivity(),
-            object : CustomObserverResponse.APICallBack<HomeResponse> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: HomeResponse?
-                ) {
-                    data?.let {
-                        data.slider?.let {
-                            it.slides?.let { it1 -> sliderAdapter.submitItems(it1) }
+                requireActivity(),
+                object : CustomObserverResponse.APICallBack<HomeResponse> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: HomeResponse?
+                    ) {
+                        data?.let {
+                            data.slider?.let {
+                                it.slides?.let { it1 -> sliderAdapter.submitItems(it1) }
+                            }
+                            data.accessories?.let {
+                                accessoriesRecyclerAdapter.submitItems(it)
+                            }
+                            data.mobiles?.let {
+                                phonesRecyclerAdapter.submitItems(it)
+                            }
+                            data.stores?.let {
+                                storesRecyclerAdapter.submitItems(it)
+                            }
                         }
-                        data.accessories?.let {
-                            accessoriesRecyclerAdapter.submitItems(it)
-                        }
-                        data.mobiles?.let {
-                            phonesRecyclerAdapter.submitItems(it)
-                        }
-                        data.stores?.let {
-                            storesRecyclerAdapter.submitItems(it)
-                        }
+                        loading.postValue(false)
                     }
-                    loading.postValue(false)
-                }
 
-                override fun onError(
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    message: String,
-                    errors: List<GeneralError>?
-                ) {
-                    super.onError(subErrorCode, message, errors)
-                    loading.postValue(false)
-                    hideShowNoData()
-                }
+                    override fun onError(
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            message: String,
+                            errors: List<GeneralError>?
+                    ) {
+                        super.onError(subErrorCode, message, errors)
+                        loading.postValue(false)
+                        hideShowNoData()
+                    }
 
-                override fun onLoading() {
-                    loading.postValue(true)
-                }
-            }, false, showError = false
+                    override fun onLoading() {
+                        loading.postValue(true)
+                    }
+                }, false, showError = false
         )
     }
 
     private fun mobilesObserver(): CustomObserverResponse<List<MobilesItem>> {
         return CustomObserverResponse(
-            requireActivity(),
-            object : CustomObserverResponse.APICallBack<List<MobilesItem>> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: List<MobilesItem>?
-                ) {
-                    data?.let {
-                        phonesGridRecyclerAdapter.submitItems(it)
+                requireActivity(),
+                object : CustomObserverResponse.APICallBack<List<MobilesItem>> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: List<MobilesItem>?
+                    ) {
+                        data?.let {
+                            phonesGridRecyclerAdapter.submitItems(it)
+                        }
+                        if (data.isNullOrEmpty())
+                            isMobilesFinished = true
+                        loadingMobiles.postValue(false)
                     }
-                    if (data.isNullOrEmpty())
-                        isMobilesFinished = true
-                    loadingMobiles.postValue(false)
-                }
 
-                override fun onError(
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    message: String,
-                    errors: List<GeneralError>?
-                ) {
-                    super.onError(subErrorCode, message, errors)
-                    loadingMobiles.postValue(false)
-                    hideShowNoData()
-                }
+                    override fun onError(
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            message: String,
+                            errors: List<GeneralError>?
+                    ) {
+                        super.onError(subErrorCode, message, errors)
+                        loadingMobiles.postValue(false)
+                        hideShowNoData()
+                    }
 
-                override fun onLoading() {
-                    loadingMobiles.postValue(true)
-                }
-            }, false, showError = false
+                    override fun onLoading() {
+                        loadingMobiles.postValue(true)
+                    }
+                }, false, showError = false
         )
     }
 
     private fun accessoriesObserver(): CustomObserverResponse<List<AccessoriesItem>> {
         return CustomObserverResponse(
-            requireActivity(),
-            object : CustomObserverResponse.APICallBack<List<AccessoriesItem>> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: List<AccessoriesItem>?
-                ) {
-                    data?.let {
-                        accessoriesGridRecyclerAdapter.submitItems(it)
+                requireActivity(),
+                object : CustomObserverResponse.APICallBack<List<AccessoriesItem>> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: List<AccessoriesItem>?
+                    ) {
+                        data?.let {
+                            accessoriesGridRecyclerAdapter.submitItems(it)
+                        }
+                        if (data.isNullOrEmpty())
+                            isAccessoriesFinished = true
+                        loadingAccessories.postValue(false)
                     }
-                    if (data.isNullOrEmpty())
-                        isAccessoriesFinished = true
-                    loadingAccessories.postValue(false)
-                }
 
-                override fun onError(
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    message: String,
-                    errors: List<GeneralError>?
-                ) {
-                    super.onError(subErrorCode, message, errors)
-                    loadingAccessories.postValue(false)
-                    hideShowNoData()
-                }
+                    override fun onError(
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            message: String,
+                            errors: List<GeneralError>?
+                    ) {
+                        super.onError(subErrorCode, message, errors)
+                        loadingAccessories.postValue(false)
+                        hideShowNoData()
+                    }
 
-                override fun onLoading() {
-                    loadingAccessories.postValue(true)
-                }
-            }, false, showError = false
+                    override fun onLoading() {
+                        loadingAccessories.postValue(true)
+                    }
+                }, false, showError = false
         )
     }
 
     private fun storesObserver(): CustomObserverResponse<List<Store>> {
         return CustomObserverResponse(
-            requireActivity(),
-            object : CustomObserverResponse.APICallBack<List<Store>> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: List<Store>?
-                ) {
-                    data?.let {
-                        storesGridRecyclerAdapter.submitItems(it)
+                requireActivity(),
+                object : CustomObserverResponse.APICallBack<List<Store>> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: List<Store>?
+                    ) {
+                        data?.let {
+                            storesGridRecyclerAdapter.submitItems(it)
+                        }
+                        if (data.isNullOrEmpty())
+                            isStoresFinished = true
+                        loadingStores.postValue(false)
                     }
-                    if (data.isNullOrEmpty())
-                        isStoresFinished = true
-                    loadingStores.postValue(false)
-                }
 
-                override fun onError(
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    message: String,
-                    errors: List<GeneralError>?
-                ) {
-                    super.onError(subErrorCode, message, errors)
-                    loadingStores.postValue(false)
-                    hideShowNoData()
-                }
+                    override fun onError(
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            message: String,
+                            errors: List<GeneralError>?
+                    ) {
+                        super.onError(subErrorCode, message, errors)
+                        loadingStores.postValue(false)
+                        hideShowNoData()
+                    }
 
-                override fun onLoading() {
-                    loadingStores.postValue(true)
-                }
-            }, false, showError = false
+                    override fun onLoading() {
+                        loadingStores.postValue(true)
+                    }
+                }, false, showError = false
         )
     }
 
     private fun servicesObserver(): CustomObserverResponse<List<Service>> {
         return CustomObserverResponse(
-            requireActivity(),
-            object : CustomObserverResponse.APICallBack<List<Service>> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: List<Service>?
-                ) {
-                    data?.let {
-                        servicesGridRecyclerAdapter.submitItems(it)
+                requireActivity(),
+                object : CustomObserverResponse.APICallBack<List<Service>> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: List<Service>?
+                    ) {
+                        data?.let {
+                            servicesGridRecyclerAdapter.submitItems(it)
+                        }
+                        if (data.isNullOrEmpty())
+                            isServicesFinished = true
+                        loadingServices.postValue(false)
                     }
-                    if (data.isNullOrEmpty())
-                        isServicesFinished = true
-                    loadingServices.postValue(false)
-                }
 
-                override fun onError(
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    message: String,
-                    errors: List<GeneralError>?
-                ) {
-                    super.onError(subErrorCode, message, errors)
-                    loadingServices.postValue(false)
-                    hideShowNoData()
-                }
+                    override fun onError(
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            message: String,
+                            errors: List<GeneralError>?
+                    ) {
+                        super.onError(subErrorCode, message, errors)
+                        loadingServices.postValue(false)
+                        hideShowNoData()
+                    }
 
-                override fun onLoading() {
-                    loadingServices.postValue(true)
-                }
-            }, false, showError = false
+                    override fun onLoading() {
+                        loadingServices.postValue(true)
+                    }
+                }, false, showError = false
         )
     }
 
     override fun onItemClick(view: View?, position: Int, item: Any) {
         when (item) {
             is MobilesItem -> {
-
+                MobileDetailsActivity.start(requireActivity(), item)
             }
             is AccessoriesItem -> {
 
             }
             is Store -> {
-                StoreActivity.start(requireActivity(),item)
+                StoreActivity.start(requireActivity(), item)
             }
             is SlidesItem -> {
 
+            }
+            is Service -> {
+                ServiceDetailsActivity.start(requireActivity(), item)
             }
         }
     }

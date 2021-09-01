@@ -19,7 +19,7 @@ interface IBaseBindingActivity {
         @StringRes title: Int = R.string.empty_string,
         titleString: String? = null,
         hasSubTitle: Boolean = false,
-        @StringRes subTitle: Int = R.string.empty_string,
+        @StringRes subTitle: String = "",
         showBackArrow: Boolean = false,
         @DrawableRes navigationIcon: Int? = null
     )

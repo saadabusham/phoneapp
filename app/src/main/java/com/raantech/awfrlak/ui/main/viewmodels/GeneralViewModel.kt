@@ -8,6 +8,8 @@ import com.raantech.awfrlak.data.api.response.APIResource
 import com.raantech.awfrlak.data.enums.ServicesType
 import com.raantech.awfrlak.data.enums.UserEnums
 import com.raantech.awfrlak.data.models.accessories.Accessory
+import com.raantech.awfrlak.data.models.home.MobilesItem
+import com.raantech.awfrlak.data.models.home.Service
 import com.raantech.awfrlak.data.models.home.Store
 import com.raantech.awfrlak.data.pref.configuration.ConfigurationPref
 import com.raantech.awfrlak.data.pref.user.UserPref
@@ -23,7 +25,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class GeneralViewModel @Inject constructor(
         private val userRepo: UserRepo,
         private val sharedPreferencesUtil: SharedPreferencesUtil,
         private val userPref: UserPref,
@@ -35,7 +37,8 @@ class MainViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     val cartCount: MutableLiveData<String> = MutableLiveData("0")
-    var storeToView: Store? = null
+    var serviceToView: Service? = null
+    var mobileToView: MobilesItem? = null
     fun getCartsCount() = viewModelScope.launch {
         cartRepo.getCartsCount().observeForever {
             if (it != null)

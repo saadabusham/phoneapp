@@ -117,4 +117,6 @@
 
     <color name="border_color">#979797</color>
     <color name="div_color">#EFEFEF</color>
+    <color name="indecator_active">#F2D073</color>
+    <color name="indecator_disactive">#59F2D073</color>
 </resources>

@@ -37,13 +37,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
-                    app:contentScrim="@color/colorAccent"
+                    app:contentScrim="@color/white"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed"
                     app:titleEnabled="false">
 
                     <include
-                        android:id="@+id/layout_specialist_info"
-                        layout="@layout/layout_slider" />
+                        android:id="@+id/layout_store_slider"
+                        layout="@layout/layout_store_slider" />
 
                     <include
                         android:id="@+id/toolbar"

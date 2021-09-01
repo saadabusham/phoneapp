@@ -25,8 +25,7 @@ interface WishListRemoteDao {
     @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
     @DELETE("wishlist/{product_id}/destroy")
     suspend fun removeFromWishList(
-        @Path("product_id") productId: Int,
-        @Query("entity_type") entity_type: String
+        @Path("product_id") productId: Int
     ): ResponseWrapper<Any>
 
 }

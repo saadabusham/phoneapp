@@ -3,6 +3,7 @@ package com.raantech.awfrlak.data.models.home
 import com.google.gson.annotations.SerializedName
 import com.raantech.awfrlak.data.models.Price
 import com.raantech.awfrlak.data.models.media.Media
+import java.io.Serializable
 
 data class MobilesItem(
 
@@ -53,4 +54,8 @@ data class MobilesItem(
 
 	@field:SerializedName("id")
 	val id: Int? = null
-)
+):Serializable{
+	fun simCardNumberInt():Int{
+		return simCardsNumbers?.toIntOrNull()?:0
+	}
+}

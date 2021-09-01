@@ -613,6 +613,7 @@
         <item name="android:gravity">center|start</item>
         <item name="android:padding">0dp</item>
         <item name="android:textColor">@color/text_gray_color</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="textview_normal_semibold" parent="Widget.AppCompat.TextView">
@@ -629,6 +630,7 @@
         <item name="android:gravity">center|start</item>
         <item name="android:padding">0dp</item>
         <item name="android:textColor">@color/dark_blue</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="textview_normal_medium" parent="Widget.AppCompat.TextView">

@@ -34,11 +34,10 @@ class WishListRepoImp @Inject constructor(
     }
 
     override suspend fun removeFromWishList(
-        productId: Int,
-        entity_type: String
+        productId: Int
     ): APIResource<ResponseWrapper<Any>> {
         return try {
-            responseHandle.handleSuccess(wishListRemoteDao.removeFromWishList(productId,entity_type))
+            responseHandle.handleSuccess(wishListRemoteDao.removeFromWishList(productId))
         } catch (e: Exception) {
             responseHandle.handleException(e)
         }

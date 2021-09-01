@@ -167,4 +167,12 @@
     <string name="mobiles">Mobiles</string>
     <string name="services">Services</string>
     <string name="send_question">Send Question</string>
+    <string name="order_service">Order service</string>
+    <string name="service">Service</string>
+    <string name="repair_time">Repair time</string>
+    <string name="product_information">Product Information</string>
+    <string name="mobile_type">Type</string>
+    <string name="mobile_storage">Storage</string>
+    <string name="mobile_color">Color</string>
+    <string name="mobile_sim_number">Sim number</string>
 </resources>

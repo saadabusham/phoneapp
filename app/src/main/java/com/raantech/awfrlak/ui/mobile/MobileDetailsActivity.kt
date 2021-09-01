@@ -1,61 +1,49 @@
-package com.raantech.awfrlak.ui.store
+package com.raantech.awfrlak.ui.mobile
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.raantech.awfrlak.R
 import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.data.common.Constants
 import com.raantech.awfrlak.data.common.CustomObserverResponse
-import com.raantech.awfrlak.data.models.home.Store
-import com.raantech.awfrlak.databinding.ActivityStoreBinding
+import com.raantech.awfrlak.data.models.home.MobilesItem
+import com.raantech.awfrlak.databinding.ActivityMobileDetailsBinding
 import com.raantech.awfrlak.ui.auth.login.adapters.IndecatorRecyclerAdapter
 import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
-import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.ui.store.adapters.StoreImagesAdapter
-import com.raantech.awfrlak.ui.store.fragment.AccessoriesFragment
-import com.raantech.awfrlak.ui.store.fragment.MobilesFragment
-import com.raantech.awfrlak.ui.store.fragment.ServicesFragment
-import com.raantech.awfrlak.utils.extensions.getStatusBarHeight
 import com.raantech.awfrlak.utils.extensions.invisible
 import com.raantech.awfrlak.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_store.*
 
 
 @AndroidEntryPoint
-class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
+class MobileDetailsActivity : BaseBindingActivity<ActivityMobileDetailsBinding>() {
 
     lateinit var indicatorRecyclerAdapter: IndecatorRecyclerAdapter
     private var indicatorPosition = 0
     lateinit var storeImagesAdapter: StoreImagesAdapter
 
-    val viewModel: MainViewModel by viewModels()
-    private val mFragmentList = mutableListOf<Fragment>()
+    val viewModel: GeneralViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.storeToView = intent.getSerializableExtra(Constants.BundleData.STORE) as Store?
+        viewModel.mobileToView = intent.getSerializableExtra(Constants.BundleData.MOBILE) as MobilesItem?
         setContentView(
-                R.layout.activity_store,
+                R.layout.activity_mobile_details,
                 hasToolbar = true,
                 toolbarView = binding?.toolbar?.toolbar,
                 hasBackButton = true,
                 showBackArrow = true,
                 hasTitle = true,
-                titleString = viewModel.storeToView?.name
+                titleString = viewModel.mobileToView?.name,
+                hasSubTitle = true,
+                subTitle = viewModel.mobileToView?.store?.name ?: ""
         )
-//        binding?.viewModel = viewModel
-        coordinator.setPadding(0, getStatusBarHeight() * -1, 0, 0)
-        toolbar.setPadding(0, getStatusBarHeight(), 0, 0)
         setUpBinding()
         initData()
         setUpListeners()
@@ -64,6 +52,7 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
 
     private fun setUpBinding() {
         binding?.toolbar?.viewModel = viewModel
+        binding?.viewModel = viewModel
         updateFavorite()
     }
 
@@ -71,53 +60,55 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
 //        viewModel.store =
 //                intent.getSerializableExtra(Constants.BundleData.STORE) as Store
 //        binding?.layoutSpecialistInfo?.data = viewModel.store
-        setUpTabLayout()
     }
 
 
     private fun setUpListeners() {
-        binding?.layoutStoreSlider?.imgFavorite?.setOnClickListener {
-            viewModel.storeToView?.isWishlist = viewModel.storeToView?.isWishlist == false
+        binding?.layoutMobileSlider?.imgFavorite?.setOnClickListener {
+            viewModel.serviceToView?.isWishlist = viewModel.serviceToView?.isWishlist == false
             updateFavorite()
-            if (viewModel.storeToView?.isWishlist == true) {
-                viewModel.addToWishList(viewModel.storeToView?.id
+            if (viewModel.serviceToView?.isWishlist == true) {
+                viewModel.addToWishList(viewModel.serviceToView?.id
                         ?: 0).observe(this, wishListObserver())
             } else {
-                viewModel.removeFromWishList(viewModel.storeToView?.id
+                viewModel.removeFromWishList(viewModel.serviceToView?.id
                         ?: 0).observe(this, wishListObserver())
             }
         }
-
-        binding?.layoutStoreSlider?.imgBack?.setOnClickListener {
-            binding?.layoutStoreSlider?.vpPictures?.currentItem?.minus(1)?.let { it1 -> binding?.layoutStoreSlider?.vpPictures?.setCurrentItem(it1, true) }
+        binding?.layoutMobileSlider?.imgBack?.setOnClickListener {
+            binding?.layoutMobileSlider?.vpPictures?.currentItem?.minus(1)?.let { it1 -> binding?.layoutMobileSlider?.vpPictures?.setCurrentItem(it1, true) }
         }
-        binding?.layoutStoreSlider?.imgNext?.setOnClickListener {
-            binding?.layoutStoreSlider?.vpPictures?.currentItem?.plus(1)?.let { it1 -> binding?.layoutStoreSlider?.vpPictures?.setCurrentItem(it1, true) }
+        binding?.layoutMobileSlider?.imgNext?.setOnClickListener {
+            binding?.layoutMobileSlider?.vpPictures?.currentItem?.plus(1)?.let { it1 -> binding?.layoutMobileSlider?.vpPictures?.setCurrentItem(it1, true) }
         }
     }
 
     private fun updateFavorite() {
-        binding?.layoutStoreSlider?.favorite = viewModel.storeToView?.isWishlist
+        binding?.layoutMobileSlider?.favorite = viewModel.serviceToView?.isWishlist
     }
 
     private fun setUpPager() {
         storeImagesAdapter = StoreImagesAdapter(this)
-        binding?.layoutStoreSlider?.vpPictures?.adapter =
-                storeImagesAdapter.apply { submitItem(viewModel.storeToView?.logo?.url ?: "") }
-//        binding?.layoutStoreSlider?.vpPictures?.isUserInputEnabled = false
+        binding?.layoutMobileSlider?.vpPictures?.adapter =
+                storeImagesAdapter.apply {
+                    viewModel.mobileToView?.additionalImages?.map {
+                        it.url ?: ""
+                    }?.let { submitItems(it) }
+                }
+//        binding?.layoutMobileSlider?.vpPictures?.isUserInputEnabled = false
         showImageNext()
         setUpIndicator()
     }
 
     private fun setUpIndicator() {
         indicatorRecyclerAdapter = IndecatorRecyclerAdapter(this)
-        binding?.layoutStoreSlider?.recyclerViewImagesDot?.adapter = indicatorRecyclerAdapter
+        binding?.layoutMobileSlider?.recyclerViewImagesDot?.adapter = indicatorRecyclerAdapter
         storeImagesAdapter.items.let {
             it.withIndex().forEach {
                 indicatorRecyclerAdapter.submitItem(it.index == 0)
             }
         }
-        binding?.layoutStoreSlider?.vpPictures?.registerOnPageChangeCallback(
+        binding?.layoutMobileSlider?.vpPictures?.registerOnPageChangeCallback(
                 pagerCallback
         )
     }
@@ -134,7 +125,7 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
         indicatorRecyclerAdapter.items[position] = true
         indicatorRecyclerAdapter.notifyDataSetChanged()
         indicatorPosition = position
-        binding?.layoutStoreSlider?.apply {
+        binding?.layoutMobileSlider?.apply {
             when (position) {
                 0 -> {
                     this.imgBack.invisible()
@@ -154,61 +145,14 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
 
     private fun showImageNext() {
         if (storeImagesAdapter.itemCount > 1) {
-            binding?.layoutStoreSlider?.imgNext?.visible()
+            binding?.layoutMobileSlider?.imgNext?.visible()
         }
     }
 
     private fun showImageBack() {
         if (storeImagesAdapter.itemCount > 1) {
-            binding?.layoutStoreSlider?.imgBack?.visible()
+            binding?.layoutMobileSlider?.imgBack?.visible()
         }
-    }
-
-    fun setUpTabLayout() {
-        setUpViewPager()
-        tab_layout.addTab(tab_layout.newTab(), 0, true)
-        tab_layout.addTab(tab_layout.newTab(), 1, false)
-        tab_layout.addTab(tab_layout.newTab(), 2, false)
-        tab_layout.setSelectedTabIndicatorColor(Color.parseColor("#00000000"))
-        tab_layout.setSelectedTabIndicatorHeight(0)
-        tab_layout.setTabTextColors(
-                Color.parseColor("#000000"),
-                Color.parseColor("#ffffff")
-        )
-        tab_layout.getTabAt(0)?.text = resources.getString(R.string.mobiles)
-        tab_layout.getTabAt(1)?.text = resources.getString(R.string.accessories)
-        tab_layout.getTabAt(2)?.text = resources.getString(R.string.services)
-
-        tab_layout.addOnTabSelectedListener(object : OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager.currentItem = tab.position
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) {}
-            override fun onTabReselected(tab: TabLayout.Tab) {}
-        })
-
-
-    }
-
-    private fun setUpViewPager() {
-        mFragmentList.add(MobilesFragment())
-        mFragmentList.add(AccessoriesFragment())
-        mFragmentList.add(ServicesFragment())
-//        mFragmentList.add(SpecialistRatingFragment())
-//
-        val adapter: FragmentStatePagerAdapter =
-                object : FragmentStatePagerAdapter(supportFragmentManager) {
-                    override fun getItem(position: Int): Fragment {
-                        return mFragmentList.get(position)
-                    }
-
-                    override fun getCount(): Int {
-                        return mFragmentList.size
-                    }
-                }
-        viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 5
     }
 
     private fun wishListObserver(): CustomObserverResponse<Any> {
@@ -230,7 +174,7 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
     companion object {
         fun start(
                 context: Activity,
-                item: Store,
+                item: MobilesItem,
 //                profileImage: View,
 //                profileName: View,
 //                profileRate: View,
@@ -260,8 +204,8 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
 //                    p3,
 //                    p4
 //            )
-            val intent = Intent(context, StoreActivity::class.java)
-            intent.putExtra(Constants.BundleData.STORE, item)
+            val intent = Intent(context, MobileDetailsActivity::class.java)
+            intent.putExtra(Constants.BundleData.MOBILE, item)
             context.startActivity(intent /*options.toBundle()*/)
         }
 
@@ -269,7 +213,7 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
                 context: Activity,
                 storeId: String
         ) {
-            val intent = Intent(context, StoreActivity::class.java)
+            val intent = Intent(context, MobileDetailsActivity::class.java)
             intent.putExtra(Constants.BundleData.STORE_ID, storeId)
             context.startActivity(intent)
         }

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/coordinator"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:fitsSystemWindows="true"
+            app:layout_anchor="@id/linearTotal"
+            app:layout_anchorGravity="bottom|right|end">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/toolbar_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="@color/white"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:titleEnabled="false">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include
+                            android:id="@+id/toolbar"
+                            layout="@layout/layout_service_toolbar" />
+
+                    </LinearLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedScroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:clipToPadding="false"
+                android:fillViewport="true"
+                android:paddingBottom="@dimen/_35sdp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/layout_mobile_slider"
+                        layout="@layout/layout_service_slider" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:minHeight="@dimen/_35sdp"
+                        app:cardCornerRadius="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:minHeight="@dimen/_40sdp"
+                            android:orientation="horizontal">
+
+                            <com.raantech.awfrlak.ui.base.views.AppTextView
+                                android:layout_width="@dimen/_90sdp"
+                                android:layout_height="match_parent"
+                                android:gravity="center|start"
+                                android:text="@string/mobile_type"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/text_gray_color"
+                                android:textSize="@dimen/_15ssp" />
+
+                            <View
+                                android:layout_width="@dimen/_1sdp"
+                                android:layout_height="@dimen/_33sdp"
+                                android:layout_gravity="center"
+                                android:background="@color/divider_gray" />
+
+                            <com.raantech.awfrlak.ui.base.views.AppTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_15sdp"
+                                android:gravity="center|start"
+                                android:text="@{viewModel.mobileToView.name}"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/text_gray_color"
+                                android:textSize="@dimen/_13ssp"
+                                tools:text="Fixing iphone screen" />
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_17sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:minHeight="@dimen/_35sdp"
+                        app:cardCornerRadius="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:minHeight="@dimen/_40sdp"
+                            android:orientation="horizontal">
+
+                            <com.raantech.awfrlak.ui.base.views.AppTextView
+                                android:layout_width="@dimen/_90sdp"
+                                android:layout_height="match_parent"
+                                android:gravity="center|start"
+                                android:text="@string/mobile_storage"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/text_gray_color"
+                                android:textSize="@dimen/_15ssp" />
+
+                            <View
+                                android:layout_width="@dimen/_1sdp"
+                                android:layout_height="@dimen/_33sdp"
+                                android:layout_gravity="center"
+                                android:background="@color/divider_gray" />
+
+                            <com.raantech.awfrlak.ui.base.views.AppTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_15sdp"
+                                android:gravity="center|start"
+                                android:text="@{viewModel.mobileToView.storage.name}"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/text_gray_color"
+                                android:textSize="@dimen/_13ssp"
+                                tools:text="256 GB" />
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_17sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:minHeight="@dimen/_35sdp"
+                        app:cardCornerRadius="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:minHeight="@dimen/_40sdp"
+                            android:orientation="horizontal">
+
+                            <com.raantech.awfrlak.ui.base.views.AppTextView
+                                android:layout_width="@dimen/_90sdp"
+                                android:layout_height="match_parent"
+                                android:gravity="center|start"
+                                android:text="@string/mobile_color"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/text_gray_color"
+                                android:textSize="@dimen/_15ssp" />
+
+                            <View
+                                android:layout_width="@dimen/_1sdp"
+                                android:layout_height="@dimen/_33sdp"
+                                android:layout_gravity="center"
+                                android:background="@color/divider_gray" />
+
+                            <com.raantech.awfrlak.ui.base.views.AppTextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="@dimen/_15sdp"
+                                android:gravity="center|start"
+                                android:text="@{viewModel.mobileToView.color.name}"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/text_gray_color"
+                                android:textSize="@dimen/_13ssp"
+                                tools:text="white" />
+
+                            <com.google.android.material.card.MaterialCardView
+                                cvBackgroundHex="@{viewModel.mobileToView.color.name}"
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_16sdp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/_15sdp"
+                                android:visibility="gone"
+                                app:cardBackgroundColor="#1E1E1E"
+                                app:cardCornerRadius="@dimen/_8sdp"
+                                app:cardElevation="0dp" />
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_17sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:minHeight="@dimen/_35sdp"
+                        app:cardCornerRadius="@dimen/_10sdp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
+                            android:minHeight="@dimen/_40sdp"
+                            android:orientation="horizontal">
+
+                            <com.raantech.awfrlak.ui.base.views.AppTextView
+                                android:layout_width="@dimen/_90sdp"
+                                android:layout_height="match_parent"
+                                android:gravity="center|start"
+                                android:text="@string/mobile_sim_number"
+                                android:textAlignment="viewStart"
+                                android:textColor="@color/text_gray_color"
+                                android:textSize="@dimen/_15ssp" />
+
+                            <View
+                                android:layout_width="@dimen/_1sdp"
+                                android:layout_height="@dimen/_33sdp"
+                                android:layout_gravity="center"
+                                android:background="@color/divider_gray" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/_15sdp"
+                                android:src="@drawable/ic_sim"
+                                android:visibility="@{viewModel.mobileToView.simCardNumberInt() > 0 ? View.VISIBLE : View.GONE}" />
+
+                            <ImageView
+                                android:layout_width="@dimen/_16sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="center"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:src="@drawable/ic_sim"
+                                android:visibility="@{viewModel.mobileToView.simCardNumberInt() > 1 ? View.VISIBLE : View.GONE}" />
+
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <com.raantech.awfrlak.ui.base.views.AppTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_25sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:gravity="center|start"
+                        android:text="@string/product_information"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/text_gray_color"
+                        android:textSize="@dimen/_15ssp" />
+
+                    <com.raantech.awfrlak.ui.base.views.AppTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:gravity="center|start"
+                        android:text="@{viewModel.mobileToView.description}"
+                        android:textAlignment="viewStart"
+                        android:textColor="@color/text_gray_color"
+                        android:textSize="@dimen/_12ssp"
+                        tools:text="@string/product_information" />
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAsk"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_48sdp"
+            android:layout_marginStart="@dimen/layouts_margin_start"
+            android:layout_marginEnd="@dimen/layouts_margin_end"
+            android:layout_marginBottom="@dimen/_15sdp"
+            android:gravity="center"
+            android:text="@string/order_service"
+            android:textSize="@dimen/_19ssp"
+            app:cornerRadius="@dimen/_7sdp" />
+    </LinearLayout>
+
+
+</layout>

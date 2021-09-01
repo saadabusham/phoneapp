@@ -136,7 +136,7 @@ abstract class BaseBindingFragment<BINDING : ViewDataBinding> : Fragment(),
         title: Int,
         titleString: String?,
         hasSubTitle: Boolean,
-        subTitle: Int,
+        subTitle: String,
         showBackArrow: Boolean,
         navigationIcon: Int?
     ) {
