@@ -11,10 +11,10 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout.SimpleDrawerListener
 import androidx.navigation.findNavController
-import androidx.navigation.ui.NavigationUI
 import com.raantech.awfrlak.R
 import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.common.CustomObserverResponse
+import com.raantech.awfrlak.data.models.more.More
 import com.raantech.awfrlak.databinding.ActivityMainBinding
 import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
@@ -22,11 +22,12 @@ import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.cart.CartActivity
 import com.raantech.awfrlak.ui.main.adapters.DrawerRecyclerAdapter
 import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
-import com.raantech.awfrlak.ui.media.MediaActivity
 import com.raantech.awfrlak.ui.more.aboutus.AboutUsActivity
 import com.raantech.awfrlak.ui.more.settings.SettingsActivity
+import com.raantech.awfrlak.ui.notifications.activity.NotificationsActivity
 import com.raantech.awfrlak.ui.purchase.PurchasesActivity
 import com.raantech.awfrlak.ui.splash.SplashActivity
+import com.raantech.awfrlak.ui.wishlist.activities.WishListActivity
 import com.raantech.awfrlak.utils.LocaleUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main_content.*
@@ -35,18 +36,18 @@ import kotlin.math.abs
 
 @AndroidEntryPoint
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
-    BaseBindingRecyclerViewAdapter.OnItemClickListener {
+        BaseBindingRecyclerViewAdapter.OnItemClickListener {
 
     private val viewModel: MainViewModel by viewModels()
     lateinit var drawerRecyclerAdapter: DrawerRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(
-            layoutResID = R.layout.activity_main,
-            hasToolbar = true,
-            toolbarView = toolbar,
-            hasTitle = true,
-            title = R.string.app_name
+                layoutResID = R.layout.activity_main,
+                hasToolbar = true,
+                toolbarView = toolbar,
+                hasTitle = true,
+                title = R.string.app_name
         )
         setUpBinding()
         setupNavigation()
@@ -90,8 +91,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
         binding?.drawerRecyclerView?.adapter = drawerRecyclerAdapter
         binding?.drawerRecyclerView?.setOnItemClickListener(this)
         val toggle = ActionBarDrawerToggle(
-            this, binding?.drawerLayout, binding?.appBarMain?.layoutToolbar?.toolbar,
-            R.string.navigation_drawer_open, R.string.navigation_drawer_close
+                this, binding?.drawerLayout, binding?.appBarMain?.layoutToolbar?.toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         initDrawer(toggle)
     }
@@ -99,8 +100,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
 
     private fun initDrawer(toggle: ActionBarDrawerToggle) {
         val drawable = ResourcesCompat.getDrawable(
-            resources, R.drawable.ic_menu,
-            theme
+                resources, R.drawable.ic_menu,
+                theme
         )
         toggle.isDrawerIndicatorEnabled = false
         toggle.setHomeAsUpIndicator(drawable)
@@ -118,13 +119,13 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
         binding?.drawerLayout?.addDrawerListener(object : SimpleDrawerListener() {
             override fun onDrawerSlide(drawer: View, slideOffset: Float) {
                 if (LocaleUtil.getLanguage() == "ar") {
-//                    binding?.appBarMain?.holder?.rotation = (slideOffset * -1) * 10
+                    binding?.appBarMain?.container?.x =
+                            (binding?.navigationView?.width!! * (slideOffset)) * -1
                     binding?.appBarMain?.container?.scaleX = abs(slideOffset * 0.4f - 1)
                     binding?.appBarMain?.container?.scaleY = abs(slideOffset * 0.2f - 1)
                 } else {
                     binding?.appBarMain?.container?.x =
-                        (binding?.navigationView?.width!! * (slideOffset))
-//                    binding?.appBarMain?.holder?.rotation = slideOffset * 10
+                            (binding?.navigationView?.width!! * (slideOffset))
                     binding?.appBarMain?.container?.scaleX = abs(slideOffset * 0.4f - 1)
                     binding?.appBarMain?.container?.scaleY = abs(slideOffset * 0.2f - 1)
                 }
@@ -135,31 +136,30 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
         )
     }
 
-    private fun getDrawerList(): List<String> {
+    private fun getDrawerList(): List<More> {
         return arrayListOf(
-            resources.getString(R.string.menu_notifications),
-            resources.getString(R.string.menu_my_purchases),
-            resources.getString(R.string.menu_favorites),
-            resources.getString(R.string.media),
-            resources.getString(R.string.menu_account),
-            resources.getString(R.string.menu_settings),
-            resources.getString(R.string.menu_about_us),
-            resources.getString(R.string.logout)
+                More(resources.getString(R.string.menu_favorites), R.drawable.ic_more_favorit),
+                More(resources.getString(R.string.menu_my_purchases), R.drawable.ic_more_purchase),
+                More(resources.getString(R.string.menu_notifications), R.drawable.ic_more_notifications),
+//                More(resources.getString(R.string.media)),
+                More(resources.getString(R.string.menu_account), R.drawable.ic_more_account),
+                More(resources.getString(R.string.menu_settings), R.drawable.ic_more_settings),
+                More(resources.getString(R.string.menu_about_us), R.drawable.ic_more_about_us),
+                More(resources.getString(R.string.logout), R.drawable.ic_more_logout)
         )
     }
 
     override fun onItemClick(view: View?, position: Int, item: Any) {
-        if (item is String) {
+        if (item is More) {
             binding?.drawerLayout?.closeDrawer(GravityCompat.START)
             when (position) {
-//                0 -> UpdateProfileActivity.start(this)
+                0 -> WishListActivity.start(this)
                 1 -> PurchasesActivity.start(this)
-//                2 -> WishListActivity.start(this)
-                3 -> MediaActivity.start(this)
+                2 -> NotificationsActivity.start(this)
 //                4 -> ReportProviderActivity.start(this)
-                5 -> SettingsActivity.start(this)
-                6 -> AboutUsActivity.start(this)
-                7 -> {
+                4 -> SettingsActivity.start(this)
+                5 -> AboutUsActivity.start(this)
+                6 -> {
                     viewModel.logoutRemote().observe(this, logoutResultObserver())
                 }
             }
@@ -169,17 +169,17 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
 
     private fun logoutResultObserver(): CustomObserverResponse<Any> {
         return CustomObserverResponse(
-            this,
-            object : CustomObserverResponse.APICallBack<Any> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: Any?
-                ) {
-                    viewModel.logoutLocale()
-                    SplashActivity.start(this@MainActivity)
-                }
-            })
+                this,
+                object : CustomObserverResponse.APICallBack<Any> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: Any?
+                    ) {
+                        viewModel.logoutLocale()
+                        SplashActivity.start(this@MainActivity)
+                    }
+                })
     }
 
 

@@ -48,7 +48,7 @@ interface UserRemoteDao {
         @Field("token") token: String,
         @Field("name") name: String,
         @Field("address") address: String,
-        @Field("email") phoneNumber: String
+        @Field("email") email: String
     ): ResponseWrapper<UserDetailsResponseModel>
 
 }

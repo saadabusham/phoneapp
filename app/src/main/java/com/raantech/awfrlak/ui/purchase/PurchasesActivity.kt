@@ -9,7 +9,7 @@ import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.common.CustomObserverResponse
 import com.raantech.awfrlak.data.enums.PurchaseStatusEnum
 import com.raantech.awfrlak.data.models.Purchase
-import com.raantech.awfrlak.data.models.accessories.Accessory
+import com.raantech.awfrlak.data.models.home.AccessoriesItem
 import com.raantech.awfrlak.databinding.ActivityPurchasesBinding
 import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.ui.purchase.adapters.PurchasesRecyclerAdapter
@@ -67,85 +67,85 @@ class PurchasesActivity : BaseBindingActivity<ActivityPurchasesBinding>() {
                 Purchase(
                     status = PurchaseStatusEnum.IN_THE_WAY.value,
                     items = arrayListOf(
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory()
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem()
                     )
                 ),
                 Purchase(
                     status = PurchaseStatusEnum.DELIVERED.value,
                     items = arrayListOf(
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory()
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem()
                     )
                 ),
                 Purchase(
                     status = PurchaseStatusEnum.DELIVERED.value,
                     items = arrayListOf(
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory()
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem()
                     )
                 ),
                 Purchase(
                     status = PurchaseStatusEnum.DELIVERED.value,
                     items = arrayListOf(
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory()
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem()
                     )
                 ),
                 Purchase(
                     status = PurchaseStatusEnum.IN_THE_WAY.value,
                     items = arrayListOf(
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory()
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem()
                     )
                 ),
                 Purchase(
                     status = PurchaseStatusEnum.IN_THE_WAY.value,
                     items = arrayListOf(
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory(),
-                        Accessory()
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem(),
+                        AccessoriesItem()
                     )
                 )
             )

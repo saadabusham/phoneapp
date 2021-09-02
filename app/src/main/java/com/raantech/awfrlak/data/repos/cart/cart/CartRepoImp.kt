@@ -3,7 +3,7 @@ package com.raantech.awfrlak.data.repos.cart.cart
 import androidx.lifecycle.LiveData
 import com.raantech.awfrlak.data.api.response.ResponseHandler
 import com.raantech.awfrlak.data.daos.local.cart.CartLocalDao
-import com.raantech.awfrlak.data.models.accessories.Accessory
+import com.raantech.awfrlak.data.models.home.AccessoriesItem
 import com.raantech.awfrlak.data.repos.base.BaseRepo
 import javax.inject.Inject
 
@@ -12,19 +12,19 @@ class CartRepoImp @Inject constructor(
     private val cartLocalDao: CartLocalDao
 ) : BaseRepo(responseHandler), CartRepo {
 
-    override suspend fun saveCart(accessory: Accessory) {
+    override suspend fun saveCart(accessory: AccessoriesItem) {
         cartLocalDao.saveCart(accessory)
     }
 
-    override suspend fun saveCarts(accessories: List<Accessory>) {
+    override suspend fun saveCarts(accessories: List<AccessoriesItem>) {
         cartLocalDao.saveCarts(accessories)
     }
 
-    override suspend fun loadCarts(): List<Accessory> {
+    override suspend fun loadCarts(): List<AccessoriesItem> {
         return cartLocalDao.getCarts()
     }
 
-    override suspend fun getCart(id: Int): Accessory {
+    override suspend fun getCart(id: Int): AccessoriesItem {
         return cartLocalDao.getCarts(id)
     }
 

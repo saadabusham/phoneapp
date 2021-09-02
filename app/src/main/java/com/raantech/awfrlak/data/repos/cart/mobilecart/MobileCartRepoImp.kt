@@ -2,9 +2,7 @@ package com.raantech.awfrlak.data.repos.cart.mobilecart
 
 import androidx.lifecycle.LiveData
 import com.raantech.awfrlak.data.api.response.ResponseHandler
-import com.raantech.awfrlak.data.daos.local.cart.CartLocalDao
 import com.raantech.awfrlak.data.daos.local.cart.MobileCartLocalDao
-import com.raantech.awfrlak.data.models.accessories.Accessory
 import com.raantech.awfrlak.data.models.home.MobilesItem
 import com.raantech.awfrlak.data.repos.base.BaseRepo
 import javax.inject.Inject

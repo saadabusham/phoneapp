@@ -5,6 +5,8 @@ import com.raantech.awfrlak.data.models.media.Media
 import java.io.Serializable
 
 data class Store(
+		@field:SerializedName("additional_images")
+		val additionalImages: List<Media>? = null,
 
 		@field:SerializedName("cover")
 		val cover: Media? = null,

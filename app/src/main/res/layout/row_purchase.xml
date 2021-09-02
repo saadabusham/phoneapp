@@ -22,49 +22,40 @@
             android:focusable="true"
             android:padding="@dimen/_15sdp">
 
+            <ImageView
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_bag" />
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_7sdp"
                 android:layout_weight="1"
+                android:gravity="center|start|top"
                 android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.raantech.awfrlak.ui.base.views.AppTextView
-                        style="@style/textview_normal_bold"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{item.id.toString()}"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_15ssp"
-                        tools:text="200343" />
-
-                    <com.raantech.awfrlak.ui.base.views.AppTextView
-                        style="@style/textview_normal_regular"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/_5sdp"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_9ssp"
-                        tools:text="في الطريق" />
-                </LinearLayout>
 
                 <com.raantech.awfrlak.ui.base.views.AppTextView
                     style="@style/textview_normal_regular"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
-                    android:textAlignment="viewEnd"
-                    android:text="@{item.itemsString()}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
-                    tools:text="2X حذو اغريقي  رمادي\n
-                2X حذو اغريقي  رمادي\n
-                2X حذو اغريقي  رمادي" />
+                    android:text="@{'#'+item.id.toString()}"
+                    android:textColor="@color/text_gray_color"
+                    android:textSize="@dimen/_13ssp"
+                    tools:text="#22123" />
+
+                <com.raantech.awfrlak.ui.base.views.AppTextView
+                    style="@style/textview_normal_regular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.date}"
+                    android:textColor="@color/text_gray_color"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_13ssp"
+                    tools:text="2 jan 2021" />
 
             </LinearLayout>
 
@@ -75,22 +66,24 @@
                 android:orientation="vertical">
 
                 <com.raantech.awfrlak.ui.base.views.AppTextView
-                    style="@style/textview_normal_regular"
+                    style="@style/textview_normal_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.date}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
-                    tools:text="2 jan 2021" />
+                    android:text="@{item.price.formatted}"
+                    android:textColor="@color/text_gray_color"
+                    android:textSize="@dimen/_13ssp"
+                    tools:text="2000 ر.س" />
 
                 <com.raantech.awfrlak.ui.base.views.AppTextView
                     style="@style/textview_normal_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.price.formatted}"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_13ssp"
-                    tools:text="2000 ر.س" />
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_7sdp"
+                    android:textColor="@color/text_default_color"
+                    android:textSize="@dimen/_9ssp"
+                    tools:text="في الطريق" />
+
             </LinearLayout>
         </LinearLayout>
 

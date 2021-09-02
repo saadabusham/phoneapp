@@ -75,14 +75,14 @@
                         app:cardCornerRadius="@dimen/_10sdp">
 
                         <com.raantech.awfrlak.ui.base.views.AppEditText
-                            android:id="@+id/edPhoneNumber"
+                            android:id="@+id/edEmail"
                             style="@style/textview_normal_regular"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
-                            android:hint="@string/phone_number"
-                            android:text="@={viewModel.phoneNumber}"
-                            android:inputType="phone"
+                            android:hint="@string/email"
+                            android:inputType="textEmailAddress"
+                            android:text="@={viewModel.email}"
                             android:textColor="@color/text_gray_color"
                             android:textColorHint="@color/text_gray_color"
                             android:textSize="@dimen/_15ssp" />
@@ -104,8 +104,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/white"
+                            android:drawableEnd="@drawable/ic_location"
                             android:hint="@string/address"
-                            android:text="@{viewModel.address}"
+                            android:text="@={viewModel.address}"
                             android:textColor="@color/text_gray_color"
                             android:textColorHint="@color/text_gray_color"
                             android:textSize="@dimen/_15ssp" />

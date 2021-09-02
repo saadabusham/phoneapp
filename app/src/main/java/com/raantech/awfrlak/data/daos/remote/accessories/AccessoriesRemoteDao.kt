@@ -2,7 +2,6 @@ package com.raantech.awfrlak.data.daos.remote.accessories
 
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.data.common.NetworkConstants
-import com.raantech.awfrlak.data.models.accessories.Accessory
 import com.raantech.awfrlak.data.models.home.*
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -51,6 +50,6 @@ interface AccessoriesRemoteDao {
     @GET("accessories/{id}/show")
     suspend fun getAccessory(
         @Path("id") id: Int
-    ): ResponseWrapper<Accessory>
+    ): ResponseWrapper<AccessoriesItem>
 
 }

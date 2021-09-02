@@ -10,6 +10,7 @@ import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.data.common.Constants
 import com.raantech.awfrlak.data.common.CustomObserverResponse
+import com.raantech.awfrlak.data.enums.CategoriesEnum
 import com.raantech.awfrlak.data.models.home.Service
 import com.raantech.awfrlak.databinding.ActivityServiceDetailsBinding
 import com.raantech.awfrlak.ui.auth.login.adapters.IndecatorRecyclerAdapter
@@ -74,7 +75,7 @@ class ServiceDetailsActivity : BaseBindingActivity<ActivityServiceDetailsBinding
             viewModel.serviceToView?.isWishlist = viewModel.serviceToView?.isWishlist == false
             updateFavorite()
             if (viewModel.serviceToView?.isWishlist == true) {
-                viewModel.addToWishList(viewModel.serviceToView?.id
+                viewModel.addToWishList(CategoriesEnum.SERVICES.value,viewModel.serviceToView?.id
                         ?: 0).observe(this, wishListObserver())
             } else {
                 viewModel.removeFromWishList(viewModel.serviceToView?.id
@@ -96,7 +97,8 @@ class ServiceDetailsActivity : BaseBindingActivity<ActivityServiceDetailsBinding
     private fun setUpPager() {
         storeImagesAdapter = StoreImagesAdapter(this)
         binding?.layoutServiceSlider?.vpPictures?.adapter =
-                storeImagesAdapter.apply { submitItem(viewModel.serviceToView?.logo?.url ?: "") }
+                storeImagesAdapter.apply {
+                    submitItem(viewModel.serviceToView?.logo?.url ?: "") }
 //        binding?.layoutServiceSlider?.vpPictures?.isUserInputEnabled = false
         showImageNext()
         setUpIndicator()

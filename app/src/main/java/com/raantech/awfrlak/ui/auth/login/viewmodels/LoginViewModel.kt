@@ -37,7 +37,7 @@ class LoginViewModel @Inject constructor(
 
     //    register
     val username: MutableLiveData<String> = MutableLiveData()
-    val phoneNumber: MutableLiveData<String> = MutableLiveData()
+    val email: MutableLiveData<String> = MutableLiveData()
     val address: MutableLiveData<String> = MutableLiveData()
 
     //    login
@@ -83,7 +83,7 @@ class LoginViewModel @Inject constructor(
                 token = userTokenMutableLiveData.value.toString(),
                 name = username.value.toString(),
                 address = address.value.toString(),
-                phoneNumber = phoneNumber.value.toString()
+                email = email.value.toString()
         )
         emit(response)
     }

@@ -10,4 +10,3 @@ fun TextView.textLines(): Int {
 fun TextView.margitStart(dimen: Int) {
     this.margitStart(dimen)
 }
-

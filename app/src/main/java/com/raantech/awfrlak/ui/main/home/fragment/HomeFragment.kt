@@ -15,6 +15,7 @@ import com.raantech.awfrlak.data.common.CustomObserverResponse
 import com.raantech.awfrlak.data.enums.CategoriesEnum
 import com.raantech.awfrlak.data.models.home.*
 import com.raantech.awfrlak.databinding.FragmentHomeBinding
+import com.raantech.awfrlak.ui.accessory.AccessoryDetailsActivity
 import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.base.fragment.BaseBindingFragment
@@ -647,7 +648,7 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),
                 MobileDetailsActivity.start(requireActivity(), item)
             }
             is AccessoriesItem -> {
-
+                AccessoryDetailsActivity.start(requireActivity(),item)
             }
             is Store -> {
                 StoreActivity.start(requireActivity(), item)

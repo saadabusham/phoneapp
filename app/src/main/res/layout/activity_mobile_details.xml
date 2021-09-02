@@ -114,7 +114,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginStart="@dimen/_15sdp"
                                 android:gravity="center|start"
-                                android:text="@{viewModel.mobileToView.name}"
+                                android:text="@{viewModel.mobileToView.type.name}"
                                 android:textAlignment="viewStart"
                                 android:textColor="@color/text_gray_color"
                                 android:textSize="@dimen/_13ssp"
@@ -327,7 +327,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{()->viewModel.minus()}"
+                android:onClick="@{()->viewModel.minusMobiles()}"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_minus" />
 
@@ -339,7 +339,7 @@
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:gravity="center"
-                android:text="@{viewModel.itemCount.toString() }"
+                android:text="@{viewModel.mobilesItemCount.toString() }"
                 android:textColor="@color/text_gray_color"
                 android:textSize="@dimen/_18ssp"
                 tools:text="1" />
@@ -350,7 +350,7 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
-                android:onClick="@{()->viewModel.plus()}"
+                android:onClick="@{()->viewModel.plusMobiles()}"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_plus" />
 
@@ -364,7 +364,7 @@
             android:layout_marginEnd="@dimen/layouts_margin_end"
             android:layout_marginBottom="@dimen/_15sdp"
             android:gravity="center"
-            android:onClick="@{()->viewModel.onAddToCartClicked()}"
+            android:onClick="@{()->viewModel.onAddMobileToCartClicked()}"
             android:text="@string/order_service"
             android:textSize="@dimen/_19ssp"
             app:cardBackgroundColor="@color/button_color"
@@ -393,7 +393,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center|end"
                     android:textAlignment="viewEnd"
-                    android:text="@{viewModel.itemsPrice.formatted}"
+                    android:text="@{viewModel.mobilesItemsPrice.formatted}"
                     android:textSize="@dimen/_19ssp"
                     tools:text="1200 ر.س"
                     style="@style/textview_normal_bold"

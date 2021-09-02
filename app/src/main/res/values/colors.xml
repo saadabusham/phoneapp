@@ -10,7 +10,7 @@
     <color name="ripple_color">#0be8252e</color>
     <color name="app_background_color">#FFFFFF</color>
     <!-- Views Default colors -->
-    <color name="text_default_color">#7f8592</color>
+    <color name="text_default_color">#373737</color>
     <color name="text_dark_color">#3A4155</color>
     <color name="text_gray_color">#333333</color>
     <color name="text_header_dark_gray">#8C8896</color>
@@ -119,4 +119,10 @@
     <color name="div_color">#EFEFEF</color>
     <color name="indecator_active">#F2D073</color>
     <color name="indecator_disactive">#59F2D073</color>
+
+
+    <color name="switch_thumb_active">#ffffff</color>
+    <color name="switch_thumb_unactive">#979797</color>
+    <color name="switch_track_active">#00dcf9</color>
+    <color name="switch_track_unactive">#979797</color>
 </resources>

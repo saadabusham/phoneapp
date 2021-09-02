@@ -4,7 +4,6 @@ import com.raantech.awfrlak.data.api.response.APIResource
 import com.raantech.awfrlak.data.api.response.ResponseHandler
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.data.daos.remote.accessories.AccessoriesRemoteDao
-import com.raantech.awfrlak.data.models.accessories.Accessory
 import com.raantech.awfrlak.data.models.home.*
 import com.raantech.awfrlak.data.repos.base.BaseRepo
 import javax.inject.Inject
@@ -86,7 +85,7 @@ class AccessoriesRepoImp @Inject constructor(
         }
     }
 
-    override suspend fun getAccessory(id: Int): APIResource<ResponseWrapper<Accessory>> {
+    override suspend fun getAccessory(id: Int): APIResource<ResponseWrapper<AccessoriesItem>> {
         return try {
             responseHandle.handleSuccess(accessoriesRemoteDao.getAccessory(id))
         } catch (e: Exception) {

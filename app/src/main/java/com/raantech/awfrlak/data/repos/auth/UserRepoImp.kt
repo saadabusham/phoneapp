@@ -73,11 +73,11 @@ class UserRepoImp @Inject constructor(
         }
     }
 
-    override suspend fun register(token: String, name: String, address: String, phoneNumber: String): APIResource<ResponseWrapper<UserDetailsResponseModel>> {
+    override suspend fun register(token: String, name: String, address: String, email: String): APIResource<ResponseWrapper<UserDetailsResponseModel>> {
         return try {
             responseHandle.handleSuccess(
                     userRemoteDao.register(
-                            token, name, address, phoneNumber
+                            token, name, address, email
                     )
             )
         } catch (e: Exception) {

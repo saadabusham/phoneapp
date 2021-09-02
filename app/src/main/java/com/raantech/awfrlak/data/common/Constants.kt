@@ -14,6 +14,8 @@ object Constants {
 
     object BundleData {
 
+        const val ADDRESS: String = "address"
+        const val ACCESSORY: String = "accessory"
         const val MOBILE: String = "mobile"
         const val STORE_ID: String = "store_id"
         const val STORE: String = "store"

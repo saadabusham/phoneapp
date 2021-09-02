@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -39,7 +40,8 @@
                     android:layout_height="@dimen/_190sdp"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/_25sdp"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_app_logo"
+                    app:tint="@color/button_color" />
 
                 <com.raantech.awfrlak.ui.base.views.AppTextView
                     style="@style/textview_normal_regular"
@@ -70,7 +72,7 @@ We refer to above mentioned subject and we are pleased to submit to you hereunde
             android:orientation="vertical"
             android:paddingStart="@dimen/_20sdp"
             android:paddingEnd="@dimen/_20sdp"
-            android:visibility="visible">
+            android:visibility="gone">
 
             <com.raantech.awfrlak.ui.base.views.AppTextView
                 style="@style/textview_normal_bold"

@@ -13,10 +13,11 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="@dimen/_90sdp"
+        android:layout_width="@dimen/_92sdp"
         android:layout_height="@dimen/_170sdp"
         android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/layouts_margin_end"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_5sdp"
         android:clickable="true"
         android:focusable="true"

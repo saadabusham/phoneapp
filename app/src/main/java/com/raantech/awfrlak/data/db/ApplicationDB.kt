@@ -6,12 +6,12 @@ import androidx.room.TypeConverters
 import com.raantech.awfrlak.data.daos.local.cart.CartLocalDao
 import com.raantech.awfrlak.data.daos.local.cart.MobileCartLocalDao
 import com.raantech.awfrlak.data.db.typeconverter.*
-import com.raantech.awfrlak.data.models.accessories.Accessory
+import com.raantech.awfrlak.data.models.home.AccessoriesItem
 import com.raantech.awfrlak.data.models.home.MobilesItem
 
 @Database(
         entities = [
-            Accessory::class,
+            AccessoriesItem::class,
             MobilesItem::class
         ], version = 1
 )
@@ -25,7 +25,9 @@ import com.raantech.awfrlak.data.models.home.MobilesItem
         MobileListConverter::class,
         StoreConverter::class,
         StorageConverter::class,
-        TypeConverter::class
+        TypeConverter::class,
+        AccessoryTypeConverter::class,
+        AccessoryDedicatedConverter::class
 )
 
 abstract class ApplicationDB : RoomDatabase() {

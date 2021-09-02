@@ -57,14 +57,11 @@
                 android:layout_height="match_parent"
                 android:layout_above="@+id/linearTotal"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="-20dp"
-                android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fillViewport="true"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     <androidx.core.widget.NestedScrollView
@@ -86,7 +83,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_35sdp"
                                 android:layout_marginStart="@dimen/layouts_margin_start"
-                                android:layout_marginTop="@dimen/_20sdp"
                                 android:layout_marginEnd="@dimen/layouts_margin_end"
                                 app:cardCornerRadius="@dimen/_7sdp">
 
@@ -103,9 +99,7 @@
                             <com.raantech.awfrlak.ui.base.views.NonSwipeViewPager
                                 android:id="@+id/viewPager"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="@dimen/layouts_margin_start"
-                                android:layout_marginEnd="@dimen/layouts_margin_end" />
+                                android:layout_height="match_parent" />
 
                         </LinearLayout>
                     </androidx.core.widget.NestedScrollView>

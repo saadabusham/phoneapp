@@ -54,7 +54,7 @@ data class MobilesItem(
 
 		@field:SerializedName("is_wishlist")
 		@ColumnInfo(name = "is_wishlist")
-		val isWishlist: Boolean? = null,
+        var isWishlist: Boolean? = null,
 
 		@field:SerializedName("is_in_stock")
 		@ColumnInfo(name = "is_in_stock")

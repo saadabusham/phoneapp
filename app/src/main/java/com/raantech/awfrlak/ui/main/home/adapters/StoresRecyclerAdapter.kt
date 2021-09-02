@@ -4,10 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.raantech.awfrlak.data.models.accessories.Accessory
-import com.raantech.awfrlak.data.models.home.AccessoriesItem
 import com.raantech.awfrlak.data.models.home.Store
-import com.raantech.awfrlak.databinding.RowAccessoryBinding
 import com.raantech.awfrlak.databinding.RowStoreBinding
 import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.adapters.BaseViewHolder

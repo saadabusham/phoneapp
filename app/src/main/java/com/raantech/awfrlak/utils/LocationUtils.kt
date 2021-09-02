@@ -92,6 +92,50 @@ fun Fragment.getLocationName(latitude: Double?, longitude: Double?): String {
 
     return ""
 }
+fun Activity.displayLocationSettingsRequest(requestCode: Int) {
+
+    val locationRequest = LocationRequest.create()
+    locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+    locationRequest.interval = 10000
+    locationRequest.fastestInterval = 10000 / 2.toLong()
+
+    LocationServices.getSettingsClient(this).checkLocationSettings(
+            LocationSettingsRequest.Builder()
+                    .addLocationRequest(locationRequest).build()
+    ).addOnCompleteListener { task ->
+        try {
+            task.getResult(ApiException::class.java)
+        } catch (exception: ApiException) {
+            when (exception.statusCode) {
+                LocationSettingsStatusCodes.RESOLUTION_REQUIRED -> {
+
+                    try {
+                        // Cast to a resolvable exception.
+                        val resolvable = exception as (ResolvableApiException)
+
+                        startIntentSenderForResult(
+                                resolvable.resolution.intentSender,
+                                requestCode,
+                                null,
+                                0,
+                                0,
+                                0,
+                                null
+                        )
+
+                    } catch (e: IntentSender.SendIntentException) {
+                        // Ignore the error.
+                    } catch (e: ClassCastException) {
+                        // Ignore, should be an impossible error.
+                    }
+                }
+                LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE -> {
+                }
+
+            }
+        }
+    }
+}
 
 fun Context.getDistance(fromLocation: Location?, toLocation: Location?): String? {
     val distance: Float = fromLocation?.distanceTo(toLocation) ?: 0f

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -68,17 +69,17 @@
                             android:textSize="@dimen/_9ssp" />
                     </LinearLayout>
 
-                    <Switch
+                    <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchNotifications"
+                        style="@style/Widget.App.Switch"
                         android:layout_width="wrap_content"
                         android:layout_height="@dimen/_22sdp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
                         android:layout_marginEnd="@dimen/_10sdp"
+                        tools:checked="false"
                         android:background="?selectableItemBackgroundBorderless"
-                        android:checked="@{viewModel.isNotificationsIsEnabled}"
-                        android:theme="@style/SCBSwitch" />
-
+                        android:checked="@{viewModel.isNotificationsIsEnabled}"/>
                 </RelativeLayout>
 
                 <View

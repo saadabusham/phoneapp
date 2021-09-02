@@ -4,13 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.raantech.awfrlak.data.models.more.More
 import com.raantech.awfrlak.databinding.RowDrawerItemBinding
 import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.adapters.BaseViewHolder
 
 class DrawerRecyclerAdapter(
         context: Context
-) : BaseBindingRecyclerViewAdapter<String>(context) {
+) : BaseBindingRecyclerViewAdapter<More>(context) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
@@ -27,10 +28,10 @@ class DrawerRecyclerAdapter(
     }
 
     inner class ViewHolder(private val binding: RowDrawerItemBinding) :
-            BaseViewHolder<String>(binding.root) {
+            BaseViewHolder<More>(binding.root) {
 
-        override fun bind(item: String) {
-            binding.title = item
+        override fun bind(item: More) {
+            binding.item = item
             binding.root.setOnClickListener {
                 itemClickListener?.onItemClick(it, adapterPosition, item)
             }

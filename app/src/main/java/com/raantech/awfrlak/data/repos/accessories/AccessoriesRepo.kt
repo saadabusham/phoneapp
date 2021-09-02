@@ -2,9 +2,7 @@ package com.raantech.awfrlak.data.repos.accessories
 
 import com.raantech.awfrlak.data.api.response.APIResource
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
-import com.raantech.awfrlak.data.models.accessories.Accessory
 import com.raantech.awfrlak.data.models.home.*
-import retrofit2.http.Query
 
 interface AccessoriesRepo {
 
@@ -37,5 +35,5 @@ interface AccessoriesRepo {
 
     suspend fun getAccessory(
         id: Int
-    ): APIResource<ResponseWrapper<Accessory>>
+    ): APIResource<ResponseWrapper<AccessoriesItem>>
 }

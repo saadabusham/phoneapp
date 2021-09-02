@@ -1,37 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="title"
-            type="String" />
+            name="item"
+            type="com.raantech.awfrlak.data.models.more.More" />
     </data>
 
     <RelativeLayout
         android:id="@+id/relativeCellDrawer"
-        android:layout_width="@dimen/_120sdp"
+        android:layout_width="@dimen/_150sdp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="?android:selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:background="?android:selectableItemBackground">
+        android:orientation="horizontal">
 
         <com.raantech.awfrlak.ui.base.views.AppTextView
             android:id="@+id/tvTitle"
+            style="@style/textview_normal_regular"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_35sdp"
             android:layout_gravity="center|start"
             android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            drawable_start="@{item.icon}"
+            android:drawablePadding="@dimen/_15sdp"
+            android:drawableTint="@color/white"
             android:gravity="center|start"
-            style="@style/textview_normal_regular"
-            android:text="@{title}"
-            tools:text="@string/login"
+            android:text="@{item.title}"
             android:textColor="@color/white"
             android:textSize="@dimen/_13ssp"
-            android:layout_marginTop="@dimen/_15sdp" />
+            tools:drawableStart="@drawable/ic_more_logout"
+            tools:drawableTint="@color/black"
+            tools:text="@string/login" />
 
     </RelativeLayout>
 

@@ -15,6 +15,7 @@ import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.data.common.Constants
 import com.raantech.awfrlak.data.common.CustomObserverResponse
+import com.raantech.awfrlak.data.enums.CategoriesEnum
 import com.raantech.awfrlak.data.models.home.Store
 import com.raantech.awfrlak.databinding.ActivityStoreBinding
 import com.raantech.awfrlak.ui.auth.login.adapters.IndecatorRecyclerAdapter
@@ -22,6 +23,7 @@ import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.ui.cart.CartActivity
 import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
 import com.raantech.awfrlak.ui.store.adapters.StoreImagesAdapter
+import com.raantech.awfrlak.ui.store.adapters.ViewPagerFragmentAdapter
 import com.raantech.awfrlak.ui.store.fragment.AccessoriesFragment
 import com.raantech.awfrlak.ui.store.fragment.MobilesFragment
 import com.raantech.awfrlak.ui.store.fragment.ServicesFragment
@@ -85,7 +87,7 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
             viewModel.storeToView?.isWishlist = viewModel.storeToView?.isWishlist == false
             updateFavorite()
             if (viewModel.storeToView?.isWishlist == true) {
-                viewModel.addToWishList(viewModel.storeToView?.id
+                viewModel.addToWishList(CategoriesEnum.STORES.value,viewModel.storeToView?.id
                         ?: 0).observe(this, wishListObserver())
             } else {
                 viewModel.removeFromWishList(viewModel.storeToView?.id
@@ -108,7 +110,9 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
     private fun setUpPager() {
         storeImagesAdapter = StoreImagesAdapter(this)
         binding?.layoutStoreSlider?.vpPictures?.adapter =
-                storeImagesAdapter.apply { submitItem(viewModel.storeToView?.logo?.url ?: "") }
+                storeImagesAdapter.apply {
+                    viewModel.storeToView?.additionalImages?.map { it.url?: "" }?.let { submitItems(it) }
+                }
 //        binding?.layoutStoreSlider?.vpPictures?.isUserInputEnabled = false
         showImageNext()
         setUpIndicator()
@@ -200,12 +204,10 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
         mFragmentList.add(MobilesFragment())
         mFragmentList.add(AccessoriesFragment())
         mFragmentList.add(ServicesFragment())
-//        mFragmentList.add(SpecialistRatingFragment())
-//
         val adapter: FragmentStatePagerAdapter =
                 object : FragmentStatePagerAdapter(supportFragmentManager) {
                     override fun getItem(position: Int): Fragment {
-                        return mFragmentList.get(position)
+                        return mFragmentList[position]
                     }
 
                     override fun getCount(): Int {
@@ -213,6 +215,11 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
                     }
                 }
         viewPager.adapter = adapter
+//        val viewPagerFragmentAdapter = ViewPagerFragmentAdapter(supportFragmentManager,lifecycle)
+//        viewPagerFragmentAdapter.addFragment(MobilesFragment())
+//        viewPagerFragmentAdapter.addFragment(AccessoriesFragment())
+//        viewPagerFragmentAdapter.addFragment(ServicesFragment())
+//        viewPager.adapter = viewPagerFragmentAdapter
         viewPager.offscreenPageLimit = 5
     }
 

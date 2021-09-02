@@ -57,7 +57,7 @@ class VerificationLoginFragment : BaseBindingFragment<FragmentVerificationLoginB
                             data: UserDetailsResponseModel?
                     ) {
                         data?.let {
-                            if (data.is_registered == false) {
+                            if (data.is_registered == true) {
                                 viewModel.storeUser(it)
                                 MainActivity.start(requireContext())
                             }else{

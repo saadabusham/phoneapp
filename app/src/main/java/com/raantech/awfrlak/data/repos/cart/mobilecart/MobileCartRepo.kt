@@ -1,7 +1,6 @@
 package com.raantech.awfrlak.data.repos.cart.mobilecart
 
 import androidx.lifecycle.LiveData
-import com.raantech.awfrlak.data.models.accessories.Accessory
 import com.raantech.awfrlak.data.models.home.MobilesItem
 
 interface MobileCartRepo {

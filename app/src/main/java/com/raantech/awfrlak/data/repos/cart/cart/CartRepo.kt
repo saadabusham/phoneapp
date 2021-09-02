@@ -1,14 +1,14 @@
 package com.raantech.awfrlak.data.repos.cart.cart
 
 import androidx.lifecycle.LiveData
-import com.raantech.awfrlak.data.models.accessories.Accessory
+import com.raantech.awfrlak.data.models.home.AccessoriesItem
 
 interface CartRepo {
 
-    suspend fun saveCart(accessory: Accessory)
-    suspend fun saveCarts(accessories: List<Accessory>)
-    suspend fun loadCarts(): List<Accessory>
-    suspend fun getCart(id: Int): Accessory
+    suspend fun saveCart(accessory: AccessoriesItem)
+    suspend fun saveCarts(accessories: List<AccessoriesItem>)
+    suspend fun loadCarts(): List<AccessoriesItem>
+    suspend fun getCart(id: Int): AccessoriesItem
     fun getCartsCount(): LiveData<Int>
     suspend fun getCartsCountInt(): Int?
     suspend fun deleteCart(id:Int)

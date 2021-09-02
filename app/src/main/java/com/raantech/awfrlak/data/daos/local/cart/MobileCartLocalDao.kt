@@ -5,9 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.raantech.awfrlak.data.db.ApplicationDB.Companion.TABLE_CART
 import com.raantech.awfrlak.data.db.ApplicationDB.Companion.TABLE_MOBILE_CART
-import com.raantech.awfrlak.data.models.accessories.Accessory
 import com.raantech.awfrlak.data.models.home.MobilesItem
 
 @Dao

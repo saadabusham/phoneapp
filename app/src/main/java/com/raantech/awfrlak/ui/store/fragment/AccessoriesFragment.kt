@@ -10,6 +10,7 @@ import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.common.CustomObserverResponse
 import com.raantech.awfrlak.data.models.home.AccessoriesItem
 import com.raantech.awfrlak.databinding.LayoutAccessoriesGridBinding
+import com.raantech.awfrlak.ui.accessory.AccessoryDetailsActivity
 import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.base.fragment.BaseBindingFragment
@@ -76,7 +77,7 @@ class AccessoriesFragment : BaseBindingFragment<LayoutAccessoriesGridBinding>(),
     }
 
     private fun loadAccessories() {
-        viewModel.getAccessories(accessoriesGridRecyclerAdapter.itemCount,viewModel.storeToView?.id)
+        viewModel.getAccessories(accessoriesGridRecyclerAdapter.itemCount, viewModel.storeToView?.id)
                 .observe(this, accessoriesObserver())
     }
 
@@ -125,7 +126,7 @@ class AccessoriesFragment : BaseBindingFragment<LayoutAccessoriesGridBinding>(),
     }
 
     override fun onItemClick(view: View?, position: Int, item: Any) {
-
+        AccessoryDetailsActivity.start(requireActivity(), item as AccessoriesItem)
     }
 
 

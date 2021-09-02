@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Awfrlak</string>
-    <string name="app_license">Copyright@Technzone Company</string>
+    <string name="app_license">Copyright@Raantech Company</string>
 
     <!-- SelectLanguageFragment-->
     <string name="welcome">Welcome</string>
@@ -175,7 +175,16 @@
     <string name="mobile_storage">Storage</string>
     <string name="mobile_color">Color</string>
     <string name="mobile_sim_number">Sim number</string>
+    <string name="accessory_dedicated">Dedicated</string>
     <string name="username">Username</string>
     <string name="address">Address</string>
     <string name="register">Register</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="delivery">Delivery</string>
+
+    <!--    Map    -->
+    <string name="search_here">Search here</string>
+    <string name="location">Location</string>
+    <string name="please_pick_location">Please pick location</string>
+
 </resources>

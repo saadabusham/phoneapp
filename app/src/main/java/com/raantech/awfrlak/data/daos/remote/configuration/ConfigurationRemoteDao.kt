@@ -19,7 +19,7 @@ interface ConfigurationRemoteDao {
     ): ResponseWrapper<List<City>>
 
     @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:true")
-    @GET("app/aboutUs")
+    @GET("app/about-us")
     suspend fun getAboutUs(): ResponseWrapper<AboutUsResponse>
 
 

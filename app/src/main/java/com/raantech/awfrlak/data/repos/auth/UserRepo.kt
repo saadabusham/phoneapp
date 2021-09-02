@@ -37,7 +37,7 @@ interface UserRepo {
             token: String,
             name: String,
             address: String,
-            phoneNumber: String
+            email: String
     ): APIResource<ResponseWrapper<UserDetailsResponseModel>>
 
     fun saveNotificationStatus(flag: Boolean)

@@ -5,9 +5,8 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.raantech.awfrlak.common.CommonEnums
 import com.raantech.awfrlak.data.api.response.APIResource
-import com.raantech.awfrlak.data.enums.ServicesType
 import com.raantech.awfrlak.data.enums.UserEnums
-import com.raantech.awfrlak.data.models.accessories.Accessory
+import com.raantech.awfrlak.data.models.home.AccessoriesItem
 import com.raantech.awfrlak.data.models.home.Store
 import com.raantech.awfrlak.data.pref.configuration.ConfigurationPref
 import com.raantech.awfrlak.data.pref.user.UserPref
@@ -143,11 +142,12 @@ class MainViewModel @Inject constructor(
     }
 
     fun addToWishList(
+            entityType:String,
             productId: Int
     ) = liveData {
         emit(APIResource.loading())
         val response =
-                wishListRepo.addToWishList(ServicesType.PRODUCT.value, productId)
+                wishListRepo.addToWishList(entityType, productId)
         emit(response)
     }
 
@@ -160,7 +160,7 @@ class MainViewModel @Inject constructor(
         emit(response)
     }
 
-    fun addToCart(accessory: Accessory) = viewModelScope.launch {
+    fun addToCart(accessory: AccessoriesItem) = viewModelScope.launch {
         cartRepo.saveCart(accessory)
     }
 

@@ -4,13 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.viewpager2.widget.ViewPager2
 import com.raantech.awfrlak.R
 import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.data.common.Constants
 import com.raantech.awfrlak.data.common.CustomObserverResponse
+import com.raantech.awfrlak.data.enums.CategoriesEnum
 import com.raantech.awfrlak.data.models.home.MobilesItem
 import com.raantech.awfrlak.databinding.ActivityMobileDetailsBinding
 import com.raantech.awfrlak.ui.auth.login.adapters.IndecatorRecyclerAdapter
@@ -56,7 +56,7 @@ class MobileDetailsActivity : BaseBindingActivity<ActivityMobileDetailsBinding>(
         viewModel.mobileToView?.id?.let {
             viewModel.getMobileCart(it).observe(this, {
                 it?.count?.let {
-                    viewModel.itemCount.value = (it)
+                    viewModel.mobilesItemCount.value = (it)
                 }
                 viewModel.updatePrice()
             })
@@ -82,13 +82,13 @@ class MobileDetailsActivity : BaseBindingActivity<ActivityMobileDetailsBinding>(
                 CartActivity.start(this)
         }
         binding?.layoutMobileSlider?.imgFavorite?.setOnClickListener {
-            viewModel.serviceToView?.isWishlist = viewModel.serviceToView?.isWishlist == false
+            viewModel.mobileToView?.isWishlist = viewModel.mobileToView?.isWishlist == false
             updateFavorite()
-            if (viewModel.serviceToView?.isWishlist == true) {
-                viewModel.addToWishList(viewModel.serviceToView?.id
+            if (viewModel.mobileToView?.isWishlist == true) {
+                viewModel.addToWishList(CategoriesEnum.MOBILES.value,viewModel.mobileToView?.id
                         ?: 0).observe(this, wishListObserver())
             } else {
-                viewModel.removeFromWishList(viewModel.serviceToView?.id
+                viewModel.removeFromWishList(viewModel.mobileToView?.id
                         ?: 0).observe(this, wishListObserver())
             }
         }
@@ -101,7 +101,7 @@ class MobileDetailsActivity : BaseBindingActivity<ActivityMobileDetailsBinding>(
     }
 
     private fun updateFavorite() {
-        binding?.layoutMobileSlider?.favorite = viewModel.serviceToView?.isWishlist
+        binding?.layoutMobileSlider?.favorite = viewModel.mobileToView?.isWishlist
     }
 
     private fun setUpPager() {

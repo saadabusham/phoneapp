@@ -11,18 +11,26 @@ import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.paginate.Paginate
 import com.paginate.recycler.LoadingListItemCreator
-import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
 import com.raantech.awfrlak.R
 import com.raantech.awfrlak.data.api.response.GeneralError
 import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.data.common.CustomObserverResponse
-import com.raantech.awfrlak.data.models.accessories.Accessory
+import com.raantech.awfrlak.data.enums.CategoriesEnum
+import com.raantech.awfrlak.data.models.home.AccessoriesItem
+import com.raantech.awfrlak.data.models.home.MobilesItem
+import com.raantech.awfrlak.data.models.home.Service
+import com.raantech.awfrlak.data.models.home.Store
 import com.raantech.awfrlak.data.models.wishlist.WishList
 import com.raantech.awfrlak.databinding.ActivityWishlistBinding
+import com.raantech.awfrlak.ui.accessory.AccessoryDetailsActivity
 import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
+import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.mobile.MobileDetailsActivity
+import com.raantech.awfrlak.ui.service.ServiceDetailsActivity
+import com.raantech.awfrlak.ui.store.StoreActivity
 import com.raantech.awfrlak.ui.wishlist.adapter.WishListRecyclerAdapter
 import com.raantech.awfrlak.ui.wishlist.viewmodels.WishListViewModel
 import com.raantech.awfrlak.utils.extensions.gone
@@ -32,10 +40,9 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 
 @AndroidEntryPoint
 class WishListActivity : BaseBindingActivity<ActivityWishlistBinding>(),
-    BaseBindingRecyclerViewAdapter.OnItemClickListener {
+        BaseBindingRecyclerViewAdapter.OnItemClickListener {
 
     private val viewModel: WishListViewModel by viewModels()
-    private val mainViewModel: MainViewModel by viewModels()
     private val loading: MutableLiveData<Boolean> = MutableLiveData(false)
     private var isFinished = false
 
@@ -44,13 +51,13 @@ class WishListActivity : BaseBindingActivity<ActivityWishlistBinding>(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(
-            layoutResID = R.layout.activity_wishlist,
-            hasToolbar = true,
-            toolbarView = toolbar,
-            hasTitle = true,
-            title = R.string.menu_favorites,
-            hasBackButton = true,
-            showBackArrow = true
+                layoutResID = R.layout.activity_wishlist,
+                hasToolbar = true,
+                toolbarView = toolbar,
+                hasTitle = true,
+                title = R.string.menu_favorites,
+                hasBackButton = true,
+                showBackArrow = true
         )
         setUpBinding()
         setUpListeners()
@@ -82,24 +89,24 @@ class WishListActivity : BaseBindingActivity<ActivityWishlistBinding>(),
             }
 
         })
-            .setLoadingTriggerThreshold(1)
-            .addLoadingListItem(true)
-            .setLoadingListItemCreator(object : LoadingListItemCreator {
-                override fun onCreateViewHolder(
-                    parent: ViewGroup?,
-                    viewType: Int
-                ): RecyclerView.ViewHolder {
-                    val view = LayoutInflater.from(parent!!.context)
-                        .inflate(R.layout.loading_row, parent, false)
-                    return object : RecyclerView.ViewHolder(view) {}
-                }
+                .setLoadingTriggerThreshold(1)
+                .addLoadingListItem(false)
+                .setLoadingListItemCreator(object : LoadingListItemCreator {
+                    override fun onCreateViewHolder(
+                            parent: ViewGroup?,
+                            viewType: Int
+                    ): RecyclerView.ViewHolder {
+                        val view = LayoutInflater.from(parent!!.context)
+                                .inflate(R.layout.loading_row, parent, false)
+                        return object : RecyclerView.ViewHolder(view) {}
+                    }
 
-                override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+                    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
 
-                }
+                    }
 
-            })
-            .build()
+                })
+                .build()
     }
 
     private fun setUpListeners() {
@@ -107,42 +114,41 @@ class WishListActivity : BaseBindingActivity<ActivityWishlistBinding>(),
 
     private fun loadData() {
         viewModel.getWishList(
-            wishListRecyclerAdapter.itemCount
+                wishListRecyclerAdapter.itemCount
         ).observe(this, wishlistObserver())
     }
 
-
     private fun wishlistObserver(): CustomObserverResponse<List<WishList>> {
         return CustomObserverResponse(
-            this,
-            object : CustomObserverResponse.APICallBack<List<WishList>> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: ResponseWrapper<List<WishList>>?
-                ) {
-                    isFinished = data?.body?.isNullOrEmpty() == true
-                    data?.body?.let {
-                        wishListRecyclerAdapter.addItems(it)
+                this,
+                object : CustomObserverResponse.APICallBack<List<WishList>> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: ResponseWrapper<List<WishList>>?
+                    ) {
+                        isFinished = data?.body?.isNullOrEmpty() == true
+                        data?.body?.let {
+                            wishListRecyclerAdapter.addItems(it)
+                        }
+                        loading.postValue(false)
+                        hideShowNoData()
                     }
-                    loading.postValue(false)
-                    hideShowNoData()
-                }
 
-                override fun onError(
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    message: String,
-                    errors: List<GeneralError>?
-                ) {
-                    super.onError(subErrorCode, message, errors)
-                    loading.postValue(false)
-                    hideShowNoData()
-                }
+                    override fun onError(
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            message: String,
+                            errors: List<GeneralError>?
+                    ) {
+                        super.onError(subErrorCode, message, errors)
+                        loading.postValue(false)
+                        hideShowNoData()
+                    }
 
-                override fun onLoading() {
-                    loading.postValue(true)
-                }
-            }, false, showError = false
+                    override fun onLoading() {
+                        loading.postValue(true)
+                    }
+                }, true, showError = false
         )
     }
 
@@ -159,106 +165,79 @@ class WishListActivity : BaseBindingActivity<ActivityWishlistBinding>(),
 
     private fun wishListActionObserver(): CustomObserverResponse<Any> {
         return CustomObserverResponse(
-            this,
-            object : CustomObserverResponse.APICallBack<Any> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: ResponseWrapper<Any>?
-                ) {
-                    wishListRecyclerAdapter.items[positionToUpdate].isWishlist =
-                        wishListRecyclerAdapter.items[positionToUpdate].isWishlist != true
-                    wishListRecyclerAdapter.notifyItemChanged(positionToUpdate)
-                    positionToUpdate = -1
-                }
-            }, false
-        )
-    }
-
-
-    private fun accessoryObserver(position: Int): CustomObserverResponse<Accessory> {
-        return CustomObserverResponse(
-            this,
-            object : CustomObserverResponse.APICallBack<Accessory> {
-                override fun onSuccess(
-                    statusCode: Int,
-                    subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: Accessory?
-                ) {
-//                    data?.let {
-//                        if (it.isAvailable == true) {
-//                            AccessoriesDialog(
-//                                this@WishListActivity,
-//                                this@WishListActivity,
-//                                it,
-//                                mainViewModel,
-//                                object : AccessoriesDialog.CallBack {
-//                                    override fun callBack(position: Int, accessory: Accessory) {
-//                                        wishListRecyclerAdapter.items[position].isWishlist =
-//                                            accessory.isWishlist
-//                                        wishListRecyclerAdapter.notifyItemChanged(position)
-//                                    }
-//
-//                                },
-//                                position
-//                            ).show()
-//                        } else {
-//                            showErrorAlert(
-//                                it.name ?: "",
-//                                String.format(
-//                                    resources.getString(R.string.available_at),
-//                                    it.dateOfAvailability.getDateWithMonthName()
-//                                )
-//                            )
-//                        }
-//                    }
-                }
-            }, true
+                this,
+                object : CustomObserverResponse.APICallBack<Any> {
+                    override fun onSuccess(
+                            statusCode: Int,
+                            subErrorCode: ResponseSubErrorsCodeEnum,
+                            data: ResponseWrapper<Any>?
+                    ) {
+//                    wishListRecyclerAdapter.items[positionToUpdate].isWishlist =
+//                        wishListRecyclerAdapter.items[positionToUpdate].isWishlist != true
+//                    wishListRecyclerAdapter.notifyItemChanged(positionToUpdate)
+//                    positionToUpdate = -1
+                    }
+                }, false
         )
     }
 
     override fun onItemClick(view: View?, position: Int, item: Any) {
-        item as WishList
+        var type: String = CategoriesEnum.MOBILES.value
+        var isWishList = false
+        var id = 0
+        when (item) {
+            is MobilesItem -> {
+                type = CategoriesEnum.MOBILES.value
+                isWishList = item.isWishlist == true
+                id = item.id ?: 0
+            }
+            is AccessoriesItem -> {
+                type = CategoriesEnum.ACCESSORIES.value
+                isWishList = item.isWishlist == true
+                id = item.id ?: 0
+            }
+            is Service -> {
+                type = CategoriesEnum.SERVICES.value
+                isWishList = item.isWishlist == true
+                id = item.id ?: 0
+            }
+            is Store -> {
+                type = CategoriesEnum.STORES.value
+                isWishList = item.isWishlist == true
+                id = item.id ?: 0
+            }
+        }
         if (view?.id == R.id.imgFavorite) {
-//            positionToUpdate = position
-//            if (item.isWishlist == true) {
-//                viewModel.removeFromWishList(
-//                    if (item.type == ServiceTypesEnum.HORSES.value)
-//                        WishListType.HORSE.value else WishListType.PRODUCT.value, item.id ?: 0
-//                ).observe(this, wishListActionObserver())
-//            } else {
-//                viewModel.addToWishList(
-//                    if (item.type == ServiceTypesEnum.HORSES.value)
-//                        WishListType.HORSE.value else WishListType.PRODUCT.value,
-//                    item.id ?: 0
-//                ).observe(this, wishListActionObserver())
-//            }
+            positionToUpdate = position
+            if (isWishList) {
+                viewModel.removeFromWishList(id).observe(this, wishListActionObserver())
+            } else {
+                viewModel.addToWishList(
+                        type,
+                        id
+                ).observe(this, wishListActionObserver())
+            }
         } else {
-//            when (item.type) {
-//                ServiceTypesEnum.BARN.value -> {
-//                    item.id?.let { BarnDetailsActivity.start(this, it) }
-//                }
-//                ServiceTypesEnum.ACCESSORIES.value -> {
-//                    item.id?.let {
-//                        viewModel.getAccessory(it).observe(this, accessoryObserver(position))
-//                    }
-//                }
-//                ServiceTypesEnum.TRANSPORTATION.value -> {
-//                    item.id?.let { TruckDetailsActivity.start(this, it) }
-//                }
-//                ServiceTypesEnum.HORSES.value -> {
-//                    item.id?.let { HorseActivity.start(this, it) }
-//                }
-//                ServiceTypesEnum.HORSE.value -> {
-//                    item.id?.let { HorseActivity.start(this, it) }
-//                }
-//            }
+            when (item) {
+                is MobilesItem -> {
+                    MobileDetailsActivity.start(this, item)
+                }
+                is AccessoriesItem -> {
+                    AccessoryDetailsActivity.start(this, item)
+                }
+                is Store -> {
+                    StoreActivity.start(this, item)
+                }
+                is Service -> {
+                    ServiceDetailsActivity.start(this, item)
+                }
+            }
         }
     }
 
     companion object {
         fun start(
-            context: Context?
+                context: Context?
         ) {
             val intent = Intent(context, WishListActivity::class.java)
             context?.startActivity(intent)

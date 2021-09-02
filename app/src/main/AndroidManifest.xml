@@ -64,6 +64,15 @@
         <activity
             android:name="com.raantech.awfrlak.ui.mobile.MobileDetailsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.raantech.awfrlak.ui.accessory.AccessoryDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.raantech.awfrlak.ui.map.MapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.raantech.awfrlak.ui.notifications.activity.NotificationsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
