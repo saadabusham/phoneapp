@@ -19,7 +19,6 @@ interface UserRemoteDao {
     ): ResponseWrapper<TokenModel>
 
     @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
-    @FormUrlEncoded
     @POST("auth/logout")
     suspend fun logout(
     ): ResponseWrapper<Any>

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.raantech.awfrlak.ui.main.viewmodels.MainViewModel" />
+            type="com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView

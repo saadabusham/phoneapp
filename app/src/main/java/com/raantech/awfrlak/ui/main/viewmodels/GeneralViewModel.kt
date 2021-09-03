@@ -3,13 +3,15 @@ package com.raantech.awfrlak.ui.main.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.raantech.awfrlak.common.CommonEnums
 import com.raantech.awfrlak.data.api.response.APIResource
+import com.raantech.awfrlak.data.api.response.RequestStatusEnum
+import com.raantech.awfrlak.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.data.enums.UserEnums
 import com.raantech.awfrlak.data.models.Price
 import com.raantech.awfrlak.data.models.home.AccessoriesItem
 import com.raantech.awfrlak.data.models.home.MobilesItem
 import com.raantech.awfrlak.data.models.home.Service
+import com.raantech.awfrlak.data.models.home.Store
 import com.raantech.awfrlak.data.pref.configuration.ConfigurationPref
 import com.raantech.awfrlak.data.pref.user.UserPref
 import com.raantech.awfrlak.data.repos.accessories.AccessoriesRepo
@@ -41,6 +43,7 @@ class GeneralViewModel @Inject constructor(
     var serviceToView: Service? = null
     var mobileToView: MobilesItem? = null
     var accessoryToView: AccessoriesItem? = null
+    var storeToView: Store? = null
 
     val mobilesItemCount: MutableLiveData<Int> = MutableLiveData(1)
     val mobilesItemsPrice: MutableLiveData<Price> = MutableLiveData()
@@ -80,6 +83,10 @@ class GeneralViewModel @Inject constructor(
     fun logoutRemote() = liveData {
         emit(APIResource.loading())
         val response = userRepo.logout()
+        if (response.statusCode == ResponseSubErrorsCodeEnum.Success.value) {
+            cartRepo.clearCart()
+            mobileCartRepo.clearCart()
+        }
         emit(response)
     }
 
@@ -137,23 +144,8 @@ class GeneralViewModel @Inject constructor(
         return userRepo.getUserStatus() == UserEnums.UserState.LoggedIn
     }
 
-    fun saveLanguage() = liveData {
-        configurationPref.setAppLanguageValue(if (configurationPref.getAppLanguageValue() == "ar") CommonEnums.Languages.English.value else CommonEnums.Languages.Arabic.value)
-        emit(null)
-    }
-
-    fun getAppLanguage(): String {
-        return configurationPref.getAppLanguageValue()
-    }
-
-    fun getCities() = liveData {
-        emit(APIResource.loading())
-        val response = configurationRepo.getCities()
-        emit(response)
-    }
-
     fun addToWishList(
-            entityType:String,
+            entityType: String,
             productId: Int
     ) = liveData {
         emit(APIResource.loading())
@@ -163,25 +155,12 @@ class GeneralViewModel @Inject constructor(
     }
 
     fun removeFromWishList(
+            entity_type: String,
             productId: Int
     ) = liveData {
         emit(APIResource.loading())
         val response =
-                wishListRepo.removeFromWishList(productId)
-        emit(response)
-    }
-
-    fun addToCart(accessory: AccessoriesItem) = viewModelScope.launch {
-        cartRepo.saveCart(accessory)
-    }
-
-    fun getCarts() = liveData {
-        val response = cartRepo.loadCarts()
-        emit(response)
-    }
-
-    fun getCart(id: Int) = liveData {
-        val response = cartRepo.getCart(id)
+                wishListRepo.removeFromWishList(entity_type, productId)
         emit(response)
     }
 
@@ -201,23 +180,32 @@ class GeneralViewModel @Inject constructor(
 
     fun plusMobiles() {
         mobilesItemCount.value = (mobilesItemCount.value?.plus(1))
-        updatePrice()
+        updateMobilesPrice()
     }
 
     fun minusMobiles() {
         if (mobilesItemCount.value == 1)
             return
         mobilesItemCount.value = (mobilesItemCount.value?.minus(1))
-        updatePrice()
+        updateMobilesPrice()
     }
 
-    fun updatePrice() {
+    fun updateMobilesPrice() {
         mobilesItemsPrice.value = (Price(formatted = "${mobilesItemCount.value?.times(mobileToView?.price?.amount?.toDoubleOrNull() ?: 0.0)}${mobileToView?.price?.currency}"))
     }
 
     fun onAddMobileToCartClicked() {
         mobileToView?.count = mobilesItemCount.value
         mobileToView?.let { addToMobileCart(it) }
+    }
+
+    fun addToAccesoriesCart(accessory: AccessoriesItem) = viewModelScope.launch {
+        cartRepo.saveCart(accessory)
+    }
+
+    fun getAccessoriesCarts() = liveData {
+        val response = cartRepo.loadCarts()
+        emit(response)
     }
 
     fun plusAccessories() {
@@ -238,7 +226,7 @@ class GeneralViewModel @Inject constructor(
 
     fun onAddAccessoriesToCartClicked() {
         accessoryToView?.count = accessoriesItemCount.value
-        accessoryToView?.let { addToCart(it) }
+        accessoryToView?.let { addToAccesoriesCart(it) }
     }
 
     fun getAccessoryCart(id: Int) = liveData {

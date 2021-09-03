@@ -15,7 +15,7 @@ import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.base.fragment.BaseBindingFragment
 import com.raantech.awfrlak.ui.main.home.adapters.AccessoriesGridRecyclerAdapter
-import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.utils.extensions.gone
 import com.raantech.awfrlak.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class AccessoriesFragment : BaseBindingFragment<LayoutAccessoriesGridBinding>(),
         BaseBindingRecyclerViewAdapter.OnItemClickListener {
 
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: GeneralViewModel by activityViewModels()
 
     private val loadingAccessories: MutableLiveData<Boolean> = MutableLiveData(false)
     private var isAccessoriesFinished = false

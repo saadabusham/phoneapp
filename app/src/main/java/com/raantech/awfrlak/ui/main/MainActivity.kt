@@ -21,7 +21,7 @@ import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.cart.CartActivity
 import com.raantech.awfrlak.ui.main.adapters.DrawerRecyclerAdapter
-import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.ui.more.aboutus.AboutUsActivity
 import com.raantech.awfrlak.ui.more.settings.SettingsActivity
 import com.raantech.awfrlak.ui.notifications.activity.NotificationsActivity
@@ -38,7 +38,7 @@ import kotlin.math.abs
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
         BaseBindingRecyclerViewAdapter.OnItemClickListener {
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: GeneralViewModel by viewModels()
     lateinit var drawerRecyclerAdapter: DrawerRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

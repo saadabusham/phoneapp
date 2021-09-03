@@ -14,7 +14,7 @@ import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.base.fragment.BaseBindingFragment
 import com.raantech.awfrlak.ui.main.home.adapters.ServicesGridRecyclerAdapter
-import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.ui.service.ServiceDetailsActivity
 import com.raantech.awfrlak.utils.extensions.gone
 import com.raantech.awfrlak.utils.extensions.visible
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ServicesFragment : BaseBindingFragment<LayoutPhonesGridBinding>(),
         BaseBindingRecyclerViewAdapter.OnItemClickListener {
 
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel: GeneralViewModel by activityViewModels()
 
     private val loadingServices: MutableLiveData<Boolean> = MutableLiveData(false)
     private var isServicesFinished = false

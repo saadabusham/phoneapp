@@ -108,6 +108,8 @@
                         android:layout_height="@dimen/Edittext_height"
                         android:background="@android:color/transparent"
                         android:hint="XXXXXXXXX"
+                        android:textAlignment="viewStart"
+                        android:padding="0dp"
                         android:includeFontPadding="false"
                         android:inputType="phone"
                         android:text="@={viewModel.phoneNumberWithoutCountryCode}"

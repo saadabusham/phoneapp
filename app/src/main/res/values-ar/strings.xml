@@ -78,7 +78,7 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="hint_date">Date</string>
     <string name="time">Time</string>
-    <string name="email">Email</string>
+    <string name="email">البريد الالكتروني</string>
     <string name="password">Password</string>
     <string name="phone_number">Phone number</string>
     <string name="otp">OTP</string>

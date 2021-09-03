@@ -31,7 +31,7 @@ class AboutUsActivity : BaseBindingActivity<ActivityAboutUsBinding>() {
                 toolbarView = toolbar,
                 hasBackButton = true,
                 showBackArrow = true,
-                hasTitle = false,
+                hasTitle = true,
                 titleString = resources.getString(R.string.menu_about_us)
 
         )

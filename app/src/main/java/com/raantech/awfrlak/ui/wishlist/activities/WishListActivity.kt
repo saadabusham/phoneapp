@@ -27,7 +27,6 @@ import com.raantech.awfrlak.ui.accessory.AccessoryDetailsActivity
 import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
-import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
 import com.raantech.awfrlak.ui.mobile.MobileDetailsActivity
 import com.raantech.awfrlak.ui.service.ServiceDetailsActivity
 import com.raantech.awfrlak.ui.store.StoreActivity
@@ -188,29 +187,29 @@ class WishListActivity : BaseBindingActivity<ActivityWishlistBinding>(),
         when (item) {
             is MobilesItem -> {
                 type = CategoriesEnum.MOBILES.value
-                isWishList = item.isWishlist == true
+                isWishList = item.isWishlist == false
                 id = item.id ?: 0
             }
             is AccessoriesItem -> {
                 type = CategoriesEnum.ACCESSORIES.value
-                isWishList = item.isWishlist == true
+                isWishList = item.isWishlist == false
                 id = item.id ?: 0
             }
             is Service -> {
                 type = CategoriesEnum.SERVICES.value
-                isWishList = item.isWishlist == true
+                isWishList = item.isWishlist == false
                 id = item.id ?: 0
             }
             is Store -> {
                 type = CategoriesEnum.STORES.value
-                isWishList = item.isWishlist == true
+                isWishList = item.isWishlist == false
                 id = item.id ?: 0
             }
         }
         if (view?.id == R.id.imgFavorite) {
             positionToUpdate = position
             if (isWishList) {
-                viewModel.removeFromWishList(id).observe(this, wishListActionObserver())
+                viewModel.removeFromWishList(type, id).observe(this, wishListActionObserver())
             } else {
                 viewModel.addToWishList(
                         type,

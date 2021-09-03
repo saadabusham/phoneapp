@@ -78,7 +78,7 @@ class ServiceDetailsActivity : BaseBindingActivity<ActivityServiceDetailsBinding
                 viewModel.addToWishList(CategoriesEnum.SERVICES.value,viewModel.serviceToView?.id
                         ?: 0).observe(this, wishListObserver())
             } else {
-                viewModel.removeFromWishList(viewModel.serviceToView?.id
+                viewModel.removeFromWishList(CategoriesEnum.SERVICES.value,viewModel.serviceToView?.id
                         ?: 0).observe(this, wishListObserver())
             }
         }

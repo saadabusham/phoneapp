@@ -12,7 +12,7 @@ enum class ResponseSubErrorsCodeEnum(val value: Int) {
     companion object {
         fun getResponseSubErrorsCodeEnumByValue(value: Int): ResponseSubErrorsCodeEnum {
             return when (value) {
-                0 -> Success
+                200 -> Success
                 1 -> InvalidModel
                 9 -> EmailNotVerified
                 401 -> Unauthorized

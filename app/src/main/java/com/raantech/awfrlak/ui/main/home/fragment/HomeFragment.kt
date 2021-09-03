@@ -20,7 +20,7 @@ import com.raantech.awfrlak.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.ui.base.fragment.BaseBindingFragment
 import com.raantech.awfrlak.ui.main.home.adapters.*
-import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.ui.mobile.MobileDetailsActivity
 import com.raantech.awfrlak.ui.service.ServiceDetailsActivity
 import com.raantech.awfrlak.ui.store.StoreActivity
@@ -34,7 +34,7 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),
 
     override fun getLayoutId(): Int = R.layout.fragment_home
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: GeneralViewModel by viewModels()
     private val loading: MutableLiveData<Boolean> = MutableLiveData(false)
     private val loadingMobiles: MutableLiveData<Boolean> = MutableLiveData(false)
     private val loadingAccessories: MutableLiveData<Boolean> = MutableLiveData(false)

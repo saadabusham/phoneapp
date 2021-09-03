@@ -21,9 +21,8 @@ import com.raantech.awfrlak.databinding.ActivityStoreBinding
 import com.raantech.awfrlak.ui.auth.login.adapters.IndecatorRecyclerAdapter
 import com.raantech.awfrlak.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.ui.cart.CartActivity
-import com.raantech.awfrlak.ui.main.viewmodels.MainViewModel
+import com.raantech.awfrlak.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.ui.store.adapters.StoreImagesAdapter
-import com.raantech.awfrlak.ui.store.adapters.ViewPagerFragmentAdapter
 import com.raantech.awfrlak.ui.store.fragment.AccessoriesFragment
 import com.raantech.awfrlak.ui.store.fragment.MobilesFragment
 import com.raantech.awfrlak.ui.store.fragment.ServicesFragment
@@ -41,7 +40,7 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
     private var indicatorPosition = 0
     lateinit var storeImagesAdapter: StoreImagesAdapter
 
-    val viewModel: MainViewModel by viewModels()
+    val viewModel: GeneralViewModel by viewModels()
     private val mFragmentList = mutableListOf<Fragment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +89,7 @@ class StoreActivity : BaseBindingActivity<ActivityStoreBinding>() {
                 viewModel.addToWishList(CategoriesEnum.STORES.value,viewModel.storeToView?.id
                         ?: 0).observe(this, wishListObserver())
             } else {
-                viewModel.removeFromWishList(viewModel.storeToView?.id
+                viewModel.removeFromWishList(CategoriesEnum.STORES.value,viewModel.storeToView?.id
                         ?: 0).observe(this, wishListObserver())
             }
         }

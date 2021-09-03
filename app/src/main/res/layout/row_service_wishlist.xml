@@ -74,7 +74,6 @@
                 android:background="?selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
-                android:scaleType="centerCrop"
                 android:src="@{item.isWishlist() ? @drawable/ic_favorite_selected : @drawable/ic_favorite}"
                 tools:src="@drawable/ic_favorite_selected" />
 

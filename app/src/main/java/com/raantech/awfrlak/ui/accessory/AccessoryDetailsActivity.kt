@@ -90,7 +90,7 @@ class AccessoryDetailsActivity : BaseBindingActivity<ActivityAccessoryDetailsBin
                 viewModel.addToWishList(CategoriesEnum.ACCESSORIES.value,viewModel.accessoryToView?.id
                         ?: 0).observe(this, wishListObserver())
             } else {
-                viewModel.removeFromWishList(viewModel.accessoryToView?.id
+                viewModel.removeFromWishList(CategoriesEnum.ACCESSORIES.value,viewModel.accessoryToView?.id
                         ?: 0).observe(this, wishListObserver())
             }
         }

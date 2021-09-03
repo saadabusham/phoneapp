@@ -58,7 +58,7 @@ class MobileDetailsActivity : BaseBindingActivity<ActivityMobileDetailsBinding>(
                 it?.count?.let {
                     viewModel.mobilesItemCount.value = (it)
                 }
-                viewModel.updatePrice()
+                viewModel.updateMobilesPrice()
             })
         }
     }
@@ -88,7 +88,7 @@ class MobileDetailsActivity : BaseBindingActivity<ActivityMobileDetailsBinding>(
                 viewModel.addToWishList(CategoriesEnum.MOBILES.value,viewModel.mobileToView?.id
                         ?: 0).observe(this, wishListObserver())
             } else {
-                viewModel.removeFromWishList(viewModel.mobileToView?.id
+                viewModel.removeFromWishList(CategoriesEnum.MOBILES.value,viewModel.mobileToView?.id
                         ?: 0).observe(this, wishListObserver())
             }
         }
