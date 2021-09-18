@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.raantech.awfrlak.ui.auth.language.LanguageViewModel" />
+            type="com.raantech.awfrlak.user.ui.auth.language.LanguageViewModel" />
     </data>
 
     <LinearLayout
