@@ -84,7 +84,22 @@ class UserRepoImp @Inject constructor(
             responseHandle.handleException(e)
         }
     }
-
+    override suspend fun updateProfile(
+        name: String,
+        phoneNumber: String,
+        address: String,
+        email: String
+    ): APIResource<ResponseWrapper<UserDetailsResponseModel>>{
+        return try {
+            responseHandle.handleSuccess(
+                userRemoteDao.updateProfile(
+                    name,phoneNumber,address,email
+                )
+            )
+        } catch (e: Exception) {
+            responseHandle.handleException(e)
+        }
+    }
 
     override fun saveAccessToken(accessToken: String) {
         userPref.saveAccessToken(accessToken)

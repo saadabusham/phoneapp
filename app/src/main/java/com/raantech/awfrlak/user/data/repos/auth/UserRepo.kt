@@ -40,6 +40,13 @@ interface UserRepo {
             email: String
     ): APIResource<ResponseWrapper<UserDetailsResponseModel>>
 
+    suspend fun updateProfile(
+            name: String,
+            phoneNumber: String,
+            address: String,
+            email: String
+    ): APIResource<ResponseWrapper<UserDetailsResponseModel>>
+
     fun saveNotificationStatus(flag: Boolean)
     fun getNotificationStatus(): Boolean
 

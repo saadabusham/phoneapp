@@ -49,8 +49,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         binding?.edUserName?.text.toString().validate(
                 ValidatorInputTypesEnums.TEXT,
                 requireContext()
-        )
-                .let {
+        ).let {
                     if (!it.isValid) {
                         requireActivity().showValidationErrorAlert(
                                 title = getString(R.string.username),
@@ -62,8 +61,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         binding?.edEmail?.text.toString().validate(
                 ValidatorInputTypesEnums.EMAIL,
                 requireContext()
-        )
-                .let {
+        ).let {
                     if (!it.isValid) {
                         requireActivity().showValidationErrorAlert(
                                 title = getString(R.string.email),
@@ -75,8 +73,7 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
         binding?.tvAddress?.text.toString().validate(
                 ValidatorInputTypesEnums.TEXT,
                 requireContext()
-        )
-                .let {
+        ).let {
                     if (!it.isValid) {
                         requireActivity().showValidationErrorAlert(
                                 title = getString(R.string.address),

@@ -50,4 +50,14 @@ interface UserRemoteDao {
         @Field("email") email: String
     ): ResponseWrapper<UserDetailsResponseModel>
 
+    @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:true")
+    @FormUrlEncoded
+    @POST("auth/register")
+    suspend fun updateProfile(
+        @Field("name") name: String,
+        @Field("phoneNumber") phoneNumber: String,
+        @Field("address") address: String,
+        @Field("email") email: String
+    ): ResponseWrapper<UserDetailsResponseModel>
+
 }

@@ -73,6 +73,9 @@
         <activity
             android:name="com.raantech.awfrlak.user.ui.notifications.activity.NotificationsActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.raantech.awfrlak.user.ui.profile.activity.UpdateProfileActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -25,6 +25,7 @@ import com.raantech.awfrlak.user.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.user.ui.more.aboutus.AboutUsActivity
 import com.raantech.awfrlak.user.ui.more.settings.SettingsActivity
 import com.raantech.awfrlak.user.ui.notifications.activity.NotificationsActivity
+import com.raantech.awfrlak.user.ui.profile.activity.UpdateProfileActivity
 import com.raantech.awfrlak.user.ui.purchase.PurchasesActivity
 import com.raantech.awfrlak.user.ui.splash.SplashActivity
 import com.raantech.awfrlak.user.ui.wishlist.activities.WishListActivity
@@ -141,7 +142,6 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
                 More(resources.getString(R.string.menu_favorites), R.drawable.ic_more_favorit),
                 More(resources.getString(R.string.menu_my_purchases), R.drawable.ic_more_purchase),
                 More(resources.getString(R.string.menu_notifications), R.drawable.ic_more_notifications),
-//                More(resources.getString(R.string.media)),
                 More(resources.getString(R.string.menu_account), R.drawable.ic_more_account),
                 More(resources.getString(R.string.menu_settings), R.drawable.ic_more_settings),
                 More(resources.getString(R.string.menu_about_us), R.drawable.ic_more_about_us),
@@ -156,7 +156,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
                 0 -> WishListActivity.start(this)
                 1 -> PurchasesActivity.start(this)
                 2 -> NotificationsActivity.start(this)
-//                4 -> ReportProviderActivity.start(this)
+                3 -> UpdateProfileActivity.start(this)
                 4 -> SettingsActivity.start(this)
                 5 -> AboutUsActivity.start(this)
                 6 -> {
