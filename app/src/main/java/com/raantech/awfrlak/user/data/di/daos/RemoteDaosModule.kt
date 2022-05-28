@@ -3,6 +3,7 @@ package com.raantech.awfrlak.user.data.di.daos
 import com.raantech.awfrlak.user.data.daos.remote.accessories.AccessoriesRemoteDao
 import com.raantech.awfrlak.user.data.daos.remote.configuration.ConfigurationRemoteDao
 import com.raantech.awfrlak.user.data.daos.remote.media.MediaRemoteDao
+import com.raantech.awfrlak.user.data.daos.remote.orders.OrdersRemoteDao
 import com.raantech.awfrlak.user.data.daos.remote.user.UserRemoteDao
 import com.raantech.awfrlak.user.data.daos.remote.wishlist.WishListRemoteDao
 import dagger.Module
@@ -57,4 +58,13 @@ object RemoteDaosModule {
     ): AccessoriesRemoteDao {
         return retrofit.create(AccessoriesRemoteDao::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideOrdersRemoteDao(
+        retrofit: Retrofit
+    ): OrdersRemoteDao {
+        return retrofit.create(OrdersRemoteDao::class.java)
+    }
+
 }

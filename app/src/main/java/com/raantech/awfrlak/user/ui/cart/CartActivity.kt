@@ -1,42 +1,50 @@
 package com.raantech.awfrlak.user.ui.cart
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import com.raantech.awfrlak.R
 import com.raantech.awfrlak.user.data.models.Price
 import com.raantech.awfrlak.user.data.models.home.AccessoriesItem
 import com.raantech.awfrlak.user.data.models.home.MobilesItem
 import com.raantech.awfrlak.databinding.ActivityCartBinding
+import com.raantech.awfrlak.user.data.api.response.ResponseSubErrorsCodeEnum
+import com.raantech.awfrlak.user.data.common.CustomObserverResponse
+import com.raantech.awfrlak.user.data.enums.PaymentTypeEnum
+import com.raantech.awfrlak.user.data.models.configuration.ConfigurationWrapperResponse
 import com.raantech.awfrlak.user.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.user.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.user.ui.base.bindingadapters.setOnItemClickListener
 import com.raantech.awfrlak.user.ui.cart.adapters.CartRecyclerAdapter
 import com.raantech.awfrlak.user.ui.cart.viewmodels.CartViewModel
+import com.raantech.awfrlak.user.ui.payment.activity.PaymentActivity
 import com.raantech.awfrlak.user.utils.extensions.gone
 import com.raantech.awfrlak.user.utils.extensions.round
 import com.raantech.awfrlak.user.utils.extensions.visible
+import com.raantech.awfrlak.user.utils.pref.SharedPreferencesUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
 @AndroidEntryPoint
 class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
-        BaseBindingRecyclerViewAdapter.OnItemClickListener {
+    BaseBindingRecyclerViewAdapter.OnItemClickListener {
 
     private val viewModel: CartViewModel by viewModels()
     lateinit var cartRecyclerAdapter: CartRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(
-                layoutResID = R.layout.activity_cart,
-                hasToolbar = true,
-                toolbarView = toolbar,
-                hasTitle = true,
-                title = R.string.cart,
-                hasBackButton = true,
-                showBackArrow = true
+            layoutResID = R.layout.activity_cart,
+            hasToolbar = true,
+            toolbarView = toolbar,
+            hasTitle = true,
+            title = R.string.cart,
+            hasBackButton = true,
+            showBackArrow = true
         )
         setUpBinding()
         setUpListeners()
@@ -45,7 +53,9 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
 
     private fun setUpListeners() {
         binding?.btnPay?.setOnClickListener {
-            PayedSuccessActivity.start(this)
+            viewModel.getOrderRequest().observe(this) {
+                it.data?.let { it1 -> viewModel.createOrder(it1).observe(this, createOrderResultObserver()) }
+            }
         }
     }
 
@@ -79,23 +89,23 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
                 subtotal += it.price?.amount?.toDouble()?.times(it.count ?: 1) ?: 0.0
         }
         viewModel.subTotal.postValue(
-                Price(
-                        amount = subtotal.toString(),
-                        formatted = "$subtotal ${resources.getString(R.string.sar)}"
-                )
+            Price(
+                amount = subtotal.toString(),
+                formatted = "$subtotal ${resources.getString(R.string.sar)}"
+            )
         )
         viewModel.TAX_CONST?.times(subtotal)?.let {
             viewModel.tax.postValue(
-                    Price(
-                            amount = it.toString(),
-                            formatted = "${it.round(2)} ${resources.getString(R.string.sar)}"
-                    )
+                Price(
+                    amount = it.toString(),
+                    formatted = "${it.round(2)} ${resources.getString(R.string.sar)}"
+                )
             )
             viewModel.total.postValue(
-                    Price(
-                            amount = (subtotal + it).toString(),
-                            formatted = "${(subtotal + it).round(2)} ${resources.getString(R.string.sar)}"
-                    )
+                Price(
+                    amount = (subtotal + it).toString(),
+                    formatted = "${(subtotal + it).round(2)} ${resources.getString(R.string.sar)}"
+                )
             )
         }
     }
@@ -113,7 +123,7 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
     }
 
     override fun onItemClick(view: View?, position: Int, item: Any) {
-        when(item){
+        when (item) {
             is AccessoriesItem -> {
                 if (view?.id == R.id.imgPlus || view?.id == R.id.imgMinus) {
                     viewModel.updateAccessoryCartItem(item)
@@ -145,9 +155,42 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
         }
     }
 
+    private fun createOrderResultObserver(): CustomObserverResponse<String> {
+        return CustomObserverResponse(
+            this,
+            object : CustomObserverResponse.APICallBack<String> {
+                override fun onSuccess(
+                    statusCode: Int,
+                    subErrorCode: ResponseSubErrorsCodeEnum,
+                    data: String?
+                ) {
+                    if (viewModel.paymentType.value == PaymentTypeEnum.CASH_ON_DELIVERY) {
+                        PayedSuccessActivity.start(this@CartActivity)
+                    } else {
+                        data?.let {
+                            PaymentActivity.start(
+                                context = this@CartActivity,
+                                paymentUrl = it,
+                                resultLauncher = resultLauncher
+                            )
+                        }
+                    }
+                }
+            })
+    }
+
+    var resultLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == PaymentActivity.RESULT_SUCCESS) {
+                PayedSuccessActivity.start(this@CartActivity)
+            }else if (result.resultCode == PaymentActivity.RESULT_FAILED) {
+
+            }
+        }
+
     companion object {
         fun start(
-                context: Context?
+            context: Context?
         ) {
             val intent = Intent(context, CartActivity::class.java)
             context?.startActivity(intent)
