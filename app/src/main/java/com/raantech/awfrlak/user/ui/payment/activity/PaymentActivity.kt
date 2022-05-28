@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.webkit.WebChromeClient
 import android.webkit.WebStorage
@@ -17,6 +18,7 @@ import com.raantech.awfrlak.user.data.common.Constants
 import com.raantech.awfrlak.user.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.user.ui.payment.viewmodels.PaymentViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import retrofit2.http.Url
 
 @AndroidEntryPoint
 class PaymentActivity :
@@ -27,7 +29,7 @@ class PaymentActivity :
         super.onCreate(savedInstanceState)
         setContentView(
             layoutResID = R.layout.activity_payment,
-            hasToolbar = false,
+            hasToolbar = true,
             hasBackButton = true,
             showBackArrow = true,
             hasTitle = true,
@@ -61,17 +63,21 @@ class PaymentActivity :
     // SSL Error Tolerant Web View Client
     private inner class SSLTolerentWebViewClient : WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-            if (url?.endsWith("success") == true) {
-                setResult(RESULT_SUCCESS)
-            } else if (url?.endsWith("failed") == true) {
-                setResult(RESULT_FAILED)
+            if (url?.contains("pay/callback") == true) {
+                if (Uri.parse(url).getQueryParameter("status") == "paid") {
+                    setResult(RESULT_SUCCESS)
+                    finish()
+                } else if (Uri.parse(url).getQueryParameter("status") == "failed") {
+                    setResult(RESULT_FAILED)
+                    finish()
+                }
             }
-            finish()
         }
 
         override fun onPageFinished(view: WebView?, url: String?) {
 
         }
+
     }
 
     // Chrome Web View Client

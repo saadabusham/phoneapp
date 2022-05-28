@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.raantech.awfrlak.user.data.models.Purchase
 import com.raantech.awfrlak.databinding.RowPurchaseBinding
+import com.raantech.awfrlak.user.data.models.orders.Order
 import com.raantech.awfrlak.user.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.user.ui.base.adapters.BaseViewHolder
 import com.raantech.awfrlak.user.utils.extensions.setSlideAnimation
 
 class PurchasesRecyclerAdapter constructor(
     context: Context
-) : BaseBindingRecyclerViewAdapter<Purchase>(context) {
+) : BaseBindingRecyclerViewAdapter<Order>(context) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
@@ -30,9 +31,9 @@ class PurchasesRecyclerAdapter constructor(
     }
 
     inner class ViewHolder(private val binding: RowPurchaseBinding) :
-        BaseViewHolder<Purchase>(binding.root) {
+        BaseViewHolder<Order>(binding.root) {
 
-        override fun bind(item: Purchase) {
+        override fun bind(item: Order) {
             binding.item = item
         }
     }

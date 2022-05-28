@@ -34,7 +34,7 @@ class CartViewModel @Inject constructor(
     var subTotal: MutableLiveData<Price> = MutableLiveData()
     var total: MutableLiveData<Price> = MutableLiveData()
     var paymentType: MutableLiveData<PaymentTypeEnum> =
-        MutableLiveData(PaymentTypeEnum.CASH_ON_DELIVERY)
+        MutableLiveData(PaymentTypeEnum.ONLINE_PAYMENT)
 
     fun updateAccessoryCartItem(accessory: AccessoriesItem) = viewModelScope.launch {
         cartRepo.saveCart(accessory)
@@ -76,6 +76,10 @@ class CartViewModel @Inject constructor(
     fun createOrder(orderRequest: OrderRequest) = liveData {
         emit(APIResource.loading())
         val response = ordersRepo.createOrder(orderRequest)
+        if(response.errors.isNullOrEmpty()){
+            cartRepo.clearCart()
+            mobileCartRepo.clearCart()
+        }
         emit(response)
     }
 

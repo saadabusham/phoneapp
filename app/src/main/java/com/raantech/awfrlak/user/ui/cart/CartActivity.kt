@@ -16,6 +16,7 @@ import com.raantech.awfrlak.user.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.user.data.common.CustomObserverResponse
 import com.raantech.awfrlak.user.data.enums.PaymentTypeEnum
 import com.raantech.awfrlak.user.data.models.configuration.ConfigurationWrapperResponse
+import com.raantech.awfrlak.user.data.models.orders.CreateOrderResponse
 import com.raantech.awfrlak.user.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.user.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.user.ui.base.bindingadapters.setOnItemClickListener
@@ -35,6 +36,10 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
 
     private val viewModel: CartViewModel by viewModels()
     lateinit var cartRecyclerAdapter: CartRecyclerAdapter
+    override fun onResume() {
+        super.onResume()
+        loadData()
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(
@@ -67,10 +72,10 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
         cartRecyclerAdapter = CartRecyclerAdapter(this)
         binding?.recyclerView?.adapter = cartRecyclerAdapter
         binding?.recyclerView?.setOnItemClickListener(this)
-        loadData()
     }
 
     private fun loadData() {
+        cartRecyclerAdapter.clear()
         viewModel.getCarts(
         ).observe(this, {
             cartRecyclerAdapter.submitItems(it)
@@ -113,11 +118,13 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
     private fun hideShowNoData() {
         if (cartRecyclerAdapter.itemCount == 0) {
             binding?.recyclerView?.gone()
+            binding?.btnDelivery?.gone()
             binding?.layoutNoData?.linearNoData?.visible()
             binding?.btnPay?.gone()
         } else {
             binding?.layoutNoData?.linearNoData?.gone()
             binding?.recyclerView?.visible()
+            binding?.btnDelivery?.visible()
             binding?.btnPay?.visible()
         }
     }
@@ -155,24 +162,26 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
         }
     }
 
-    private fun createOrderResultObserver(): CustomObserverResponse<String> {
+    private fun createOrderResultObserver(): CustomObserverResponse<CreateOrderResponse> {
         return CustomObserverResponse(
             this,
-            object : CustomObserverResponse.APICallBack<String> {
+            object : CustomObserverResponse.APICallBack<CreateOrderResponse> {
                 override fun onSuccess(
                     statusCode: Int,
                     subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: String?
+                    data: CreateOrderResponse?
                 ) {
                     if (viewModel.paymentType.value == PaymentTypeEnum.CASH_ON_DELIVERY) {
                         PayedSuccessActivity.start(this@CartActivity)
                     } else {
                         data?.let {
-                            PaymentActivity.start(
-                                context = this@CartActivity,
-                                paymentUrl = it,
-                                resultLauncher = resultLauncher
-                            )
+                            it.redirect?.let { it1 ->
+                                PaymentActivity.start(
+                                    context = this@CartActivity,
+                                    paymentUrl = it1,
+                                    resultLauncher = resultLauncher
+                                )
+                            }
                         }
                     }
                 }

@@ -261,9 +261,11 @@ fun String.getMonthName(): String {
     return dateFormat.format(this.toMillieSecconds())
 }
 
-fun String.getDateFormattedForJet(): String {
-    val dateFormat = SimpleDateFormat(FULL_DATE_AT_TIME_FORMATTING, Locale.ENGLISH)
-    return dateFormat.format(this.toMillieSecconds())
+fun String?.getDateFormattedForOrder(): String {
+    if(this.isNullOrEmpty())
+        return ""
+    val dateFormat = SimpleDateFormat(MESSAGE_DATE_FORMATE, Locale.ENGLISH)
+    return dateFormat.format(this.toMillieSecconds(FULL_DATE_AT_TIME_FORMATTING))
 }
 
 fun Long.getNotificationDateForamteed(): String {

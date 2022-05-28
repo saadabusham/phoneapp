@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="com.raantech.awfrlak.user.utils.extensions.DataTimeExtensionsKt"/>
         <variable
             name="item"
-            type="com.raantech.awfrlak.user.data.models.Purchase" />
+            type="com.raantech.awfrlak.user.data.models.orders.Order" />
     </data>
 
     <LinearLayout
@@ -42,7 +42,7 @@
                     style="@style/textview_normal_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{'#'+item.id.toString()}"
+                    android:text="@{item.orderNumber}"
                     android:textColor="@color/text_gray_color"
                     android:textSize="@dimen/_13ssp"
                     tools:text="#22123" />
@@ -51,9 +51,9 @@
                     style="@style/textview_normal_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.date}"
-                    android:textColor="@color/text_gray_color"
                     android:layout_marginTop="@dimen/_5sdp"
+                    android:text="@{DataTimeExtensionsKt.getDateFormattedForOrder(item.createdAt)}"
+                    android:textColor="@color/text_gray_color"
                     android:textSize="@dimen/_13ssp"
                     tools:text="2 jan 2021" />
 
@@ -69,7 +69,7 @@
                     style="@style/textview_normal_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{item.price.formatted}"
+                    android:text="@{item.total.formatted}"
                     android:textColor="@color/text_gray_color"
                     android:textSize="@dimen/_13ssp"
                     tools:text="2000 ر.س" />
@@ -80,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_7sdp"
+                    android:text="@{item.statusText}"
                     android:textColor="@color/text_default_color"
                     android:textSize="@dimen/_9ssp"
                     tools:text="في الطريق" />
