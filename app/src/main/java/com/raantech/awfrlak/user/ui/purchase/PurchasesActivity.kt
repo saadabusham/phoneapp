@@ -105,7 +105,7 @@ class PurchasesActivity : BaseBindingActivity<ActivityPurchasesBinding>(),
                     }
                     if (data.isNullOrEmpty())
                         isFinished = true
-                    loading.postValue(false)
+                    loading.value = false
                 }
 
                 override fun onError(
@@ -114,12 +114,12 @@ class PurchasesActivity : BaseBindingActivity<ActivityPurchasesBinding>(),
                     errors: List<GeneralError>?
                 ) {
                     super.onError(subErrorCode, message, errors)
-                    loading.postValue(false)
+                    loading.value = false
                     hideShowNoData()
                 }
 
                 override fun onLoading() {
-                    loading.postValue(true)
+                    loading.value = true
                 }
             }
         )
