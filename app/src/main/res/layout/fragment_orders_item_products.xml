@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.raantech.awfrlak.user.ui.purchase.PurchasesViewModel" />
+            type="com.raantech.awfrlak.user.ui.orders.viewmodels.OrdersViewModel" />
     </data>
 
     <RelativeLayout
@@ -38,7 +38,7 @@
             android:nestedScrollingEnabled="false"
             android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/row_purchase" />
+            tools:listitem="@layout/row_order_item_products" />
 
     </RelativeLayout>
 </layout>

@@ -25,8 +25,8 @@ import com.raantech.awfrlak.user.ui.main.viewmodels.GeneralViewModel
 import com.raantech.awfrlak.user.ui.more.aboutus.AboutUsActivity
 import com.raantech.awfrlak.user.ui.more.settings.SettingsActivity
 import com.raantech.awfrlak.user.ui.notifications.activity.NotificationsActivity
+import com.raantech.awfrlak.user.ui.orders.activtiy.OrdersActivity
 import com.raantech.awfrlak.user.ui.profile.activity.UpdateProfileActivity
-import com.raantech.awfrlak.user.ui.purchase.PurchasesActivity
 import com.raantech.awfrlak.user.ui.splash.SplashActivity
 import com.raantech.awfrlak.user.ui.wishlist.activities.WishListActivity
 import com.raantech.awfrlak.user.utils.LocaleUtil
@@ -37,18 +37,18 @@ import kotlin.math.abs
 
 @AndroidEntryPoint
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
-        BaseBindingRecyclerViewAdapter.OnItemClickListener {
+    BaseBindingRecyclerViewAdapter.OnItemClickListener {
 
     private val viewModel: GeneralViewModel by viewModels()
     lateinit var drawerRecyclerAdapter: DrawerRecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(
-                layoutResID = R.layout.activity_main,
-                hasToolbar = true,
-                toolbarView = toolbar,
-                hasTitle = true,
-                title = R.string.app_name
+            layoutResID = R.layout.activity_main,
+            hasToolbar = true,
+            toolbarView = toolbar,
+            hasTitle = true,
+            title = R.string.app_name
         )
         setUpBinding()
         setupNavigation()
@@ -92,8 +92,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
         binding?.drawerRecyclerView?.adapter = drawerRecyclerAdapter
         binding?.drawerRecyclerView?.setOnItemClickListener(this)
         val toggle = ActionBarDrawerToggle(
-                this, binding?.drawerLayout, binding?.appBarMain?.layoutToolbar?.toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, binding?.drawerLayout, binding?.appBarMain?.layoutToolbar?.toolbar,
+            R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
         initDrawer(toggle)
     }
@@ -101,8 +101,8 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
 
     private fun initDrawer(toggle: ActionBarDrawerToggle) {
         val drawable = ResourcesCompat.getDrawable(
-                resources, R.drawable.ic_menu,
-                theme
+            resources, R.drawable.ic_menu,
+            theme
         )
         toggle.isDrawerIndicatorEnabled = false
         toggle.setHomeAsUpIndicator(drawable)
@@ -121,12 +121,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
             override fun onDrawerSlide(drawer: View, slideOffset: Float) {
                 if (LocaleUtil.getLanguage() == "ar") {
                     binding?.appBarMain?.container?.x =
-                            (binding?.navigationView?.width!! * (slideOffset)) * -1
+                        (binding?.navigationView?.width!! * (slideOffset)) * -1
                     binding?.appBarMain?.container?.scaleX = abs(slideOffset * 0.4f - 1)
                     binding?.appBarMain?.container?.scaleY = abs(slideOffset * 0.2f - 1)
                 } else {
                     binding?.appBarMain?.container?.x =
-                            (binding?.navigationView?.width!! * (slideOffset))
+                        (binding?.navigationView?.width!! * (slideOffset))
                     binding?.appBarMain?.container?.scaleX = abs(slideOffset * 0.4f - 1)
                     binding?.appBarMain?.container?.scaleY = abs(slideOffset * 0.2f - 1)
                 }
@@ -139,13 +139,16 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
 
     private fun getDrawerList(): List<More> {
         return arrayListOf(
-                More(resources.getString(R.string.menu_favorites), R.drawable.ic_more_favorit),
-                More(resources.getString(R.string.menu_my_purchases), R.drawable.ic_more_purchase),
-                More(resources.getString(R.string.menu_notifications), R.drawable.ic_more_notifications),
-                More(resources.getString(R.string.menu_account), R.drawable.ic_more_account),
-                More(resources.getString(R.string.menu_settings), R.drawable.ic_more_settings),
-                More(resources.getString(R.string.menu_about_us), R.drawable.ic_more_about_us),
-                More(resources.getString(R.string.logout), R.drawable.ic_more_logout)
+            More(resources.getString(R.string.menu_favorites), R.drawable.ic_more_favorit),
+            More(resources.getString(R.string.menu_my_purchases), R.drawable.ic_more_purchase),
+            More(
+                resources.getString(R.string.menu_notifications),
+                R.drawable.ic_more_notifications
+            ),
+            More(resources.getString(R.string.menu_account), R.drawable.ic_more_account),
+            More(resources.getString(R.string.menu_settings), R.drawable.ic_more_settings),
+            More(resources.getString(R.string.menu_about_us), R.drawable.ic_more_about_us),
+            More(resources.getString(R.string.logout), R.drawable.ic_more_logout)
         )
     }
 
@@ -154,14 +157,12 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
             binding?.drawerLayout?.closeDrawer(GravityCompat.START)
             when (position) {
                 0 -> WishListActivity.start(this)
-                1 -> PurchasesActivity.start(this)
+                1 -> OrdersActivity.start(this)
                 2 -> NotificationsActivity.start(this)
                 3 -> UpdateProfileActivity.start(this)
                 4 -> SettingsActivity.start(this)
                 5 -> AboutUsActivity.start(this)
-                6 -> {
-                    viewModel.logoutRemote().observe(this, logoutResultObserver())
-                }
+                6 -> viewModel.logoutRemote().observe(this, logoutResultObserver())
             }
         }
     }
@@ -169,17 +170,17 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(),
 
     private fun logoutResultObserver(): CustomObserverResponse<Any> {
         return CustomObserverResponse(
-                this,
-                object : CustomObserverResponse.APICallBack<Any> {
-                    override fun onSuccess(
-                            statusCode: Int,
-                            subErrorCode: ResponseSubErrorsCodeEnum,
-                            data: Any?
-                    ) {
-                        viewModel.logoutLocale()
-                        SplashActivity.start(this@MainActivity)
-                    }
-                })
+            this,
+            object : CustomObserverResponse.APICallBack<Any> {
+                override fun onSuccess(
+                    statusCode: Int,
+                    subErrorCode: ResponseSubErrorsCodeEnum,
+                    data: Any?
+                ) {
+                    viewModel.logoutLocale()
+                    SplashActivity.start(this@MainActivity)
+                }
+            })
     }
 
 

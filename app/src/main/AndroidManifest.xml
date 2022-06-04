@@ -53,7 +53,7 @@
             android:name="com.raantech.awfrlak.user.ui.more.aboutus.AboutUsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.raantech.awfrlak.user.ui.purchase.PurchasesActivity"
+            android:name="com.raantech.awfrlak.user.ui.orders.activtiy.OrdersActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name="com.raantech.awfrlak.user.ui.store.StoreActivity"

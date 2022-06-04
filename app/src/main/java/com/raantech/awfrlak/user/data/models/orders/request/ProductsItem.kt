@@ -1,4 +1,4 @@
-package com.raantech.awfrlak.user.data.models.orders
+package com.raantech.awfrlak.user.data.models.orders.request
 
 import com.google.gson.annotations.SerializedName
 

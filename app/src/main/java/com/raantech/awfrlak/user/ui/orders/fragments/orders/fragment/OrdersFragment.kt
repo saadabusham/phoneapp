@@ -1,46 +1,40 @@
-package com.raantech.awfrlak.user.ui.purchase
+package com.raantech.awfrlak.user.ui.orders.fragments.orders.fragment
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
-import androidx.activity.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.MutableLiveData
 import com.paginate.Paginate
 import com.raantech.awfrlak.R
+import com.raantech.awfrlak.databinding.FragmentOrdersBinding
+import com.raantech.awfrlak.user.data.api.response.GeneralError
 import com.raantech.awfrlak.user.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.user.data.common.CustomObserverResponse
-import com.raantech.awfrlak.databinding.ActivityPurchasesBinding
-import com.raantech.awfrlak.user.data.api.response.GeneralError
-import com.raantech.awfrlak.user.data.models.home.*
-import com.raantech.awfrlak.user.data.models.orders.Order
-import com.raantech.awfrlak.user.ui.accessory.AccessoryDetailsActivity
-import com.raantech.awfrlak.user.ui.base.activity.BaseBindingActivity
+import com.raantech.awfrlak.user.data.models.orders.entity.Order
 import com.raantech.awfrlak.user.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.user.ui.base.bindingadapters.setOnItemClickListener
-import com.raantech.awfrlak.user.ui.mobile.MobileDetailsActivity
-import com.raantech.awfrlak.user.ui.purchase.adapters.PurchasesRecyclerAdapter
-import com.raantech.awfrlak.user.ui.service.ServiceDetailsActivity
-import com.raantech.awfrlak.user.ui.store.StoreActivity
+import com.raantech.awfrlak.user.ui.base.fragment.BaseBindingFragment
+import com.raantech.awfrlak.user.ui.orders.fragments.orders.adapter.OrdersRecyclerAdapter
+import com.raantech.awfrlak.user.ui.orders.viewmodels.OrdersViewModel
 import com.raantech.awfrlak.user.utils.extensions.gone
 import com.raantech.awfrlak.user.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
 @AndroidEntryPoint
-class PurchasesActivity : BaseBindingActivity<ActivityPurchasesBinding>(),
+class OrdersFragment : BaseBindingFragment<FragmentOrdersBinding>(),
     BaseBindingRecyclerViewAdapter.OnItemClickListener {
 
-    private val viewModel: PurchasesViewModel by viewModels()
-    lateinit var adapter: PurchasesRecyclerAdapter
+    override fun getLayoutId(): Int = R.layout.fragment_orders
+
+    private val viewModel: OrdersViewModel by activityViewModels()
+    lateinit var adapter: OrdersRecyclerAdapter
 
     private val loading: MutableLiveData<Boolean> = MutableLiveData(false)
     private var isFinished = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(
-            layoutResID = R.layout.activity_purchases,
+    override fun onViewVisible() {
+        super.onViewVisible()
+        addToolbar(
             hasToolbar = true,
             toolbarView = toolbar,
             hasBackButton = true,
@@ -50,6 +44,7 @@ class PurchasesActivity : BaseBindingActivity<ActivityPurchasesBinding>(),
         )
         init()
     }
+
 
     private fun init() {
         setUpListeners()
@@ -62,7 +57,7 @@ class PurchasesActivity : BaseBindingActivity<ActivityPurchasesBinding>(),
     }
 
     private fun setUpAdapter() {
-        adapter = PurchasesRecyclerAdapter(this)
+        adapter = OrdersRecyclerAdapter(requireContext())
         binding?.recyclerView?.adapter = adapter
         binding?.recyclerView.setOnItemClickListener(this)
         Paginate.with(binding?.recyclerView, object : Paginate.Callbacks {
@@ -92,7 +87,7 @@ class PurchasesActivity : BaseBindingActivity<ActivityPurchasesBinding>(),
 
     private fun ordersObserver(): CustomObserverResponse<List<Order>> {
         return CustomObserverResponse(
-            this,
+            requireActivity(),
             object : CustomObserverResponse.APICallBack<List<Order>> {
 
                 override fun onSuccess(
@@ -138,17 +133,10 @@ class PurchasesActivity : BaseBindingActivity<ActivityPurchasesBinding>(),
     override fun onItemClick(view: View?, position: Int, item: Any) {
         when (item) {
             is Order -> {
+                viewModel.orderIdToView = item.orderNumber
+                navigationController.navigate(R.id.action_ordersFragment_to_orderItemsFragment)
             }
         }
-    }
-
-    companion object {
-
-        fun start(context: Context?) {
-            val intent = Intent(context, PurchasesActivity::class.java)
-            context?.startActivity(intent)
-        }
-
     }
 
 }

@@ -5,10 +5,9 @@ import com.raantech.awfrlak.user.data.api.response.APIResource
 import com.raantech.awfrlak.user.data.api.response.ResponseHandler
 import com.raantech.awfrlak.user.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.user.data.daos.remote.orders.OrdersRemoteDao
-import com.raantech.awfrlak.user.data.models.orders.CreateOrderResponse
-import com.raantech.awfrlak.user.data.models.orders.Order
-import com.raantech.awfrlak.user.data.models.orders.OrderDetails
-import com.raantech.awfrlak.user.data.models.orders.OrderRequest
+import com.raantech.awfrlak.user.data.models.orders.request.CreateOrderResponse
+import com.raantech.awfrlak.user.data.models.orders.entity.Order
+import com.raantech.awfrlak.user.data.models.orders.request.OrderRequest
 import com.raantech.awfrlak.user.data.repos.base.BaseRepo
 import javax.inject.Inject
 
@@ -33,7 +32,7 @@ class OrdersRepoImp @Inject constructor(
         }
     }
 
-    override suspend fun getOrderDetails(orderId: Int): APIResource<ResponseWrapper<OrderDetails>> {
+    override suspend fun getOrderDetails(orderId: String): APIResource<ResponseWrapper<Order>> {
         return try {
             responseHandle.handleSuccess(ordersRemoteDao.getOrderDetails(orderId))
         } catch (e: Exception) {

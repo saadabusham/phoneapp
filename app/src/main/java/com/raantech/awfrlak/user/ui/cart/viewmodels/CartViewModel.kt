@@ -9,8 +9,8 @@ import com.raantech.awfrlak.user.data.enums.PaymentTypeEnum
 import com.raantech.awfrlak.user.data.models.Price
 import com.raantech.awfrlak.user.data.models.home.AccessoriesItem
 import com.raantech.awfrlak.user.data.models.home.MobilesItem
-import com.raantech.awfrlak.user.data.models.orders.OrderRequest
-import com.raantech.awfrlak.user.data.models.orders.ProductsItem
+import com.raantech.awfrlak.user.data.models.orders.request.OrderRequest
+import com.raantech.awfrlak.user.data.models.orders.request.ProductsItem
 import com.raantech.awfrlak.user.data.repos.cart.cart.CartRepo
 import com.raantech.awfrlak.user.data.repos.cart.mobilecart.MobileCartRepo
 import com.raantech.awfrlak.user.data.repos.orders.OrdersRepo

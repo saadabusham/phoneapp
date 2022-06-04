@@ -2,11 +2,9 @@ package com.raantech.awfrlak.user.data.repos.orders
 
 import com.raantech.awfrlak.user.data.api.response.APIResource
 import com.raantech.awfrlak.user.data.api.response.ResponseWrapper
-import com.raantech.awfrlak.user.data.models.orders.CreateOrderResponse
-import com.raantech.awfrlak.user.data.models.orders.Order
-import com.raantech.awfrlak.user.data.models.orders.OrderDetails
-import com.raantech.awfrlak.user.data.models.orders.OrderRequest
-import retrofit2.http.*
+import com.raantech.awfrlak.user.data.models.orders.request.CreateOrderResponse
+import com.raantech.awfrlak.user.data.models.orders.entity.Order
+import com.raantech.awfrlak.user.data.models.orders.request.OrderRequest
 
 interface OrdersRepo {
 
@@ -19,7 +17,7 @@ interface OrdersRepo {
     ): APIResource<ResponseWrapper<List<Order>>>
 
     suspend fun getOrderDetails(
-        orderId: Int
-    ): APIResource<ResponseWrapper<OrderDetails>>
+        orderId: String
+    ): APIResource<ResponseWrapper<Order>>
 
 }

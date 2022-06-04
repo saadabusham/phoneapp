@@ -1,10 +1,11 @@
-package com.raantech.awfrlak.user.data.models.orders
+package com.raantech.awfrlak.user.data.models.orders.entity
 
 import com.google.gson.annotations.SerializedName
 import com.raantech.awfrlak.user.data.models.Price
 import com.raantech.awfrlak.user.data.models.home.Store
+import java.io.Serializable
 
-data class GroupsItem(
+data class OrdersItem(
 
     @field:SerializedName("total")
     val total: Price? = null,
@@ -28,5 +29,8 @@ data class GroupsItem(
     val vatPrice: Price? = null,
 
     @field:SerializedName("status")
-    val status: String? = null
-)
+    val status: String? = null,
+
+    @field:SerializedName("prodcuts")
+    val prodcuts: List<OrderProduct>? = null
+):Serializable

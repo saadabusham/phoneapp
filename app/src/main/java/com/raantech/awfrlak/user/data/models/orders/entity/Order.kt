@@ -1,7 +1,8 @@
-package com.raantech.awfrlak.user.data.models.orders
+package com.raantech.awfrlak.user.data.models.orders.entity
 
 import com.google.gson.annotations.SerializedName
 import com.raantech.awfrlak.user.data.models.Price
+import java.io.Serializable
 
 data class Order(
 
@@ -12,7 +13,7 @@ data class Order(
 	val createdAt: String? = null,
 
 	@field:SerializedName("groups")
-	val groups: List<GroupsItem>? = null,
+	val orderItems: List<OrdersItem>? = null,
 
 	@field:SerializedName("locale")
 	val locale: String? = null,
@@ -46,4 +47,4 @@ data class Order(
 
 	@field:SerializedName("status")
 	val status: String? = null
-)
+): Serializable

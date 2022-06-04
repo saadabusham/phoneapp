@@ -1,6 +1,5 @@
 package com.raantech.awfrlak.user.ui.cart
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -15,8 +14,7 @@ import com.raantech.awfrlak.databinding.ActivityCartBinding
 import com.raantech.awfrlak.user.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.user.data.common.CustomObserverResponse
 import com.raantech.awfrlak.user.data.enums.PaymentTypeEnum
-import com.raantech.awfrlak.user.data.models.configuration.ConfigurationWrapperResponse
-import com.raantech.awfrlak.user.data.models.orders.CreateOrderResponse
+import com.raantech.awfrlak.user.data.models.orders.request.CreateOrderResponse
 import com.raantech.awfrlak.user.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.user.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.user.ui.base.bindingadapters.setOnItemClickListener
@@ -26,7 +24,6 @@ import com.raantech.awfrlak.user.ui.payment.activity.PaymentActivity
 import com.raantech.awfrlak.user.utils.extensions.gone
 import com.raantech.awfrlak.user.utils.extensions.round
 import com.raantech.awfrlak.user.utils.extensions.visible
-import com.raantech.awfrlak.user.utils.pref.SharedPreferencesUtil
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.layout_toolbar.*
 
