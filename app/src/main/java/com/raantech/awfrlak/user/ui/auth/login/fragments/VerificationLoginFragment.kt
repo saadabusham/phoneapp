@@ -1,6 +1,8 @@
 package com.raantech.awfrlak.user.ui.auth.login.fragments
 
 import androidx.navigation.navGraphViewModels
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.raantech.awfrlak.R
 import com.raantech.awfrlak.user.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.user.data.common.CustomObserverResponse
@@ -93,7 +95,16 @@ class VerificationLoginFragment : BaseBindingFragment<FragmentVerificationLoginB
         }
         binding?.btnVerify?.setOnClickListener {
             if (validateInput()) {
-                viewModel.verifyCode().observe(this, verifyOtpResultObserver())
+                try {
+                    FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                        if (!task.isSuccessful) {
+                            return@OnCompleteListener
+                        }
+                        viewModel.verifyCode(task.result ?: "").observe(this, verifyOtpResultObserver())
+                    })
+                }catch (e:Exception){
+                    viewModel.verifyCode("").observe(this, verifyOtpResultObserver())
+                }
             }
         }
     }

@@ -4,11 +4,10 @@ import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import com.raantech.awfrlak.user.data.api.response.APIResource
-import com.raantech.awfrlak.user.data.enums.UserEnums
 import com.raantech.awfrlak.user.data.models.auth.login.UserDetailsResponseModel
+import com.raantech.awfrlak.user.data.models.auth.login.UserInfo
 import com.raantech.awfrlak.user.data.repos.auth.UserRepo
 import com.raantech.awfrlak.user.ui.base.viewmodel.BaseViewModel
-import com.raantech.awfrlak.user.utils.extensions.*
 import com.raantech.awfrlak.user.utils.pref.SharedPreferencesUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -39,14 +38,14 @@ class UpdateProfileViewModel @Inject constructor(
         emit(APIResource.loading())
         val response = userRepo.updateProfile(
             username.value.toString(),
-            phoneNumber.value.toString(),
-            email.value.toString(),
-            address.value.toString()
+            email.value.toString()
         )
         emit(response)
     }
 
-    fun storeUser(user: UserDetailsResponseModel) {
-        userRepo.setUser(user)
+    fun storeUser(userinfo: UserInfo) {
+        val user = userRepo.getUser()
+        user?.userInfo = userinfo
+        user?.let { userRepo.setUser(it) }
     }
 }

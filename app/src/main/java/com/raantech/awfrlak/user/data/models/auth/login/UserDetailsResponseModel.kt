@@ -6,7 +6,7 @@ import java.io.Serializable
 data class UserDetailsResponseModel(
 
 		@field:SerializedName("user_info")
-		val userInfo: UserInfo? = null,
+		var userInfo: UserInfo? = null,
 
 		@field:SerializedName("auth_token")
 		val authToken: String? = null,

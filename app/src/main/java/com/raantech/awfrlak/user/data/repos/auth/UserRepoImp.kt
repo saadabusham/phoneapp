@@ -7,6 +7,7 @@ import com.raantech.awfrlak.user.data.daos.remote.user.UserRemoteDao
 import com.raantech.awfrlak.user.data.enums.UserEnums
 import com.raantech.awfrlak.user.data.models.auth.login.TokenModel
 import com.raantech.awfrlak.user.data.models.auth.login.UserDetailsResponseModel
+import com.raantech.awfrlak.user.data.models.auth.login.UserInfo
 import com.raantech.awfrlak.user.data.models.notification.Notification
 import com.raantech.awfrlak.user.data.pref.user.UserPref
 import com.raantech.awfrlak.user.data.repos.base.BaseRepo
@@ -87,14 +88,12 @@ class UserRepoImp @Inject constructor(
     }
     override suspend fun updateProfile(
         name: String,
-        phoneNumber: String,
-        address: String,
         email: String
-    ): APIResource<ResponseWrapper<UserDetailsResponseModel>>{
+    ): APIResource<ResponseWrapper<UserInfo>>{
         return try {
             responseHandle.handleSuccess(
                 userRemoteDao.updateProfile(
-                    name,phoneNumber,address,email
+                    name, email
                 )
             )
         } catch (e: Exception) {

@@ -10,6 +10,7 @@ import com.raantech.awfrlak.user.data.api.response.GeneralError
 import com.raantech.awfrlak.user.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.user.data.common.CustomObserverResponse
 import com.raantech.awfrlak.user.data.models.auth.login.UserDetailsResponseModel
+import com.raantech.awfrlak.user.data.models.auth.login.UserInfo
 import com.raantech.awfrlak.user.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.user.ui.main.MainActivity
 import com.raantech.awfrlak.user.ui.profile.viewmodels.UpdateProfileViewModel
@@ -84,36 +85,34 @@ class UpdateProfileActivity : BaseBindingActivity<ActivityUpdateProfileBinding>(
                     return false
                 }
             }
-        binding?.tvAddress?.text.toString().validate(
-            ValidatorInputTypesEnums.TEXT,
-            this
-        ).let {
-                if (!it.isValid) {
-                    showValidationErrorAlert(
-                        title = getString(R.string.address),
-                        message = it.errorMessage
-                    )
-                    return false
-                }
-            }
+//        binding?.tvAddress?.text.toString().validate(
+//            ValidatorInputTypesEnums.TEXT,
+//            this
+//        ).let {
+//                if (!it.isValid) {
+//                    showValidationErrorAlert(
+//                        title = getString(R.string.address),
+//                        message = it.errorMessage
+//                    )
+//                    return false
+//                }
+//            }
 
         return true
     }
 
-    private fun updateResultObserver(): CustomObserverResponse<UserDetailsResponseModel> {
+    private fun updateResultObserver(): CustomObserverResponse<UserInfo> {
         return CustomObserverResponse(
             this,
-            object : CustomObserverResponse.APICallBack<UserDetailsResponseModel> {
+            object : CustomObserverResponse.APICallBack<UserInfo> {
                 override fun onSuccess(
                     statusCode: Int,
                     subErrorCode: ResponseSubErrorsCodeEnum,
-                    data: UserDetailsResponseModel?
+                    data: UserInfo?
                 ) {
                     data?.let {
-                        if (data.is_registered == true) {
-                            viewModel.storeUser(it)
-                            MainActivity.start(this@UpdateProfileActivity)
-                        }
+                        viewModel.storeUser(it)
+                        MainActivity.start(this@UpdateProfileActivity)
                     }
                 }
 
