@@ -50,7 +50,7 @@ interface UserRemoteDao {
 
     @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:true")
     @FormUrlEncoded
-    @POST("auth/register")
+    @PATCH("auth/user")
     suspend fun updateProfile(
         @Field("name") name: String,
         @Field("phoneNumber") phoneNumber: String,
@@ -61,7 +61,7 @@ interface UserRemoteDao {
     @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
     @GET("app/user/notifications")
     suspend fun getNotifications(
-        skip:Int
+        @Query("skip") skip: Int
     ): ResponseWrapper<List<Notification>>
 
 }

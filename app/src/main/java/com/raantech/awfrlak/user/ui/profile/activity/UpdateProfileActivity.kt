@@ -60,18 +60,18 @@ class UpdateProfileActivity : BaseBindingActivity<ActivityUpdateProfileBinding>(
                     return false
                 }
             }
-        binding?.edPhoneNumber?.text.toString().validate(
-            ValidatorInputTypesEnums.PHONE_NUMBER,
-            this
-        ).let {
-                if (!it.isValid) {
-                    showValidationErrorAlert(
-                        title = getString(R.string.username),
-                        message = it.errorMessage
-                    )
-                    return false
-                }
-            }
+//        binding?.edPhoneNumber?.text.toString().validate(
+//            ValidatorInputTypesEnums.PHONE_NUMBER,
+//            this
+//        ).let {
+//                if (!it.isValid) {
+//                    showValidationErrorAlert(
+//                        title = getString(R.string.phone_number),
+//                        message = it.errorMessage
+//                    )
+//                    return false
+//                }
+//            }
         binding?.edEmail?.text.toString().validate(
             ValidatorInputTypesEnums.EMAIL,
             this
