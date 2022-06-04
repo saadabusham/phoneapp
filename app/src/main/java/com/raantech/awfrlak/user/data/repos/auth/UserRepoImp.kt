@@ -7,6 +7,7 @@ import com.raantech.awfrlak.user.data.daos.remote.user.UserRemoteDao
 import com.raantech.awfrlak.user.data.enums.UserEnums
 import com.raantech.awfrlak.user.data.models.auth.login.TokenModel
 import com.raantech.awfrlak.user.data.models.auth.login.UserDetailsResponseModel
+import com.raantech.awfrlak.user.data.models.notification.Notification
 import com.raantech.awfrlak.user.data.pref.user.UserPref
 import com.raantech.awfrlak.user.data.repos.base.BaseRepo
 import javax.inject.Inject
@@ -96,6 +97,14 @@ class UserRepoImp @Inject constructor(
                     name,phoneNumber,address,email
                 )
             )
+        } catch (e: Exception) {
+            responseHandle.handleException(e)
+        }
+    }
+
+    override suspend fun getNotifications(skip:Int): APIResource<ResponseWrapper<List<Notification>>> {
+        return try {
+            responseHandle.handleSuccess(userRemoteDao.getNotifications(skip))
         } catch (e: Exception) {
             responseHandle.handleException(e)
         }

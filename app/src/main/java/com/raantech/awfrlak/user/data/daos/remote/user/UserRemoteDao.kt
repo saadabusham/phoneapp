@@ -4,10 +4,8 @@ import com.raantech.awfrlak.user.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.user.data.common.NetworkConstants
 import com.raantech.awfrlak.user.data.models.auth.login.TokenModel
 import com.raantech.awfrlak.user.data.models.auth.login.UserDetailsResponseModel
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import com.raantech.awfrlak.user.data.models.notification.Notification
+import retrofit2.http.*
 
 interface UserRemoteDao {
 
@@ -59,5 +57,11 @@ interface UserRemoteDao {
         @Field("address") address: String,
         @Field("email") email: String
     ): ResponseWrapper<UserDetailsResponseModel>
+
+    @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
+    @GET("app/user/notifications")
+    suspend fun getNotifications(
+        skip:Int
+    ): ResponseWrapper<List<Notification>>
 
 }

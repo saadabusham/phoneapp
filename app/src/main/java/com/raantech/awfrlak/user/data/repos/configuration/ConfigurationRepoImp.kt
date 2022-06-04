@@ -4,12 +4,16 @@ import com.raantech.awfrlak.user.common.CommonEnums
 import com.raantech.awfrlak.user.data.api.response.APIResource
 import com.raantech.awfrlak.user.data.api.response.ResponseHandler
 import com.raantech.awfrlak.user.data.api.response.ResponseWrapper
+import com.raantech.awfrlak.user.data.common.NetworkConstants
 import com.raantech.awfrlak.user.data.daos.remote.configuration.ConfigurationRemoteDao
 import com.raantech.awfrlak.user.data.models.City
 import com.raantech.awfrlak.user.data.models.configuration.ConfigurationWrapperResponse
 import com.raantech.awfrlak.user.data.models.more.AboutUsResponse
+import com.raantech.awfrlak.user.data.models.notification.Notification
 import com.raantech.awfrlak.user.data.pref.configuration.ConfigurationPref
 import com.raantech.awfrlak.user.data.repos.base.BaseRepo
+import retrofit2.http.GET
+import retrofit2.http.Headers
 import javax.inject.Inject
 
 class ConfigurationRepoImp @Inject constructor(

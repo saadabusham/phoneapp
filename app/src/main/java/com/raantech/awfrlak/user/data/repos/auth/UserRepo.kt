@@ -6,6 +6,7 @@ import com.raantech.awfrlak.user.data.common.NetworkConstants
 import com.raantech.awfrlak.user.data.enums.UserEnums
 import com.raantech.awfrlak.user.data.models.auth.login.TokenModel
 import com.raantech.awfrlak.user.data.models.auth.login.UserDetailsResponseModel
+import com.raantech.awfrlak.user.data.models.notification.Notification
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.Headers
@@ -46,6 +47,10 @@ interface UserRepo {
             address: String,
             email: String
     ): APIResource<ResponseWrapper<UserDetailsResponseModel>>
+
+    suspend fun getNotifications(
+        skip:Int
+    ): APIResource<ResponseWrapper<List<Notification>>>
 
     fun saveNotificationStatus(flag: Boolean)
     fun getNotificationStatus(): Boolean
