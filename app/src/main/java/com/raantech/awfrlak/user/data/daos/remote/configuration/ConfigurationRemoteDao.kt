@@ -2,6 +2,7 @@ package com.raantech.awfrlak.user.data.daos.remote.configuration
 
 import com.raantech.awfrlak.user.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.user.data.common.NetworkConstants
+import com.raantech.awfrlak.user.data.models.CitiesResponse
 import com.raantech.awfrlak.user.data.models.City
 import com.raantech.awfrlak.user.data.models.configuration.ConfigurationWrapperResponse
 import com.raantech.awfrlak.user.data.models.more.AboutUsResponse
@@ -17,7 +18,7 @@ interface ConfigurationRemoteDao {
     @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:false")
     @GET("app/cities")
     suspend fun getCities(
-    ): ResponseWrapper<List<City>>
+    ): ResponseWrapper<CitiesResponse>
 
     @Headers("${NetworkConstants.SKIP_AUTHORIZATION_HEADER}:true")
     @GET("app/about-us")

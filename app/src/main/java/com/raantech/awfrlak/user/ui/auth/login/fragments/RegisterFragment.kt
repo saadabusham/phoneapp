@@ -70,18 +70,18 @@ class RegisterFragment : BaseBindingFragment<FragmentRegisterBinding>() {
                         return false
                     }
                 }
-        binding?.tvAddress?.text.toString().validate(
-                ValidatorInputTypesEnums.TEXT,
-                requireContext()
-        ).let {
-                    if (!it.isValid) {
-                        requireActivity().showValidationErrorAlert(
-                                title = getString(R.string.address),
-                                message = it.errorMessage
-                        )
-                        return false
-                    }
-                }
+//        binding?.tvAddress?.text.toString().validate(
+//                ValidatorInputTypesEnums.TEXT,
+//                requireContext()
+//        ).let {
+//                    if (!it.isValid) {
+//                        requireActivity().showValidationErrorAlert(
+//                                title = getString(R.string.address),
+//                                message = it.errorMessage
+//                        )
+//                        return false
+//                    }
+//                }
 
         return true
     }

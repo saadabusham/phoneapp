@@ -15,6 +15,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="allowBackup">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity android:name="com.raantech.awfrlak.user.ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -78,6 +83,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name="com.raantech.awfrlak.user.ui.payment.activity.PaymentActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.raantech.awfrlak.user.ui.citypicker.activity.CitiesPickerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.raantech.awfrlak.user.ui.addresses.activity.AddressesActivity"
             android:screenOrientation="portrait" />
     </application>
 

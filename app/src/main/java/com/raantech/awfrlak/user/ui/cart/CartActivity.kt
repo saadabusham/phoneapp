@@ -74,14 +74,14 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
     private fun loadData() {
         cartRecyclerAdapter.clear()
         viewModel.getCarts(
-        ).observe(this, {
+        ).observe(this) {
             cartRecyclerAdapter.submitItems(it)
-            calculattion()
+            calculation()
             hideShowNoData()
-        })
+        }
     }
 
-    private fun calculattion() {
+    private fun calculation() {
         binding?.count = cartRecyclerAdapter.itemCount
         var subtotal = 0.0
         cartRecyclerAdapter.items.forEach {
@@ -131,13 +131,13 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
             is AccessoriesItem -> {
                 if (view?.id == R.id.imgPlus || view?.id == R.id.imgMinus) {
                     viewModel.updateAccessoryCartItem(item)
-                    calculattion()
+                    calculation()
                 } else if (view?.id == R.id.cvDelete) {
                     item.id?.let {
                         viewModel.deleteAccessoryCart(it)
                         cartRecyclerAdapter.items.remove(item)
                         cartRecyclerAdapter.notifyItemRemoved(position)
-                        calculattion()
+                        calculation()
                         hideShowNoData()
                     }
                 }
@@ -145,13 +145,13 @@ class CartActivity : BaseBindingActivity<ActivityCartBinding>(),
             is MobilesItem -> {
                 if (view?.id == R.id.imgPlus || view?.id == R.id.imgMinus) {
                     viewModel.updateMobileCartItem(item)
-                    calculattion()
+                    calculation()
                 } else if (view?.id == R.id.cvDelete) {
                     item.id?.let {
                         viewModel.deleteMobileCart(it)
                         cartRecyclerAdapter.items.remove(item)
                         cartRecyclerAdapter.notifyItemRemoved(position)
-                        calculattion()
+                        calculation()
                         hideShowNoData()
                     }
                 }

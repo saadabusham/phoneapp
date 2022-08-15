@@ -14,20 +14,20 @@ import com.raantech.awfrlak.user.data.repos.base.BaseRepo
 import javax.inject.Inject
 
 class UserRepoImp @Inject constructor(
-        responseHandler: ResponseHandler,
-        private val userRemoteDao: UserRemoteDao,
-        private val userPref: UserPref
+    responseHandler: ResponseHandler,
+    private val userRemoteDao: UserRemoteDao,
+    private val userPref: UserPref
 ) : BaseRepo(responseHandler), UserRepo {
 
 
     override suspend fun login(
-            phoneNumber: String
+        phoneNumber: String
     ): APIResource<ResponseWrapper<TokenModel>> {
         return try {
             responseHandle.handleSuccess(
-                    userRemoteDao.login(
-                            phoneNumber
-                    )
+                userRemoteDao.login(
+                    phoneNumber
+                )
             )
         } catch (e: Exception) {
             responseHandle.handleException(e)
@@ -38,8 +38,8 @@ class UserRepoImp @Inject constructor(
     override suspend fun logout(): APIResource<ResponseWrapper<Any>> {
         return try {
             responseHandle.handleSuccess(
-                    userRemoteDao.logout(
-                    )
+                userRemoteDao.logout(
+                )
             )
         } catch (e: Exception) {
             responseHandle.handleException(e)
@@ -49,9 +49,9 @@ class UserRepoImp @Inject constructor(
     override suspend fun resendCode(token: String): APIResource<ResponseWrapper<TokenModel>> {
         return try {
             responseHandle.handleSuccess(
-                    userRemoteDao.resendCode(
-                            token
-                    )
+                userRemoteDao.resendCode(
+                    token
+                )
             )
         } catch (e: Exception) {
             responseHandle.handleException(e)
@@ -59,37 +59,43 @@ class UserRepoImp @Inject constructor(
     }
 
     override suspend fun verify(
-            token: String,
-            code: Int,
-            device_token: String,
-            platform: String
+        token: String,
+        code: Int,
+        device_token: String,
+        platform: String
     ): APIResource<ResponseWrapper<UserDetailsResponseModel>> {
         return try {
             responseHandle.handleSuccess(
-                    userRemoteDao.verify(
-                            token, code, device_token, platform
-                    )
+                userRemoteDao.verify(
+                    token, code, device_token, platform
+                )
             )
         } catch (e: Exception) {
             responseHandle.handleException(e)
         }
     }
 
-    override suspend fun register(token: String, name: String, address: String, email: String): APIResource<ResponseWrapper<UserDetailsResponseModel>> {
+    override suspend fun register(
+        token: String,
+        name: String,
+        address: String,
+        email: String
+    ): APIResource<ResponseWrapper<UserDetailsResponseModel>> {
         return try {
             responseHandle.handleSuccess(
-                    userRemoteDao.register(
-                            token, name, address, email
-                    )
+                userRemoteDao.register(
+                    token, name, address, email
+                )
             )
         } catch (e: Exception) {
             responseHandle.handleException(e)
         }
     }
+
     override suspend fun updateProfile(
         name: String,
         email: String
-    ): APIResource<ResponseWrapper<UserInfo>>{
+    ): APIResource<ResponseWrapper<UserInfo>> {
         return try {
             responseHandle.handleSuccess(
                 userRemoteDao.updateProfile(
@@ -101,7 +107,29 @@ class UserRepoImp @Inject constructor(
         }
     }
 
-    override suspend fun getNotifications(skip:Int): APIResource<ResponseWrapper<List<Notification>>> {
+    override suspend fun updateAddress(
+        name: String,
+        phone: String,
+        city: String,
+        district: String,
+        street: String,
+        building_number: String,
+        description: String,
+        latitude: Double,
+        longitude: Double
+    ): APIResource<ResponseWrapper<UserInfo>> {
+        return try {
+            responseHandle.handleSuccess(
+                userRemoteDao.updateAddress(
+                    name, phone, city, district, street, building_number,description, latitude, longitude
+                )
+            )
+        } catch (e: Exception) {
+            responseHandle.handleException(e)
+        }
+    }
+
+    override suspend fun getNotifications(skip: Int): APIResource<ResponseWrapper<List<Notification>>> {
         return try {
             responseHandle.handleSuccess(userRemoteDao.getNotifications(skip))
         } catch (e: Exception) {

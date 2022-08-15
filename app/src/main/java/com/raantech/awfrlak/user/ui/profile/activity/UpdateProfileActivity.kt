@@ -11,6 +11,7 @@ import com.raantech.awfrlak.user.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.user.data.common.CustomObserverResponse
 import com.raantech.awfrlak.user.data.models.auth.login.UserDetailsResponseModel
 import com.raantech.awfrlak.user.data.models.auth.login.UserInfo
+import com.raantech.awfrlak.user.ui.addresses.activity.AddressesActivity
 import com.raantech.awfrlak.user.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.user.ui.main.MainActivity
 import com.raantech.awfrlak.user.ui.profile.viewmodels.UpdateProfileViewModel
@@ -24,7 +25,7 @@ import kotlinx.android.synthetic.main.layout_toolbar.*
 @AndroidEntryPoint
 class UpdateProfileActivity : BaseBindingActivity<ActivityUpdateProfileBinding>() {
 
-    private val viewModel : UpdateProfileViewModel by viewModels()
+    private val viewModel: UpdateProfileViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +47,9 @@ class UpdateProfileActivity : BaseBindingActivity<ActivityUpdateProfileBinding>(
             if (validateInput())
                 viewModel.updateUser().observe(this, updateResultObserver())
         }
+        binding?.btnUpdateAddress?.setOnClickListener {
+            AddressesActivity.start(this)
+        }
     }
 
     private fun validateInput(): Boolean {
@@ -53,14 +57,14 @@ class UpdateProfileActivity : BaseBindingActivity<ActivityUpdateProfileBinding>(
             ValidatorInputTypesEnums.TEXT,
             this
         ).let {
-                if (!it.isValid) {
-                    showValidationErrorAlert(
-                        title = getString(R.string.username),
-                        message = it.errorMessage
-                    )
-                    return false
-                }
+            if (!it.isValid) {
+                showValidationErrorAlert(
+                    title = getString(R.string.username),
+                    message = it.errorMessage
+                )
+                return false
             }
+        }
 //        binding?.edPhoneNumber?.text.toString().validate(
 //            ValidatorInputTypesEnums.PHONE_NUMBER,
 //            this
@@ -77,14 +81,14 @@ class UpdateProfileActivity : BaseBindingActivity<ActivityUpdateProfileBinding>(
             ValidatorInputTypesEnums.EMAIL,
             this
         ).let {
-                if (!it.isValid) {
-                    showValidationErrorAlert(
-                        title = getString(R.string.email),
-                        message = it.errorMessage
-                    )
-                    return false
-                }
+            if (!it.isValid) {
+                showValidationErrorAlert(
+                    title = getString(R.string.email),
+                    message = it.errorMessage
+                )
+                return false
             }
+        }
 //        binding?.tvAddress?.text.toString().validate(
 //            ValidatorInputTypesEnums.TEXT,
 //            this

@@ -1,50 +1,57 @@
-package com.raantech.awfrlak.user.ui.main.adapters
+package com.raantech.awfrlak.user.ui.citypicker.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.raantech.awfrlak.user.data.models.City
+import com.raantech.awfrlak.R
 import com.raantech.awfrlak.databinding.RowCityBinding
+import com.raantech.awfrlak.user.data.models.City
 import com.raantech.awfrlak.user.ui.base.adapters.BaseBindingRecyclerViewAdapter
 import com.raantech.awfrlak.user.ui.base.adapters.BaseViewHolder
-import com.raantech.awfrlak.user.utils.extensions.setSlideAnimation
+import com.raantech.awfrlak.user.utils.extensions.gone
+import com.raantech.awfrlak.user.utils.extensions.visible
 
-class CityRecyclerAdapter constructor(
-        context: Context,
-        private val singleSelection: Boolean
+class CitiesRecyclerAdapter(
+    context: Context
 ) : BaseBindingRecyclerViewAdapter<City>(context) {
-    private var selectedPosition: Int = -1
+
+    fun getSelectedItem(): City? {
+        return items.singleOrNull { it.selected }
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
-                RowCityBinding.inflate(
-                        LayoutInflater.from(context), parent, false
-                )
+            RowCityBinding.inflate(
+                LayoutInflater.from(context), parent, false
+            )
         )
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        holder.setSlideAnimation(position)
         if (holder is ViewHolder) {
             holder.bind(items[position])
         }
     }
 
     inner class ViewHolder(private val binding: RowCityBinding) :
-            BaseViewHolder<City>(binding.root) {
+        BaseViewHolder<City>(binding.root) {
 
         override fun bind(item: City) {
             binding.city = item
             binding.root.setOnClickListener {
-                if (singleSelection) {
-                    items.withIndex().forEach {
-                        it.value.selected = false
-                        notifyItemChanged(it.index)
-                    }
+                items.withIndex().singleOrNull { it.value.selected }?.let {
+                    it.value.selected = false
+                    notifyItemChanged(it.index)
                 }
-                item.selected = !item.selected
+                item.selected = true
                 notifyItemChanged(bindingAdapterPosition)
-                itemClickListener?.onItemClick(it,bindingAdapterPosition,item)
+                itemClickListener?.onItemClick(it, bindingAdapterPosition, item)
+            }
+            if (item.selected) {
+                binding.imgSelected.visible()
+            } else {
+                binding.imgSelected.gone()
             }
         }
     }

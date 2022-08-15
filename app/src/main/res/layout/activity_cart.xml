@@ -64,6 +64,7 @@
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_above="@id/btnPay"
                     app:cardBackgroundColor="@color/white"
+                    android:visibility="gone"
                     app:cardCornerRadius="@dimen/_7sdp">
 
                     <LinearLayout

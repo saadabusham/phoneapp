@@ -98,7 +98,8 @@
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginEnd="@dimen/layouts_margin_end"
                         android:minHeight="@dimen/Edittext_height"
-                        app:cardCornerRadius="@dimen/_10sdp">
+                        app:cardCornerRadius="@dimen/_10sdp"
+                        android:visibility="gone">
 
                         <com.raantech.awfrlak.user.ui.base.views.AppEditText
                             android:id="@+id/tvAddress"

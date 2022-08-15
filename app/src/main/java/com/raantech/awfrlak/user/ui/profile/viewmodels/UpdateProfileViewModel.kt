@@ -31,7 +31,7 @@ class UpdateProfileViewModel @Inject constructor(
             username.postValue(it.name)
             phoneNumber.postValue(it.phoneNumber)
             email.postValue(it.email)
-            address.postValue(it.address)
+//            address.postValue(it.address)
         }
     }
     fun updateUser() = liveData {

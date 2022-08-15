@@ -7,6 +7,7 @@ import com.raantech.awfrlak.user.data.models.auth.login.TokenModel
 import com.raantech.awfrlak.user.data.models.auth.login.UserDetailsResponseModel
 import com.raantech.awfrlak.user.data.models.auth.login.UserInfo
 import com.raantech.awfrlak.user.data.models.notification.Notification
+import retrofit2.http.Query
 
 
 interface UserRepo {
@@ -40,6 +41,18 @@ interface UserRepo {
     suspend fun updateProfile(
             name: String,
             email: String
+    ): APIResource<ResponseWrapper<UserInfo>>
+
+    suspend fun updateAddress(
+        name: String,
+        phone: String,
+        city: String,
+        district: String,
+        street: String,
+        building_number: String,
+        description: String,
+        latitude: Double,
+        longitude: Double,
     ): APIResource<ResponseWrapper<UserInfo>>
 
     suspend fun getNotifications(

@@ -4,6 +4,7 @@ import com.raantech.awfrlak.user.common.CommonEnums
 import com.raantech.awfrlak.user.data.api.response.APIResource
 import com.raantech.awfrlak.user.data.api.response.ResponseWrapper
 import com.raantech.awfrlak.user.data.common.NetworkConstants
+import com.raantech.awfrlak.user.data.models.CitiesResponse
 import com.raantech.awfrlak.user.data.models.City
 import com.raantech.awfrlak.user.data.models.configuration.ConfigurationWrapperResponse
 import com.raantech.awfrlak.user.data.models.more.AboutUsResponse
@@ -19,7 +20,7 @@ interface ConfigurationRepo {
     suspend fun loadConfigurationData(): APIResource<ResponseWrapper<ConfigurationWrapperResponse>>
 
     suspend fun getCities(
-    ): APIResource<ResponseWrapper<List<City>>>
+    ): APIResource<ResponseWrapper<CitiesResponse>>
 
     suspend fun getAboutUs(): APIResource<ResponseWrapper<AboutUsResponse>>
 }

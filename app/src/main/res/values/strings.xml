@@ -187,6 +187,28 @@
     <string name="location">Location</string>
     <string name="please_pick_location">Please pick location</string>
 
+    <!--    Create Address   -->
+    <string name="save_address">Save Address</string>
+    <string name="update_address">Update Address</string>
+    <string name="contact_name">Name</string>
+    <string name="city">City</string>
+    <string name="district">District</string>
+    <string name="street">Street</string>
+    <string name="building_number">Building Number</string>
+    <string name="description">Description</string>
+
+    <!--    City Picker-->
+    <string name="select_a_city">Select a City</string>
+    <string name="where_should_we_place_your_ads">Where should we place your ads?</string>
+    <string name="please_select_city">Please select city</string>
+
+    <!--    Search -->
+    <string name="no_results">No search result found</string>
+    <string name="no_results_description">Your search did not match any products. please try a different keyword</string>
+    <string name="sorry_we_couldnt_find_matches_for">Sorry we couldn\'t find matches for “%s”</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Search ...</string>
+
     <!-- notifications -->
     <string name="title_notifications">Notifications</string>
     <string name="label_notifications_empty">No Notifications!</string>
@@ -194,4 +216,6 @@
     <string name="notification_message_key">englishBody</string>
     <string name="notification_type_key">notificationType</string>
     <string name="notification_value_key">Data</string>
+
+
 </resources>

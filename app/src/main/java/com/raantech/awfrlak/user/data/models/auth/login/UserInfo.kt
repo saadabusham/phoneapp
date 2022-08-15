@@ -27,5 +27,5 @@ data class UserInfo(
 	val email: String? = null,
 
 	@field:SerializedName("address")
-	val address: String? = null
+	val address: UserAddress? = null
 ): Serializable

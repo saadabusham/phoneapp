@@ -140,7 +140,7 @@ class MapActivity : BaseBindingActivity<ActivityMapBinding>(), OnMapReadyCallbac
             )
             return
         }
-        val address = location?.let { Address(it.latitude, it.longitude) }
+        val address = location.let { Address(it.latitude, it.longitude) }
         setResult(RESULT_OK,Intent().apply {
             this.putExtra(Constants.BundleData.ADDRESS,address)
         })
