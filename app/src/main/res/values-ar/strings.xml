@@ -197,4 +197,14 @@
     <string name="building_number">رقم المبنى</string>
     <string name="description">الوصف</string>
 
+    <!--    City Picker-->
+    <string name="select_a_city">اختر المدينة</string>
+    <string name="please_select_city">الرجاء اختيار المدينة</string>
+
+    <!--    Search -->
+    <string name="no_results">لم يتم العثور على نتيجة بحث</string>
+    <string name="no_results_description">بحثك لم يطابق أي بيانات. يرجى محاولة استخدام كلمة رئيسية مختلفة</string>
+    <string name="search">البحث</string>
+    <string name="search_hint">ابحث...</string>
+
 </resources>

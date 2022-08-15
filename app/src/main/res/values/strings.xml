@@ -199,13 +199,11 @@
 
     <!--    City Picker-->
     <string name="select_a_city">Select a City</string>
-    <string name="where_should_we_place_your_ads">Where should we place your ads?</string>
     <string name="please_select_city">Please select city</string>
 
     <!--    Search -->
     <string name="no_results">No search result found</string>
-    <string name="no_results_description">Your search did not match any products. please try a different keyword</string>
-    <string name="sorry_we_couldnt_find_matches_for">Sorry we couldn\'t find matches for “%s”</string>
+    <string name="no_results_description">Your search did not match any data. please try a different keyword</string>
     <string name="search">Search</string>
     <string name="search_hint">Search ...</string>
 
