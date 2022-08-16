@@ -12,6 +12,7 @@ import com.raantech.awfrlak.user.data.api.response.ResponseSubErrorsCodeEnum
 import com.raantech.awfrlak.user.data.common.CustomObserverResponse
 import com.raantech.awfrlak.user.data.models.configuration.ConfigurationWrapperResponse
 import com.raantech.awfrlak.databinding.ActivitySplashBinding
+import com.raantech.awfrlak.user.common.CommonEnums
 import com.raantech.awfrlak.user.ui.auth.AuthActivity
 import com.raantech.awfrlak.user.ui.base.activity.BaseBindingActivity
 import com.raantech.awfrlak.user.ui.main.MainActivity
@@ -33,6 +34,9 @@ class SplashActivity : BaseBindingActivity<ActivitySplashBinding>() {
             layoutResID = R.layout.activity_splash,
             hasToolbar = false
         )
+        viewModel.saveLanguage().observe(this) {
+            setLanguage(CommonEnums.Languages.Arabic.value)
+        }
         Handler(Looper.getMainLooper()).postDelayed({
 //            viewModel.getConfigurationData().observe(this, configurationResultObserver())
             goToNextPage()
