@@ -9,6 +9,7 @@ import com.raantech.awfrlak.R
 import com.raantech.awfrlak.user.data.common.Constants
 import com.raantech.awfrlak.databinding.ActivityViewImageBinding
 import com.raantech.awfrlak.user.ui.base.activity.BaseBindingActivity
+import com.raantech.awfrlak.user.ui.base.bindingadapters.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -45,7 +46,12 @@ class ViewImageActivity : BaseBindingActivity<ActivityViewImageBinding>() {
             showBackArrow = true,
             hasTitle = false
         )
-        binding?.data = intent.getStringExtra(Constants.BundleData.IMAGE)
+        supportPostponeEnterTransition()
+        intent.getStringExtra(Constants.BundleData.IMAGE)?.let {
+            binding?.imgPicture?.loadImage(it) {
+                supportStartPostponedEnterTransition()
+            }
+        }
     }
 
 }
